@@ -16,43 +16,8 @@
     <h:body>
 
         <p:growl id="growl" life="3000" />
-        <h:form>
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/revalora-web/">
-                        Revalora
-                    </a>
-                  </div>
-                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                      <li>
-                        <c:if test="#{loginController.hasIdentity()}">
-                            <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perfil <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/revalora-web/faces/roles/Profile.xhtml">Ver perfil</a></li>
-                                    <li><a href="/revalora-web/faces/roles/ProfileChangePassword.xhtml">Cambiar contraseña</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <p:commandLink type="submit" value="Cerrar sesión" immediate="true" action="#{loginController.logout}"></p:commandLink>
-                            </li>
-                        </c:if>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-            </div>
-        </nav>
-        </h:form>
+        
+        <ui:include src="/layout/header.xhtml"/>
 
         <div class="container">
             <div class="row">
@@ -68,18 +33,7 @@
             </div>
         </div>
 
-        <h:outputScript library="js/bootstrap" name="affix.js"/>
-        <h:outputScript library="js/bootstrap" name="alert.js"/>
-        <h:outputScript library="js/bootstrap" name="button.js"/>
-        <h:outputScript library="js/bootstrap" name="carousel.js"/>
-        <h:outputScript library="js/bootstrap" name="collapse.js"/>
-        <h:outputScript library="js/bootstrap" name="dropdown.js"/>
-        <h:outputScript library="js/bootstrap" name="modal.js"/>
-        <h:outputScript library="js/bootstrap" name="popover.js"/>
-        <h:outputScript library="js/bootstrap" name="scrollspy.js"/>
-        <h:outputScript library="js/bootstrap" name="tab.js"/>
-        <h:outputScript library="js/bootstrap" name="tooltip.js"/>
-        <h:outputScript library="js/bootstrap" name="transition.js"/>
+        <ui:include src="/layout/footer.xhtml"/>
         
     </h:body>
 
