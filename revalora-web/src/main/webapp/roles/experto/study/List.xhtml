@@ -22,7 +22,7 @@
             <h4>#{bundle.ListStudyTitle}</h4>
             
             <h:form id="StudyListForm">
-                <p:panel>
+                
                     <p:dataTable id="datalist" value="#{studyController.items}" var="item"
                                  selectionMode="single" selection="#{studyController.selected}"
                                  paginator="true"
@@ -73,7 +73,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{studyController.destroy}" update=":growl,datalist" disabled="#{empty studyController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

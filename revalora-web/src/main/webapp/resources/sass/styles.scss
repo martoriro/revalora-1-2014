@@ -23,7 +23,19 @@
 	font-size: 14px;
 }
 
+.navbar-static-top {
+	border-bottom: 4px solid $footer-back;
+}
+
 .ui-button {
 	@extend .btn;
 	@extend .btn-default;
+}
+
+.white {
+	color: white!important;
+}
+
+body {
+	background-color: $back-color;
 }

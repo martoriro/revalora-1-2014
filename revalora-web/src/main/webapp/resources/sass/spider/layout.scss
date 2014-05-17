@@ -18,3 +18,24 @@
 .full {
 	width: 100%;
 }
+
+html,body {
+	height: 100%;
+	margin:0;
+}
+
+.wrapper {
+	min-height: 100%;
+	position: relative;
+}
+
+.footer-ghost {
+	height: $footer-height;
+}
+
+.footer {
+	height: $footer-height;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}

@@ -1282,7 +1282,7 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   color: #333333;
-  background-color: whitesmoke;
+  background-color: #e0dede;
   border: 1px solid #cccccc;
   border-radius: 4px; }
   pre code {
@@ -2029,7 +2029,7 @@ th {
 
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-  background-color: whitesmoke; }
+  background-color: #e0dede; }
 
 table col[class*="col-"] {
   position: static;
@@ -2052,11 +2052,11 @@ table th[class*="col-"] {
 .table > tfoot > tr > th.active,
 .table > tfoot > tr.active > td,
 .table > tfoot > tr.active > th {
-  background-color: whitesmoke; }
+  background-color: #e0dede; }
 
 .table-hover > tbody > tr > td.active:hover,
 .table-hover > tbody > tr > th.active:hover, .table-hover > tbody > tr.active:hover > td, .table-hover > tbody > tr:hover > .active, .table-hover > tbody > tr.active:hover > th {
-  background-color: #e8e8e8; }
+  background-color: #d4d1d1; }
 
 .table > thead > tr > td.success,
 .table > thead > tr > th.success, .table > thead > tr.success > td, .table > thead > tr.success > th,
@@ -4155,7 +4155,7 @@ a.list-group-item {
   a.list-group-item:hover, a.list-group-item:focus {
     text-decoration: none;
     color: #555555;
-    background-color: whitesmoke; }
+    background-color: #e0dede; }
 
 .list-group-item.disabled, .list-group-item.disabled:hover, .list-group-item.disabled:focus {
   background-color: #eeeeee;
@@ -4280,7 +4280,7 @@ a.list-group-item-danger {
 
 .panel-footer {
   padding: 10px 15px;
-  background-color: whitesmoke;
+  background-color: #e0dede;
   border-top: 1px solid transparent;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px; }
@@ -4426,7 +4426,7 @@ a.list-group-item-danger {
   border-color: transparent; }
   .panel-default > .panel-heading {
     color: #333333;
-    background-color: whitesmoke;
+    background-color: #e0dede;
     border-color: transparent; }
     .panel-default > .panel-heading + .panel-collapse > .panel-body {
       border-top-color: transparent; }
@@ -5268,6 +5268,36 @@ button.close {
 .full {
   width: 100%; }
 
+html, body {
+  height: 100%;
+  margin: 0; }
+
+.wrapper {
+  min-height: 100%;
+  position: relative; }
+
+.footer-ghost {
+  height: 165px; }
+
+.footer {
+  height: 165px;
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+
+.footer {
+  background-color: #372251; }
+  .footer .links {
+    padding-top: 15px; }
+    .footer .links h4 {
+      color: white; }
+    .footer .links ul {
+      list-style: none;
+      color: white;
+      padding-left: 0; }
+      .footer .links ul li a {
+        color: #b3b3b3; }
+
 .login .input-group {
   margin-bottom: 5px; }
 .login .input-group-addon {
@@ -5279,3 +5309,12 @@ button.close {
 
 .nav.navbar-nav.navbar-right > li > a {
   font-size: 14px; }
+
+.navbar-static-top {
+  border-bottom: 4px solid #372251; }
+
+.white {
+  color: white !important; }
+
+body {
+  background-color: #814fb0; }
