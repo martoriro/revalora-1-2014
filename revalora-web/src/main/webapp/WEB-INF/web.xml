@@ -58,6 +58,11 @@
             <description/>
             <url-pattern>/faces/roles/experto/*</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>expertoStudyPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/roles/experto/study/*</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>experto</role-name>
