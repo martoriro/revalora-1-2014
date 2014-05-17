@@ -12,8 +12,6 @@
             <h:form id="AccountTypeEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{accountTypeController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditAccountTypeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{accountTypeController.selected.id}" title="#{bundle.EditAccountTypeTitle_id}" />
                         <p:outputLabel value="#{bundle.EditAccountTypeLabel_name}" for="name" />
                         <p:inputText id="name" value="#{accountTypeController.selected.name}" title="#{bundle.EditAccountTypeTitle_name}" />
                     </p:panelGrid>

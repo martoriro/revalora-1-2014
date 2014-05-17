@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
@@ -14,30 +16,71 @@
     <h:body>
 
         <p:growl id="growl" life="3000" />
+        <h:form>
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/revalora-web/">
+                        Revalora
+                    </a>
+                  </div>
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                      <li>
+                        <c:if test="#{loginController.hasIdentity()}">
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perfil <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/revalora-web/faces/roles/Profile.xhtml">Ver perfil</a></li>
+                                    <li><a href="/revalora-web/faces/roles/ProfileChangePassword.xhtml">Cambiar contraseña</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p:commandLink type="submit" value="Cerrar sesión" immediate="true" action="#{loginController.logout}"></p:commandLink>
+                            </li>
+                        </c:if>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+        </nav>
+        </h:form>
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
-                <h:form id="menuForm">
-                    <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Account" outcome="/account/List.xhtml" />
-                            <p:menuitem value="AccountType" outcome="/accountType/List.xhtml" />
-                        </p:submenu>
-                    </p:menubar>
-                </h:form>
-            </p:layoutUnit>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ui:insert name="body"/>
+                        </div>
+                    </div> 
+                    
+                </div>
+            </div>
+        </div>
 
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center">
-                <ui:insert name="body"/>
-            </p:layoutUnit>
-
-        </p:layout>
-
+        <h:outputScript library="js/bootstrap" name="affix.js"/>
+        <h:outputScript library="js/bootstrap" name="alert.js"/>
+        <h:outputScript library="js/bootstrap" name="button.js"/>
+        <h:outputScript library="js/bootstrap" name="carousel.js"/>
+        <h:outputScript library="js/bootstrap" name="collapse.js"/>
+        <h:outputScript library="js/bootstrap" name="dropdown.js"/>
+        <h:outputScript library="js/bootstrap" name="modal.js"/>
+        <h:outputScript library="js/bootstrap" name="popover.js"/>
+        <h:outputScript library="js/bootstrap" name="scrollspy.js"/>
+        <h:outputScript library="js/bootstrap" name="tab.js"/>
+        <h:outputScript library="js/bootstrap" name="tooltip.js"/>
+        <h:outputScript library="js/bootstrap" name="transition.js"/>
+        
     </h:body>
 
 </html>

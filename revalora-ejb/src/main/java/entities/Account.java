@@ -7,6 +7,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,7 +63,7 @@ public class Account implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = this.sha256(password);
     }
 
     public String getFirstName() {
@@ -156,10 +157,30 @@ public class Account implements Serializable {
         }
         return true;
     }
+    
+    private String sha256(String base) {
+        System.out.println("Calling Account.sha256 (" + base + ")");
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            
+            return hexString.toString();
+            
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
 
     @Override
     public java.lang.String toString() {
-        return "entities.Account[ id=" + rut + " ]";
+        return rut;
     }
     
 }

@@ -12,8 +12,6 @@
             <h:form id="AccountTypeCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{accountTypeController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAccountTypeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{accountTypeController.selected.id}" title="#{bundle.CreateAccountTypeTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateAccountTypeLabel_name}" for="name" />
                         <p:inputText id="name" value="#{accountTypeController.selected.name}" title="#{bundle.CreateAccountTypeTitle_name}" />
                     </p:panelGrid>

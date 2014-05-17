@@ -63,7 +63,7 @@ public class AccountType implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.AccountType[ id=" + id + " ]";
+        return name;
     }
     
 }
