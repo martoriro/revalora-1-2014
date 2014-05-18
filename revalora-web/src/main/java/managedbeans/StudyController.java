@@ -1,23 +1,25 @@
 package managedbeans;
 
 import entities.Study;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.StudyFacadeLocal;
-
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import managedbeans.util.SessionUtil;
+import sessionbeans.StudyFacadeLocal;
 
 @Named("studyController")
 @SessionScoped
@@ -27,6 +29,9 @@ public class StudyController implements Serializable {
     private StudyFacadeLocal ejbFacade;
     private List<Study> items = null;
     private Study selected;
+    
+    @Inject
+    private SessionUtil sessionUtil;
 
     public StudyController() {
     }
@@ -51,6 +56,8 @@ public class StudyController implements Serializable {
 
     public Study prepareCreate() {
         selected = new Study();
+        selected.setCreator(sessionUtil.getCurrentUser());
+        selected.setCreatedAt(Calendar.getInstance().getTime());
         initializeEmbeddableKey();
         return selected;
     }

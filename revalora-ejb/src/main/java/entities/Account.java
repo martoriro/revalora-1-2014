@@ -183,4 +183,8 @@ public class Account implements Serializable {
         return rut;
     }
     
+    public java.lang.String getNames() {
+        return firstName + " " + lastName;
+    }
+    
 }
