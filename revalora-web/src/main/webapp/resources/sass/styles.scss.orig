@@ -28,8 +28,13 @@
 }
 
 .navbar-brand .logo {
+<<<<<<< HEAD
+	width: 148px;
+	margin-top: -13px;
+=======
 	width: 165px;
 	margin-top: -15px;
+>>>>>>> 810aeacefb7abe54f6bc3a40a671d6e4ac04c269
 }
 
 .ui-button {
