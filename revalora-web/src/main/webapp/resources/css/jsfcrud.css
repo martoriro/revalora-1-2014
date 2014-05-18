@@ -5297,6 +5297,16 @@ html, body {
       padding-left: 0; }
       .footer .links ul li a {
         color: #b3b3b3; }
+  .footer .about-us {
+    padding-top: 15px; }
+    .footer .about-us h4 {
+      color: white; }
+    .footer .about-us p {
+      color: #b3b3b3; }
+  .footer .logo {
+    width: 165px;
+    margin-top: 40px;
+    margin-left: 20px; }
 
 .login .input-group {
   margin-bottom: 5px; }
@@ -5312,6 +5322,10 @@ html, body {
 
 .navbar-static-top {
   border-bottom: 4px solid #372251; }
+
+.navbar-brand .logo {
+  width: 165px;
+  margin-top: -15px; }
 
 .white {
   color: white !important; }

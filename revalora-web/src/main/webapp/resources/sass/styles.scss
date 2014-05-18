@@ -27,6 +27,11 @@
 	border-bottom: 4px solid $footer-back;
 }
 
+.navbar-brand .logo {
+	width: 165px;
+	margin-top: -15px;
+}
+
 .ui-button {
 	@extend .btn;
 	@extend .btn-default;
