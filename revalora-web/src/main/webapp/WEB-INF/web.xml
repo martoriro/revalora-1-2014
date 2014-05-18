@@ -63,6 +63,16 @@
             <description/>
             <url-pattern>/faces/roles/experto/study/*</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>expertoProjectsPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/roles/experto/projects/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>expertoOrganizationsPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/roles/experto/organizations/*</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>experto</role-name>

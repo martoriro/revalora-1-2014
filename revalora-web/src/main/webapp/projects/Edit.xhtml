@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProjectsEditDlg" widgetVar="ProjectsEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProjectsTitle}">
+            <h:form id="ProjectsEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{projectsController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProjectsLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{projectsController.selected.id}" title="#{bundle.EditProjectsTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditProjectsLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{projectsController.selected.name}" title="#{bundle.EditProjectsTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditProjectsLabel_startDate}" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{projectsController.selected.startDate}" title="#{bundle.EditProjectsTitle_startDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditProjectsLabel_endDate}" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{projectsController.selected.endDate}" title="#{bundle.EditProjectsTitle_endDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditProjectsLabel_organization}" for="organization" />
+                        <p:selectOneMenu id="organization" value="#{projectsController.selected.organization}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{organizationsController.itemsAvailableSelectOne}"
+                                           var="organizationItem"
+                                           itemValue="#{organizationItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{projectsController.update}" value="#{bundle.Save}" update="display,:ProjectsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProjectsEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProjectsEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
