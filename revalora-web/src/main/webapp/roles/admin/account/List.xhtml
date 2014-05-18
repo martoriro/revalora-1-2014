@@ -18,9 +18,6 @@
         </ui:define>        
 
         <ui:define name="body">
-            <a href="${pageContext.request.contextPath}/revalora-web/faces/roles/admin/index.xhtml" class="btn btn-default">Inicio</a>            
-            <br></br>
-            <br></br>
             <h:form id="AccountListForm">
                 <p:panel header="#{bundle.ListAccountTitle}">
                     <p:dataTable id="datalist" value="#{accountController.items}" var="item"
