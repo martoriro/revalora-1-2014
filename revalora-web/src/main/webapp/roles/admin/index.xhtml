@@ -13,14 +13,15 @@
             <h:outputText value="Bienvenido"></h:outputText>
         </ui:define>
         
+        <ui:define name="sidebar-right">
+            <ui:include src="sidebar-right.xhtml"/>
+        </ui:define>
+        
+        
         <ui:define name="body">
             
             <h4>Bienvenido</h4>
-           
-            <a href="${pageContext.request.contextPath}/revalora-web/faces/roles/admin/account/List.xhtml" class="btn btn-default">Usuarios del sistema</a>
-            <br></br>
-            <a href="${pageContext.request.contextPath}/revalora-web/faces/roles/admin/index.xhtml" class="btn btn-default">Inicio</a>
-        </ui:define>
+              </ui:define>
         
     </ui:composition>
 
