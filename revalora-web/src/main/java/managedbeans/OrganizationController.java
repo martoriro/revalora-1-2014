@@ -1,9 +1,9 @@
 package managedbeans;
 
-import entities.Organizations;
+import entities.Organization;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
-import  sessionbeans.OrganizationsFacadeLocal;
+import  sessionbeans.OrganizationFacadeLocal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("organizationsController")
+@Named("organizationController")
 @SessionScoped
-public class OrganizationsController implements Serializable {
+public class OrganizationController implements Serializable {
 
     @EJB
-    private OrganizationsFacadeLocal ejbFacade;
-    private List<Organizations> items = null;
-    private Organizations selected;
+    private OrganizationFacadeLocal ejbFacade;
+    private List<Organization> items = null;
+    private Organization selected;
 
-    public OrganizationsController() {
+    public OrganizationController() {
     }
 
-    public Organizations getSelected() {
+    public Organization getSelected() {
         return selected;
     }
 
-    public void setSelected(Organizations selected) {
+    public void setSelected(Organization selected) {
         this.selected = selected;
     }
 
@@ -45,12 +45,12 @@ public class OrganizationsController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private OrganizationsFacadeLocal getFacade() {
+    private OrganizationFacadeLocal getFacade() {
         return ejbFacade;
     }
 
-    public Organizations prepareCreate() {
-        selected = new Organizations();
+    public Organization prepareCreate() {
+        selected = new Organization();
         initializeEmbeddableKey();
         return selected;
     }
@@ -74,7 +74,7 @@ public class OrganizationsController implements Serializable {
         }
     }
 
-    public List<Organizations> getItems() {
+    public List<Organization> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,19 +109,19 @@ public class OrganizationsController implements Serializable {
         }
     }
 
-    public Organizations getOrganizations(java.lang.Long id) {
+    public Organization getOrganizations(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Organizations> getItemsAvailableSelectMany() {
+    public List<Organization> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Organizations> getItemsAvailableSelectOne() {
+    public List<Organization> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Organizations.class)
+    @FacesConverter(forClass = Organization.class)
     public static class OrganizationsControllerConverter implements Converter {
 
         @Override
@@ -129,7 +129,7 @@ public class OrganizationsController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            OrganizationsController controller = (OrganizationsController) facesContext.getApplication().getELResolver().
+            OrganizationController controller = (OrganizationController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "organizationsController");
             return controller.getOrganizations(getKey(value));
         }
@@ -151,11 +151,11 @@ public class OrganizationsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Organizations) {
-                Organizations o = (Organizations) object;
+            if (object instanceof Organization) {
+                Organization o = (Organization) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Organizations.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Organization.class.getName()});
                 return null;
             }
         }

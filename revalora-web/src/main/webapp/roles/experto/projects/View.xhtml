@@ -11,21 +11,21 @@
         <p:dialog id="ProjectsViewDlg" widgetVar="ProjectsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProjectsTitle}">
             <h:form id="ProjectsViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{projectsController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{projectController.selected != null}">
                         <h:outputText value="#{bundle.ViewProjectsLabel_id}"/>
-                        <h:outputText value="#{projectsController.selected.id}" title="#{bundle.ViewProjectsTitle_id}"/>
+                        <h:outputText value="#{projectController.selected.id}" title="#{bundle.ViewProjectsTitle_id}"/>
                         <h:outputText value="#{bundle.ViewProjectsLabel_name}"/>
-                        <h:outputText value="#{projectsController.selected.name}" title="#{bundle.ViewProjectsTitle_name}"/>
+                        <h:outputText value="#{projectController.selected.name}" title="#{bundle.ViewProjectsTitle_name}"/>
                         <h:outputText value="#{bundle.ViewProjectsLabel_startDate}"/>
-                        <h:outputText value="#{projectsController.selected.startDate}" title="#{bundle.ViewProjectsTitle_startDate}">
+                        <h:outputText value="#{projectController.selected.startDate}" title="#{bundle.ViewProjectsTitle_startDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProjectsLabel_endDate}"/>
-                        <h:outputText value="#{projectsController.selected.endDate}" title="#{bundle.ViewProjectsTitle_endDate}">
+                        <h:outputText value="#{projectController.selected.endDate}" title="#{bundle.ViewProjectsTitle_endDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProjectsLabel_organization}"/>
-                        <h:outputText value="#{projectsController.selected.organization}" title="#{bundle.ViewProjectsTitle_organization}"/>
+                        <h:outputText value="#{projectController.selected.organization}" title="#{bundle.ViewProjectsTitle_organization}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProjectsViewDialog.hide()"/>
                 </h:panelGroup>

@@ -11,11 +11,11 @@
         <p:dialog id="OrganizationsViewDlg" widgetVar="OrganizationsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOrganizationsTitle}">
             <h:form id="OrganizationsViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{organizationsController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{organizationController.selected != null}">
                         <h:outputText value="#{bundle.ViewOrganizationsLabel_id}"/>
-                        <h:outputText value="#{organizationsController.selected.id}" title="#{bundle.ViewOrganizationsTitle_id}"/>
+                        <h:outputText value="#{organizationController.selected.id}" title="#{bundle.ViewOrganizationsTitle_id}"/>
                         <h:outputText value="#{bundle.ViewOrganizationsLabel_name}"/>
-                        <h:outputText value="#{organizationsController.selected.name}" title="#{bundle.ViewOrganizationsTitle_name}"/>
+                        <h:outputText value="#{organizationController.selected.name}" title="#{bundle.ViewOrganizationsTitle_name}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="OrganizationsViewDialog.hide()"/>
                 </h:panelGroup>

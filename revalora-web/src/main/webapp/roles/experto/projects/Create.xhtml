@@ -11,23 +11,23 @@
         <p:dialog id="ProjectsCreateDlg" widgetVar="ProjectsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProjectsTitle}">
             <h:form id="ProjectsCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{projectsController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{projectController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateProjectsLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{projectsController.selected.id}" title="#{bundle.CreateProjectsTitle_id}" />
+                        <p:inputText id="id" value="#{projectController.selected.id}" title="#{bundle.CreateProjectsTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateProjectsLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{projectsController.selected.name}" title="#{bundle.CreateProjectsTitle_name}" />
+                        <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.CreateProjectsTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateProjectsLabel_startDate}" for="startDate" />
-                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{projectsController.selected.startDate}" title="#{bundle.EditProjectsTitle_startDate}"  showOn="button"/>
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{projectController.selected.startDate}" title="#{bundle.EditProjectsTitle_startDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateProjectsLabel_endDate}" for="endDate" />
-                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{projectsController.selected.endDate}" title="#{bundle.EditProjectsTitle_endDate}"  showOn="button"/>
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{projectController.selected.endDate}" title="#{bundle.EditProjectsTitle_endDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateProjectsLabel_organization}" for="organization" />
-                        <p:selectOneMenu id="organization" value="#{projectsController.selected.organization}" >
+                        <p:selectOneMenu id="organization" value="#{projectController.selected.organization}" >
                             <f:selectItems value="#{organizationsController.itemsAvailableSelectOne}"
                                            var="organizationItem"
                                            itemValue="#{organizationItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{projectsController.create}" value="#{bundle.Save}" update="display,:ProjectsListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProjectsCreateDialog');"/>
+                    <p:commandButton actionListener="#{projectController.create}" value="#{bundle.Save}" update="display,:ProjectsListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProjectsCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProjectsCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

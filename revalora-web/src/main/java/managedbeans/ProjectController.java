@@ -1,9 +1,9 @@
 package managedbeans;
 
-import entities.Projects;
+import entities.Project;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.ProjectsFacadeLocal;
+import sessionbeans.ProjectFacadeLocal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("projectsController")
+@Named("projectController")
 @SessionScoped
-public class ProjectsController implements Serializable {
+public class ProjectController implements Serializable {
 
     @EJB
-    private ProjectsFacadeLocal ejbFacade;
-    private List<Projects> items = null;
-    private Projects selected;
+    private ProjectFacadeLocal ejbFacade;
+    private List<Project> items = null;
+    private Project selected;
 
-    public ProjectsController() {
+    public ProjectController() {
     }
 
-    public Projects getSelected() {
+    public Project getSelected() {
         return selected;
     }
 
-    public void setSelected(Projects selected) {
+    public void setSelected(Project selected) {
         this.selected = selected;
     }
 
@@ -45,12 +45,12 @@ public class ProjectsController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private ProjectsFacadeLocal getFacade() {
+    private ProjectFacadeLocal getFacade() {
         return ejbFacade;
     }
 
-    public Projects prepareCreate() {
-        selected = new Projects();
+    public Project prepareCreate() {
+        selected = new Project();
         initializeEmbeddableKey();
         return selected;
     }
@@ -74,7 +74,7 @@ public class ProjectsController implements Serializable {
         }
     }
 
-    public List<Projects> getItems() {
+    public List<Project> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,19 +109,19 @@ public class ProjectsController implements Serializable {
         }
     }
 
-    public Projects getProjects(java.lang.Long id) {
+    public Project getProjects(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Projects> getItemsAvailableSelectMany() {
+    public List<Project> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Projects> getItemsAvailableSelectOne() {
+    public List<Project> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Projects.class)
+    @FacesConverter(forClass = Project.class)
     public static class ProjectsControllerConverter implements Converter {
 
         @Override
@@ -129,7 +129,7 @@ public class ProjectsController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ProjectsController controller = (ProjectsController) facesContext.getApplication().getELResolver().
+            ProjectController controller = (ProjectController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "projectsController");
             return controller.getProjects(getKey(value));
         }
@@ -151,11 +151,11 @@ public class ProjectsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Projects) {
-                Projects o = (Projects) object;
+            if (object instanceof Project) {
+                Project o = (Project) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Projects.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Project.class.getName()});
                 return null;
             }
         }
