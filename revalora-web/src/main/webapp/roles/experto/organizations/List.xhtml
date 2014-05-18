@@ -13,6 +13,10 @@
             <h:outputText value="#{bundle.ListOrganizationsTitle}"></h:outputText>
         </ui:define>
 
+        <ui:define name="sidebar-right">
+            <ui:include src="../sidebar-right.xhtml"/>
+        </ui:define>
+        
         <ui:define name="body">
             <h:form id="OrganizationsListForm">
                 <p:panel header="#{bundle.ListOrganizationsTitle}">

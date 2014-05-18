@@ -13,6 +13,10 @@
             <h:outputText value="#{bundle.ListProjectsTitle}"></h:outputText>
         </ui:define>
 
+        <ui:define name="sidebar-right">
+            <ui:include src="../sidebar-right.xhtml"/>
+        </ui:define>
+        
         <ui:define name="body">
             <h:form id="ProjectsListForm">
                 <p:panel header="#{bundle.ListProjectsTitle}">
@@ -44,14 +48,6 @@
                                 <h:outputText value="#{bundle.ListProjectsTitle_startDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.startDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProjectsTitle_endDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.endDate}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>

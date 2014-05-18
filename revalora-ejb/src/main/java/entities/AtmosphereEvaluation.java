@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
  * @author pingeso
  */
 @Entity
-public class AtmosphereEvaluations implements Serializable {
+public class AtmosphereEvaluation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,10 +67,10 @@ public class AtmosphereEvaluations implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AtmosphereEvaluations)) {
+        if (!(object instanceof AtmosphereEvaluation)) {
             return false;
         }
-        AtmosphereEvaluations other = (AtmosphereEvaluations) object;
+        AtmosphereEvaluation other = (AtmosphereEvaluation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
