@@ -16,6 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import static javax.swing.text.StyleConstants.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -27,12 +31,17 @@ public class Account implements Serializable {
     @Id
     private String rut;
     
+    @NotNull
+    @Size (min = 4, message = "Su contraseña debe ser de al menos 4 caracteres")
     private String password;
     
+    @NotNull
     private String firstName;
     
+    @NotNull
     private String lastName;
     
+    @NotNull
     private String gender;
     
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -42,6 +51,7 @@ public class Account implements Serializable {
     
     private String phone;
     
+    @Pattern(regexp = "\\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\\.)+[A-Z]{2,4}\\b" , message = "Ingrese un correo valido, e.g.=mail@mail.com")
     private String email;
     
     private String position;
