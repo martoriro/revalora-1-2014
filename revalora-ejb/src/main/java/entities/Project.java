@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Projects Properties.
+ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -24,7 +24,7 @@ import javax.persistence.Temporal;
  * @author pingeso
  */
 @Entity
-public class Projects implements Serializable {
+public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,11 +39,7 @@ public class Projects implements Serializable {
     private Date endDate;
 
     @ManyToOne
-    private Organizations organization;
-    
-    @ManyToMany
-    private Set<Groups> members;
-    
+    private Organization organization;
 
     public Long getId() {
         return id;
@@ -77,20 +73,12 @@ public class Projects implements Serializable {
         this.endDate = endDate;
     }
 
-    public Organizations getOrganization() {
+    public Organization getOrganization() {
         return organization;
     }
 
-    public void setOrganization(Organizations organization) {
+    public void setOrganization(Organization organization) {
         this.organization = organization;
-    }
-
-    public Set<Groups> getMembers() {
-        return members;
-    }
-
-    public void setMembers(Set<Groups> members) {
-        this.members = members;
     }
 
     @Override
@@ -103,10 +91,10 @@ public class Projects implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Projects)) {
+        if (!(object instanceof Project)) {
             return false;
         }
-        Projects other = (Projects) object;
+        Project other = (Project) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

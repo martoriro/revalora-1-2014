@@ -7,17 +7,19 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author pingeso
  */
 @Entity
-public class Organizations implements Serializable {
+public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,10 +53,10 @@ public class Organizations implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Organizations)) {
+        if (!(object instanceof Organization)) {
             return false;
         }
-        Organizations other = (Organizations) object;
+        Organization other = (Organization) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

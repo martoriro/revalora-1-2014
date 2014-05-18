@@ -7,10 +7,14 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,7 +27,16 @@ public class Groups implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    private String name;
+    
+    @Column(columnDefinition = "TEXT")
     private String description;
+    
+    @ManyToOne
+    private Organization organization;
+    
+    @ManyToMany
+    private Set<Account> accounts;
     
     public Long getId() {
         return id;
@@ -34,11 +47,35 @@ public class Groups implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return name;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.name = description;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
 
     @Override

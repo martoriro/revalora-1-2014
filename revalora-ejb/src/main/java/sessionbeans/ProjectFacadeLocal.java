@@ -6,7 +6,7 @@
 
 package sessionbeans;
 
-import entities.Projects;
+import entities.Project;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -15,19 +15,19 @@ import javax.ejb.Local;
  * @author pingeso
  */
 @Local
-public interface ProjectsFacadeLocal {
+public interface ProjectFacadeLocal {
 
-    void create(Projects projects);
+    void create(Project project);
 
-    void edit(Projects projects);
+    void edit(Project project);
 
-    void remove(Projects projects);
+    void remove(Project project);
 
-    Projects find(Object id);
+    Project find(Object id);
 
-    List<Projects> findAll();
+    List<Project> findAll();
 
-    List<Projects> findRange(int[] range);
+    List<Project> findRange(int[] range);
 
     int count();
     

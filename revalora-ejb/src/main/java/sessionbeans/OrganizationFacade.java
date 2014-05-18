@@ -6,7 +6,7 @@
 
 package sessionbeans;
 
-import entities.Organizations;
+import entities.Organization;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author pingeso
  */
 @Stateless
-public class OrganizationsFacade extends AbstractFacade<Organizations> implements OrganizationsFacadeLocal {
+public class OrganizationFacade extends AbstractFacade<Organization> implements OrganizationFacadeLocal {
     @PersistenceContext(unitName = "cl.diinf_revalora-ejb_ejb_1.0PU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class OrganizationsFacade extends AbstractFacade<Organizations> implement
         return em;
     }
 
-    public OrganizationsFacade() {
-        super(Organizations.class);
+    public OrganizationFacade() {
+        super(Organization.class);
     }
     
 }
