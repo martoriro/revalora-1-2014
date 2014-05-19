@@ -12,8 +12,6 @@
             <h:form id="ProjectsEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{projectController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditProjectsLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{projectController.selected.id}" title="#{bundle.EditProjectsTitle_id}" />
                         <p:outputLabel value="#{bundle.EditProjectsLabel_name}" for="name" />
                         <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.EditProjectsTitle_name}" />
                         <p:outputLabel value="#{bundle.EditProjectsLabel_startDate}" for="startDate" />
