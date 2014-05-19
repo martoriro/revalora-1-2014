@@ -73,7 +73,7 @@ public class SessionUtil implements Serializable {
         externalContext.invalidateSession();
         return "/faces/index.xhtml";
     }
-
+    
     public boolean hasIdentity(){
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -83,6 +83,10 @@ public class SessionUtil implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    public Account getCurrentUser() {
+        return ejbFacade.find(this.rut);
     }
     
     public String route66() {

@@ -1,46 +1,41 @@
 package managedbeans;
 
-import entities.Study;
+import entities.Project;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.ProjectFacadeLocal;
+
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.inject.Named;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import managedbeans.util.SessionUtil;
-import sessionbeans.StudyFacadeLocal;
 
-@Named("studyController")
+@Named("projectController")
 @SessionScoped
-public class StudyController implements Serializable {
+public class ProjectController implements Serializable {
 
     @EJB
-    private StudyFacadeLocal ejbFacade;
-    private List<Study> items = null;
-    private Study selected;
-    
-    @Inject
-    private SessionUtil sessionUtil;
+    private ProjectFacadeLocal ejbFacade;
+    private List<Project> items = null;
+    private Project selected;
 
-    public StudyController() {
+    public ProjectController() {
     }
 
-    public Study getSelected() {
+    public Project getSelected() {
         return selected;
     }
 
-    public void setSelected(Study selected) {
+    public void setSelected(Project selected) {
         this.selected = selected;
     }
 
@@ -50,38 +45,36 @@ public class StudyController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private StudyFacadeLocal getFacade() {
+    private ProjectFacadeLocal getFacade() {
         return ejbFacade;
     }
 
-    public Study prepareCreate() {
-        selected = new Study();
-        selected.setCreator(sessionUtil.getCurrentUser());
-        selected.setCreatedAt(Calendar.getInstance().getTime());
+    public Project prepareCreate() {
+        selected = new Project();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StudyCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProjectsCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("StudyUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProjectsUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("StudyDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProjectsDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Study> getItems() {
+    public List<Project> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -116,29 +109,29 @@ public class StudyController implements Serializable {
         }
     }
 
-    public Study getStudy(java.lang.Long id) {
+    public Project getProjects(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Study> getItemsAvailableSelectMany() {
+    public List<Project> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Study> getItemsAvailableSelectOne() {
+    public List<Project> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Study.class)
-    public static class StudyControllerConverter implements Converter {
+    @FacesConverter(forClass = Project.class)
+    public static class ProjectsControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            StudyController controller = (StudyController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "studyController");
-            return controller.getStudy(getKey(value));
+            ProjectController controller = (ProjectController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "projectsController");
+            return controller.getProjects(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -158,11 +151,11 @@ public class StudyController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Study) {
-                Study o = (Study) object;
+            if (object instanceof Project) {
+                Project o = (Project) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Study.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Project.class.getName()});
                 return null;
             }
         }
