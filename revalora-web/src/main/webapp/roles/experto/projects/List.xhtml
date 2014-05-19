@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/layout/2columns-right.xhtml">
 
 
         <ui:define name="title">
@@ -20,8 +20,8 @@
         <ui:define name="body">
             <h:form id="ProjectsListForm">
                 <p:panel header="#{bundle.ListProjectsTitle}">
-                    <p:dataTable id="datalist" value="#{projectsController.items}" var="item"
-                                 selectionMode="single" selection="#{projectsController.selected}"
+                    <p:dataTable id="datalist" value="#{projectController.items}" var="item"
+                                 selectionMode="single" selection="#{projectController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
@@ -58,10 +58,10 @@
                             <h:outputText value="#{item.organization}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{projectsController.prepareCreate}" update=":ProjectsCreateForm" oncomplete="PF('ProjectsCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProjectsViewForm" oncomplete="PF('ProjectsViewDialog').show()" disabled="#{empty projectsController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProjectsEditForm" oncomplete="PF('ProjectsEditDialog').show()" disabled="#{empty projectsController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{projectsController.destroy}" update=":growl,datalist" disabled="#{empty projectsController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{projectController.prepareCreate}" update=":ProjectsCreateForm" oncomplete="PF('ProjectsCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProjectsViewForm" oncomplete="PF('ProjectsViewDialog').show()" disabled="#{empty projectController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProjectsEditForm" oncomplete="PF('ProjectsEditDialog').show()" disabled="#{empty projectController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{projectController.destroy}" update=":growl,datalist" disabled="#{empty projectController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

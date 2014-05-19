@@ -19,7 +19,7 @@
                         <h:outputText value="#{bundle.ViewStudyLabel_description}"/>
                         <h:outputText value="#{studyController.selected.description}" title="#{bundle.ViewStudyTitle_description}"/>
                         <h:outputText value="#{bundle.ViewStudyLabel_creator}"/>
-                        <h:outputText value="#{studyController.selected.creator}" title="#{bundle.ViewStudyTitle_creator}"/>
+                        <h:outputText value="#{studyController.selected.creator.rut} (#{studyController.selected.creator.firstName} #{studyController.selected.creator.lastName})" title="#{bundle.ViewStudyTitle_creator}"/>
                         <h:outputText value="#{bundle.ViewStudyLabel_createdAt}"/>
                         <h:outputText value="#{studyController.selected.createdAt}" title="#{bundle.ViewStudyTitle_createdAt}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

@@ -15,15 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateStudyLabel_title}" for="title" />
                         <p:inputText id="title" value="#{studyController.selected.title}" title="#{bundle.CreateStudyTitle_title}" />
                         <p:outputLabel value="#{bundle.CreateStudyLabel_description}" for="description" />
-                        <p:inputText id="description" value="#{studyController.selected.description}" title="#{bundle.CreateStudyTitle_description}" />
-                        <p:outputLabel value="#{bundle.CreateStudyLabel_creator}" for="creator" />
-                        <p:selectOneMenu id="creator" value="#{studyController.selected.creator}" required="true" requiredMessage="#{bundle.EditStudyRequiredMessage_creator}">
-                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
-                                           var="creatorItem"
-                                           itemValue="#{creatorItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateStudyLabel_createdAt}" for="createdAt" />
-                        <p:calendar id="createdAt" pattern="MM/dd/yyyy" value="#{studyController.selected.createdAt}" title="#{bundle.EditStudyTitle_createdAt}"  showOn="button"/>
+                        <p:inputTextarea id="description" value="#{studyController.selected.description}" title="#{bundle.CreateStudyTitle_description}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{studyController.create}" value="#{bundle.Save}" update="display,:StudyListForm:datalist,:growl" oncomplete="handleSubmit(args,'StudyCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StudyCreateDialog.hide()"/>

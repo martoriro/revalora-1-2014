@@ -9,11 +9,13 @@ package entities;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import static javax.swing.text.StyleConstants.Size;
@@ -199,6 +201,10 @@ public class Account implements Serializable {
     @Override
     public java.lang.String toString() {
         return rut;
+    }
+    
+    public java.lang.String getNames() {
+        return firstName + " " + lastName;
     }
     
 }

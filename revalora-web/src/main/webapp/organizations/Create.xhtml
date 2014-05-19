@@ -12,8 +12,6 @@
             <h:form id="OrganizationsCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{organizationsController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateOrganizationsLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{organizationsController.selected.id}" title="#{bundle.CreateOrganizationsTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateOrganizationsLabel_name}" for="name" />
                         <p:inputText id="name" value="#{organizationsController.selected.name}" title="#{bundle.CreateOrganizationsTitle_name}" />
                     </p:panelGrid>

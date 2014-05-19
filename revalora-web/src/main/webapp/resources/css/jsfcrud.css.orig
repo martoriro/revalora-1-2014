@@ -5305,7 +5305,12 @@ html, body {
       color: #b3b3b3; }
   .footer .logo {
     width: 165px;
+<<<<<<< HEAD
     margin-top: 26px; }
+=======
+    margin-top: 40px;
+    margin-left: 20px; }
+>>>>>>> 810aeacefb7abe54f6bc3a40a671d6e4ac04c269
 
 .login .input-group {
   margin-bottom: 5px; }
@@ -5323,8 +5328,13 @@ html, body {
   border-bottom: 4px solid #372251; }
 
 .navbar-brand .logo {
+<<<<<<< HEAD
   width: 148px;
   margin-top: -13px; }
+=======
+  width: 165px;
+  margin-top: -15px; }
+>>>>>>> 810aeacefb7abe54f6bc3a40a671d6e4ac04c269
 
 .white {
   color: white !important; }
