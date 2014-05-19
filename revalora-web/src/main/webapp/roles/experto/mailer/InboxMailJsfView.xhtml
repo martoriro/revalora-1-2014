@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Bandeja de Correos</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100">
+                    Header
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175">
+                    
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    
+                    <div style="width:220px; float:left; margin-left: 5px">
+                  
+                        <p:button outcome="SendMailJsfView" icon="ui-icon-mail-closed" value="Nuevo Mensaje" title="New Message" style="font-size: 75%; width: 178px; margin-left: 10px; margin-top: 5px"/>         
+          
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">  
+  
+                            <p:panel header="Carpetas" style="text-align: left; font-size: 75%; margin-left: 3px; color: white">  
+        
+                                <table style="margin-top: 3px">  
+                                    <tr>  
+                                        <td><input type="radio" name="rd" id="rd1" value="1"/></td>  
+                                        <td><label for="rd1">Bandeja de entrada</label></td>  
+                                    </tr>  
+                                    <tr>  
+                                        <td><input type="radio" name="rd" id="rd2" value="2"/></td>  
+                                        <td><label for="rd2">Enviados</label></td>  
+                                    </tr>  
+                                    <tr>  
+                                        <td><input type="radio" name="rd" id="rd3" value="3" disabled="disabled"/></td>  
+                                        <td><label for="rd3">No deseado</label></td>  
+                                    </tr>  
+                                    <tr>  
+                                        <td><input type="radio" name="rd" id="rd4" value="4" disabled="disabled"/></td>  
+                                        <td><label for="rd4">Borradores</label></td>  
+                                    </tr>  
+                                </table>
+                            </p:panel> 
+  
+                        </h:panelGrid> 
+                    </div>
+                    <div style="float:left">
+                        
+                        <p:panel header="Correos" style="text-align: left; font-size: 75%; margin-left: 3px; margin-top: 5px; color: white">  
+                            
+                            <div style="float:left">    
+                                <h:form>  
+ 
+                                    <p:messages showDetail="true"/>  
+
+                                    <h:panelGrid columns="3">  
+  
+                                        <p:inputText id="keyword" value="#{watermarkBean.keyword}" required="true" label="Keyword" />  
+                                        <p:watermark for="keyword" value="Palabra Clave"  />  
+                                        <p:commandButton actionListener="#{watermarkBean.search}" value="Buscar" ajax="false" icon="ui-icon-search" />
+                                    </h:panelGrid> 
+                                
+                                </h:form> 
+                            </div>
+                            
+                            <div style="float:right">
+                                    <p:button icon="ui-icon-trash" value="Borrar" title="Borrar"/>
+                                    <p:button value="Marcar como leido" title="Borrar"/>
+                            </div>
+                            
+                            <h:form id="form" style="margin-top: 60px">  
+
+                                <p:dataTable id="multiMails" var="mail" value="#{tableBean.mediumMailsModel}" paginator="true" rows="10"  
+                                             selection="#{tableBean.selectedMails}" style="width: 600px; margin-top: 10px">  
+
+                                    <p:column selectionMode="multiple" style="width:2%" />  
+
+                                    <p:column headerText="De" style="width:25%">  
+                                        #{mail.remitente}  
+                                    </p:column>  
+
+                                    <p:column headerText="Asunto" style="width:25%">  
+                                        #{mail.asunto}  
+                                    </p:column>  
+
+                                    <p:column headerText="Fecha" style="width:24%">  
+                                        #{mail.fecha}  
+                                    </p:column>  
+
+                                </p:dataTable>  
+
+                                <p:dialog id="dialog" header="Mail Detail" widgetVar="singleMailDialog" resizable="false"  
+                                          showEffect="fade" hideEffect="explode">  
+
+                                    <h:panelGrid id="displaySingle" columns="2" cellpadding="4">  
+
+                                        <h:outputText value="De:" />  
+                                        <h:outputText value="#{tableBean.selectedMail.remitente}" style="font-weight:bold"/>  
+
+                                        <h:outputText value="Asunto:" />  
+                                        <h:outputText value="#{tableBean.selectedMail.asunto}" style="font-weight:bold"/>  
+
+                                        <h:outputText value="Fecha:" />  
+                                        <h:outputText value="#{tableBean.selectedMail.dia}/#{tableBean.selectedMail.mes}/#{tableBean.selectedMail.año}" style="font-weight:bold"/>  
+
+                                    </h:panelGrid>  
+                                </p:dialog>  
+
+                                <p:dialog id="multiDialog" header="Mail Detail" widgetVar="multiMailDialog"  
+                                          height="300" showEffect="fade" hideEffect="explode">  
+
+                                    <p:dataList id="displayMulti" value="#{tableBean.selectedMails}" var="selectedMail">  
+                                        De; #{selectedMail.remitente}, Asunto: #{selectedMail.asunto}  
+                                    </p:dataList>  
+
+                                </p:dialog>  
+
+                            </h:form>
+                        </p:panel>
+                    </div>
+                </p:layoutUnit>
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
