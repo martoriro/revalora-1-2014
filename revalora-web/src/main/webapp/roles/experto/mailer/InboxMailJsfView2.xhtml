@@ -49,11 +49,16 @@
                         </h:panelGrid> 
                     </div>
                     <div style="float:left">
+
                         <p:panel header="Correos" style="text-align: left; font-size: 75%; margin-left: 3px; margin-top: 5px; color: white">  
+
                             <div style="float:left">    
                                 <h:form>  
+
                                     <p:messages showDetail="true"/>  
+
                                     <h:panelGrid columns="3">  
+
                                         <p:inputText id="keyword" value="#{watermarkBean.keyword}" required="true" label="Keyword" />  
                                         <p:watermark for="keyword" value="Palabra Clave"  />  
                                         <p:commandButton actionListener="#{watermarkBean.search}" value="Buscar" ajax="false" icon="ui-icon-search" />
