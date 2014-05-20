@@ -18,6 +18,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import static javax.swing.text.StyleConstants.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -27,23 +32,36 @@ import javax.persistence.Temporal;
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @NotNull
+    @Size(min = 1, message="Debe colocar un RUT")
+    
     private String rut;
     
+    @NotNull
+    @Size (min = 4, message = "Su contraseña debe ser de al menos 4 caracteres")
     private String password;
     
+    @NotNull
+    @Size(min=1, message= "El campo Nombre no puede estar vacío")
     private String firstName;
     
+    @NotNull
+    @Size(min=1, message= "El campo Apellido no puede estar vacío")
     private String lastName;
     
+    @NotNull
     private String gender;
     
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Past(message = "Coloque una fecha de nacimiento anterior al día de hoy")
+    @NotNull(message= "Debe colocar una fecha de nacimiento")
     private Date birthdate;
     
     private String address;
     
     private String phone;
     
+    @Pattern(regexp = "\\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\\.)+[A-Z]{2,4}\\b" , message = "Ingrese un correo valido, e.g.=mail@mail.com")
     private String email;
     
     private String position;
