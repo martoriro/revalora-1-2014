@@ -15,7 +15,7 @@
         
         <ui:define name="sidebar-right">
             
-            <h4 class="white">Mis proyectos</h4>
+            <h4 class="white">Herramientas</h4>
         
             <h:form>
 
@@ -27,6 +27,22 @@
                 </p:menu>
 
             </h:form>
+            
+            <h4>Mis proyectos</h4>
+            
+            <h:form>
+                
+                <p:dataList id="myProjects" 
+                    value="#{projectController.items}"
+                    var="project">
+                    
+                    <p:commandLink>               
+                        <f:setPropertyActionListener value="#{project.name}" target="#" />
+                    </p:commandLink>  
+                    
+                </p:dataList>
+                
+            </h:form>            
             
         </ui:define>
         

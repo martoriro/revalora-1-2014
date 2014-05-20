@@ -44,6 +44,10 @@ public class Study implements Serializable {
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdAt;
+    
+    @JoinColumn(nullable = false)
+    @ManyToOne
+    private Project project;
 
     public Long getId() {
         return id;
@@ -91,6 +95,14 @@ public class Study implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     @Override
