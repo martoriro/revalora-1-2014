@@ -14,36 +14,7 @@
         </ui:define>
         
         <ui:define name="sidebar-right">
-            
-            <h4 class="white">Herramientas</h4>
-        
-            <h:form>
-
-                <p:menu style="width: 100%">
-                    <p:menuitem value="Inicio" outcome="/roles/experto/index.xhtml" update="messages" />
-                    <p:menuitem value="Estudios de clima" outcome="/roles/experto/study/List.xhtml" update="messages" />
-                    <p:menuitem value="Crear Organización" outcome="/roles/experto/organizations/List.xhtml" update="messages" />
-                    <p:menuitem value="Crear Proyecto" outcome="/roles/experto/projects/List.xhtml" update="messages" />
-                </p:menu>
-
-            </h:form>
-            
-            <h4>Mis proyectos</h4>
-            
-            <h:form>
-                
-                <p:dataList id="myProjects" 
-                    value="#{projectController.items}"
-                    var="project">
-                    
-                    <p:commandLink>               
-                        <f:setPropertyActionListener value="#{project.name}" target="#" />
-                    </p:commandLink>  
-                    
-                </p:dataList>
-                
-            </h:form>            
-            
+            <ui:include src="sidebar-right.xhtml"/>
         </ui:define>
         
         <ui:define name="body">

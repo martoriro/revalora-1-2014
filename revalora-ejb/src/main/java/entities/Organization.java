@@ -7,12 +7,10 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -65,7 +63,7 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return "entities.Organization[ id=" + id + " ]";
     }
     
 }
