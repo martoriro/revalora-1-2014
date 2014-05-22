@@ -159,7 +159,5 @@ public class AccountTypeController implements Serializable {
                 return null;
             }
         }
-
     }
-
 }

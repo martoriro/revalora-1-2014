@@ -20,6 +20,26 @@
                         <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_endAt}" for="endAt" />
                         <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateClimateStudyLabel_accounts}" for="accounts" />
+                        <p:autoComplete id="accounts" multiple="true" 
+                                        value="#{climateStudyController.selected.accounts}" 
+                                        completeMethod="#{accountController.filterAccounts}"
+                                        var="account" itemLabel="#{account.names}" itemValue="#{account}"
+                                        converter="accountConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{account.names}" />
+                            </p:column>
+                        </p:autoComplete>
+                        <p:outputLabel value="#{bundle.CreateClimateStudyLabel_teams}" for="teams" />
+                        <p:autoComplete id="teams" multiple="true" 
+                                        value="#{climateStudyController.selected.teams}" 
+                                        completeMethod="#{teamController.filterTeams}"
+                                        var="team" itemLabel="#{team.name}" itemValue="#{team}"
+                                        converter="teamConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{team.name}" />
+                            </p:column>
+                        </p:autoComplete>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{climateStudyController.create}" value="#{bundle.Save}" update="display,:ClimateStudyListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClimateStudyCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClimateStudyCreateDialog.hide()"/>

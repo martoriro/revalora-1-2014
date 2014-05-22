@@ -14,8 +14,6 @@
                     <p:panelGrid columns="2" rendered="#{accountController.selected != null}">
                         <h:outputText value="#{bundle.ViewAccountLabel_rut}"/>
                         <h:outputText value="#{accountController.selected.rut}" title="#{bundle.ViewAccountTitle_rut}"/>
-                        <h:outputText value="#{bundle.ViewAccountLabel_password}"/>
-                        <h:outputText value="#{accountController.selected.password}" title="#{bundle.ViewAccountTitle_password}"/>
                         <h:outputText value="#{bundle.ViewAccountLabel_firstName}"/>
                         <h:outputText value="#{accountController.selected.firstName}" title="#{bundle.ViewAccountTitle_firstName}"/>
                         <h:outputText value="#{bundle.ViewAccountLabel_lastName}"/>
@@ -34,8 +32,10 @@
                         <h:outputText value="#{accountController.selected.email}" title="#{bundle.ViewAccountTitle_email}"/>
                         <h:outputText value="#{bundle.ViewAccountLabel_position}"/>
                         <h:outputText value="#{accountController.selected.position}" title="#{bundle.ViewAccountTitle_position}"/>
+                        
                         <h:outputText value="#{bundle.ViewAccountLabel_accountType}"/>
-                        <h:outputText value="#{accountController.selected.accountType}" title="#{bundle.ViewAccountTitle_accountType}"/>
+                        <h:outputText value="#{accountController.selected.accountType.name}" title="#{bundle.ViewAccountTitle_accountType}"/>
+                    
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AccountViewDialog.hide()"/>
                 </h:panelGroup>
