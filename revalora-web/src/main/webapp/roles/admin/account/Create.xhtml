@@ -13,7 +13,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{accountController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateAccountLabel_rut}" for="rut" />
-                        <p:inputText id="rut" value="#{accountController.selected.rut}" title="#{bundle.CreateAccountTitle_rut}" />
+                        <p:inputText id="rut" value="#{accountController.selected.rut}" title="#{bundle.CreateAccountTitle_rut}"> 
+                            <f:validator validatorId="Validator.RutValidator"/> 
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password" />
                         <p:inputText id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_firstName}" for="firstName" />
