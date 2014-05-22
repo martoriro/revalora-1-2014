@@ -1,23 +1,23 @@
 package managedbeans;
 
 import entities.Account;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.AccountFacadeLocal;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.AccountFacadeLocal;
 
 @Named("accountController")
 @SessionScoped
@@ -160,6 +160,20 @@ public class AccountController implements Serializable {
             }
         }
 
+    }
+    
+    public List<Account> filterAccounts(String query) {
+        List<Account> allAccounts = ejbFacade.findAll();
+        List<Account> filteredAccounts = new ArrayList<Account>();
+        
+        for(int i = 0; i < allAccounts.size(); i++) {
+            Account skin = allAccounts.get(i);
+            if(skin.getNames().toLowerCase().startsWith(query)) {
+                filteredAccounts.add(skin);
+            }
+        }
+        
+        return filteredAccounts;
     }
 
 }

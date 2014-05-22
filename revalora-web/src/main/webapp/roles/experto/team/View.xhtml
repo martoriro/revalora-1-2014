@@ -16,6 +16,13 @@
                         <h:outputText value="#{teamController.selected.id}" title="#{bundle.ViewTeamTitle_id}"/>
                         <h:outputText value="#{bundle.ViewTeamLabel_name}"/>
                         <h:outputText value="#{teamController.selected.name}" title="#{bundle.ViewTeamTitle_name}"/>
+                        <h:outputText />
+                        <p:dataList value="#{teamController.selected.members}" var="account" type="ordered">
+                            <f:facet name="header">
+                                #{bundle.ViewTeamLabel_members}
+                            </f:facet>
+                            #{account.names}
+                        </p:dataList>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="TeamViewDialog.hide()"/>
                 </h:panelGroup>
