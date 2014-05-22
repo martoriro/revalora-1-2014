@@ -63,7 +63,7 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Organization[ id=" + id + " ]";
+        return name;
     }
     
 }

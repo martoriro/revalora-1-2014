@@ -25,7 +25,7 @@
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProjectLabel_organization}"/>
-                        <h:outputText value="#{projectController.selected.organization}" title="#{bundle.ViewProjectTitle_organization}"/>
+                        <h:outputText value="#{projectController.selected.organization.name}" title="#{bundle.ViewProjectTitle_organization}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProjectViewDialog.hide()"/>
                 </h:panelGroup>

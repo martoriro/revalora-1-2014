@@ -100,7 +100,7 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Project[ id=" + id + " ]";
+        return name;
     }
     
 }
