@@ -8,11 +8,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,6 +45,12 @@ public class ClimateStudy implements Serializable {
     @NotNull
     @ManyToOne
     private Account creator;
+    
+    @ManyToMany
+    private List<Account> accounts; // Account participants
+    
+    @ManyToMany
+    private List<Team> teams; // Team participants
 
     public Long getId() {
         return id;
@@ -90,6 +98,22 @@ public class ClimateStudy implements Serializable {
 
     public void setCreator(Account creator) {
         this.creator = creator;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 
     @Override

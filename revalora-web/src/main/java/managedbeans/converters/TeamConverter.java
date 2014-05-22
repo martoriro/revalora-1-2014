@@ -6,33 +6,32 @@
 
 package managedbeans.converters;
 
-import entities.Account;
+import entities.Team;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import sessionbeans.AccountFacadeLocal;
+import sessionbeans.TeamFacadeLocal;
  
-@FacesConverter("accountConverter")
-public class AccountConverter implements Converter {
+@FacesConverter("teamConverter")
+public class TeamConverter implements Converter {
  
     @EJB
-    private AccountFacadeLocal ejbFacade;
+    private TeamFacadeLocal ejbFacade;
     
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-        if(value != null && value.trim().length() > 0) {
-            return ejbFacade.find(value);
-        }
-        else {
+        if(value != null && value.trim().length() > 0)
+            return ejbFacade.find(Long.parseLong(value));
+        else
             return null;
-        }
     }
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if(object != null)
-            return ((Account) object).getRut();
+            return ((Team) object).getId().toString();
         else 
             return null;
     }   
 } 
+

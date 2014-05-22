@@ -3,6 +3,7 @@ package managedbeans;
 import entities.Account;
 import entities.Team;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -160,6 +161,20 @@ public class TeamController implements Serializable {
             }
         }
 
+    }
+    
+    public List<Team> filterTeams(String query) {
+        List<Team> allTeams = ejbFacade.findAll();
+        List<Team> filteredTeams = new ArrayList<Team>();
+        
+        for(int i = 0; i < allTeams.size(); i++) {
+            Team skin = allTeams.get(i);
+            if(skin.getName().toLowerCase().startsWith(query)) {
+                filteredTeams.add(skin);
+            }
+        }
+        
+        return filteredTeams;
     }
 
 }
