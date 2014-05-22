@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbeansSurvey;
 
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Named;
+import javax.servlet.http.HttpServlet;
 
 /**
  *
@@ -19,13 +21,13 @@ import java.util.List;
  */
 @Named(value = "createSurvey")
 @SessionScoped
-public class createSurvey implements Serializable {
+public class createSurvey extends HttpServlet implements Serializable {
 
     private Date DSurvStart;
     private String rutParticipant;
 
-    private List<Integer> factors = new ArrayList<Integer>(14);
-    private List<Integer> priorities = new ArrayList<Integer>(6);
+    private List<String> factors = new ArrayList<String>(14);
+    private List<String> priorities = new ArrayList<String>(6);
     List<String> statements = new ArrayList<String>();
     private String statement1;
     private String statement2;
@@ -41,14 +43,20 @@ public class createSurvey implements Serializable {
     private String statement12;
     private String statement13;
     private String statement14;
+    private boolean finished;
 
     /**
      * Creates a new instance of createSurvey
      */
     public createSurvey() {
     }
-    
-    public void createList(){
+
+    @PostConstruct
+    public void init() {
+        this.createList();
+    }
+
+    public void createList() {
         statements.add(statement1);
         statements.add(statement2);
         statements.add(statement3);
@@ -63,6 +71,66 @@ public class createSurvey implements Serializable {
         statements.add(statement12);
         statements.add(statement13);
         statements.add(statement14);
+
+        priorities.add("1");
+        priorities.add("2");
+        priorities.add("3");
+        priorities.add("4");
+        priorities.add("5");
+        priorities.add("6");
+
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+        factors.add("0");
+    }
+
+    public void updateLists(AjaxBehaviorEvent event) {
+        int temp;
+        for (int i = 1; i < 7; i++) {
+            temp = 0;
+            for (int j = 0; j < 14; j++) {
+                if (factors.get(j).equals(String.valueOf(i))) {
+                    if (temp == 0) {
+                        temp++;
+                    } else {
+                        factors.set(j, "0");
+                        
+                    }
+                }
+            }
+        }
+        for (int j = 1; j < 7; j++) {
+            if (!factors.contains(String.valueOf(j))) {
+                finished = false;
+                return;
+            }
+        }
+        finished = true;
+    }
+    
+    public void sendSurvey(){
+        System.out.println("Las respuestas fueron: ");
+        System.out.println("1° Factor " + (factors.indexOf("1") + 1));
+        System.out.println("2° Factor " + (factors.indexOf("2") + 1));
+        System.out.println("3° Factor " + (factors.indexOf("3") + 1));
+        System.out.println("4° Factor " + (factors.indexOf("4") + 1));
+        System.out.println("5° Factor " + (factors.indexOf("5") + 1));
+        System.out.println("6° Factor " + (factors.indexOf("6") + 1));
+        System.out.println("PERSISTIR RESPUESTAS");
+        for (int i = 0; i < 14; i++) {
+            factors.set(i, "0");
+        }
     }
 
     public Date getDSurvStart() {
@@ -81,19 +149,19 @@ public class createSurvey implements Serializable {
         this.rutParticipant = rutParticipant;
     }
 
-    public List<Integer> getFactors() {
+    public List<String> getFactors() {
         return factors;
     }
 
-    public void setFactors(List<Integer> factors) {
+    public void setFactors(List<String> factors) {
         this.factors = factors;
     }
 
-    public List<Integer> getPriorities() {
+    public List<String> getPriorities() {
         return priorities;
     }
 
-    public void setPriorities(List<Integer> priorities) {
+    public void setPriorities(List<String> priorities) {
         this.priorities = priorities;
     }
 
@@ -216,7 +284,13 @@ public class createSurvey implements Serializable {
     public void setStatement14(String statement14) {
         this.statement14 = statement14;
     }
-    
-    
-    
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
 }
