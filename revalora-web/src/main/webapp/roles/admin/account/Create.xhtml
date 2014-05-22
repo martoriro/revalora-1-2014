@@ -21,7 +21,12 @@
                         <p:outputLabel value="#{bundle.CreateAccountLabel_lastName}" for="lastName" />
                         <p:inputText id="lastName" value="#{accountController.selected.lastName}" title="#{bundle.CreateAccountTitle_lastName}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_gender}" for="gender" />
-                        <p:inputText id="gender" value="#{accountController.selected.gender}" title="#{bundle.CreateAccountTitle_gender}" />
+                        
+                        <p:selectOneMenu id="gender" value="#{accountController.selected.gender}" required="true" requiredMessage="#{bundle.EditAccountRequiredMessage_gender}">
+                            <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                            <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.CreateAccountLabel_birthdate}" for="birthdate" />
                         <p:calendar id="birthdate" pattern="MM/dd/yyyy" value="#{accountController.selected.birthdate}" title="#{bundle.EditAccountTitle_birthdate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_address}" for="address" />
