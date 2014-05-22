@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClimateStudyViewDlg" widgetVar="ClimateStudyViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClimateStudyTitle}">
+            <h:form id="ClimateStudyViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{climateStudyController.selected != null}">
+                        <h:outputText value="#{bundle.ViewClimateStudyLabel_id}"/>
+                        <h:outputText value="#{climateStudyController.selected.id}" title="#{bundle.ViewClimateStudyTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewClimateStudyLabel_name}"/>
+                        <h:outputText value="#{climateStudyController.selected.name}" title="#{bundle.ViewClimateStudyTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewClimateStudyLabel_description}"/>
+                        <h:outputText value="#{climateStudyController.selected.description}" title="#{bundle.ViewClimateStudyTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewClimateStudyLabel_startAt}"/>
+                        <h:outputText value="#{climateStudyController.selected.startAt}" title="#{bundle.ViewClimateStudyTitle_startAt}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewClimateStudyLabel_endAt}"/>
+                        <h:outputText value="#{climateStudyController.selected.endAt}" title="#{bundle.ViewClimateStudyTitle_endAt}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewClimateStudyLabel_creator}"/>
+                        <h:outputText value="#{climateStudyController.selected.creator.firstName} #{climateStudyController.selected.creator.lastName}" title="#{bundle.ViewClimateStudyTitle_creator}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ClimateStudyViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
