@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package managedbeansSurvey;
 
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author Joel
  */
 @Named(value = "createSurvey")
-@RequestScoped
-public class createSurvey {
+@SessionScoped
+public class createSurvey implements Serializable {
 
     private Date DSurvStart;
     private String rutParticipant;
@@ -61,6 +63,46 @@ public class createSurvey {
         statements.add(statement12);
         statements.add(statement13);
         statements.add(statement14);
+    }
+
+    public Date getDSurvStart() {
+        return DSurvStart;
+    }
+
+    public void setDSurvStart(Date DSurvStart) {
+        this.DSurvStart = DSurvStart;
+    }
+
+    public String getRutParticipant() {
+        return rutParticipant;
+    }
+
+    public void setRutParticipant(String rutParticipant) {
+        this.rutParticipant = rutParticipant;
+    }
+
+    public List<Integer> getFactors() {
+        return factors;
+    }
+
+    public void setFactors(List<Integer> factors) {
+        this.factors = factors;
+    }
+
+    public List<Integer> getPriorities() {
+        return priorities;
+    }
+
+    public void setPriorities(List<Integer> priorities) {
+        this.priorities = priorities;
+    }
+
+    public List<String> getStatements() {
+        return statements;
+    }
+
+    public void setStatements(List<String> statements) {
+        this.statements = statements;
     }
 
     public String getStatement1() {
@@ -174,37 +216,7 @@ public class createSurvey {
     public void setStatement14(String statement14) {
         this.statement14 = statement14;
     }
-
-    public List<Integer> getFactors() {
-        return factors;
-    }
-
-    public void setFactors(List<Integer> factors) {
-        this.factors = factors;
-    }
-
-    public List<Integer> getPriorities() {
-        return priorities;
-    }
-
-    public void setPriorities(List<Integer> priorities) {
-        this.priorities = priorities;
-    }
-
-    public Date getDSurvStart() {
-        return DSurvStart;
-    }
-
-    public void setDSurvStart(Date DSurvStart) {
-        this.DSurvStart = DSurvStart;
-    }
-
-    public String getRutParticipant() {
-        return rutParticipant;
-    }
-
-    public void setRutParticipant(String rutParticipant) {
-        this.rutParticipant = rutParticipant;
-    }
-
+    
+    
+    
 }
