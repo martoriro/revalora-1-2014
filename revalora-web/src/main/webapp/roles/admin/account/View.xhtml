@@ -32,6 +32,10 @@
                         <h:outputText value="#{accountController.selected.email}" title="#{bundle.ViewAccountTitle_email}"/>
                         <h:outputText value="#{bundle.ViewAccountLabel_position}"/>
                         <h:outputText value="#{accountController.selected.position}" title="#{bundle.ViewAccountTitle_position}"/>
+                        
+                        <h:outputText value="#{bundle.ViewAccountLabel_accountType}"/>
+                        <h:outputText value="#{accountController.selected.accountType.name}" title="#{bundle.ViewAccountTitle_accountType}"/>
+                    
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AccountViewDialog.hide()"/>
                 </h:panelGroup>
