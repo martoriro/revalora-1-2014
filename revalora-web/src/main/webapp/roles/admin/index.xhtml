@@ -15,7 +15,8 @@
         
         <ui:define name="body">
             
-            <h4>Bienvenido</h4>
+            <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
+            
         </ui:define>
         
         <ui:define name="body">
@@ -78,7 +79,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_Access}"/>
+                                <h:outputText value="Acceso"/>
                             </f:facet>
                             <h:outputText value="#{item.accessName}"/>
                         </p:column>
@@ -87,7 +88,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AccountViewForm" oncomplete="PF('AccountViewDialog').show()" disabled="#{empty accountController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AccountEditForm" oncomplete="PF('AccountEditDialog').show()" disabled="#{empty accountController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{accountController.destroy}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
-                            <p:commandButton id="AccessButton"  value="Dar/Quitar Acceso" actionListener="#{accountController.updateAccess}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
+                            <p:commandButton id="AccessButton"  value="Dar/Quitar Acceso" actionListener="#{accountController.updateAccess(sessionUtil.rut)}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

@@ -16,8 +16,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import sessionbeans.AccountFacadeLocal;
 
-@FacesValidator("Validator.AccessValidator")
-public class AccessValidator implements Validator {
+@FacesValidator("Validator.SameRutValidator")
+public class SameRutValidator implements Validator {
 
     private String rut;
     
@@ -25,7 +25,7 @@ public class AccessValidator implements Validator {
     private AccountFacadeLocal ejbFacade;
     private Account selected;
     
-    public AccessValidator() {
+    public SameRutValidator() {
     }
     
     private AccountFacadeLocal getFacade() {
@@ -35,19 +35,19 @@ public class AccessValidator implements Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         rut = value.toString();
-        if (!accessRut(rut)) {
+        if (!sameRut(rut)) {
 
-            FacesMessage msg = new FacesMessage("Usuario Deshabilitado, Contactese con la Administración", "Access Rut.");
-            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesMessage msg = new FacesMessage("Este RUT ya se encuentra registrado en el sistema", "Same Rut.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
         }
     }
 
-    public boolean accessRut(String rut) {
+    public boolean sameRut(String rut) {
         boolean validacion = true;
         selected = getFacade().find(rut);
         if(selected != null){
-            validacion = selected.getAccess();
+            validacion = false;
         }
         return validacion;
     }

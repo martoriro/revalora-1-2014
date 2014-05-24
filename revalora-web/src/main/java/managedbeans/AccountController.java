@@ -1,5 +1,6 @@
 package managedbeans;
 
+import Validator.SameRutValidator;
 import entities.Account;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,14 +76,19 @@ public class AccountController implements Serializable {
         }
     }
     
-    public void updateAccess(){
-        if(selected.getAccess()){
-            selected.setAccess(Boolean.FALSE);
+    public void updateAccess(String Rut){
+        if(Rut.equals(selected.getRut())){
+            JsfUtil.addErrorMessage("No puede Modificar la información de Acceso de Usted");
         }
         else{
-            selected.setAccess(Boolean.TRUE);
+            if(selected.getAccess()){
+                selected.setAccess(Boolean.FALSE);
+            }
+            else{
+                selected.setAccess(Boolean.TRUE);
+            }
+            update();
         }
-        update();
     }
 
     public List<Account> getItems() {
