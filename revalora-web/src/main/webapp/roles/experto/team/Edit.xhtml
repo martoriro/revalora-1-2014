@@ -13,7 +13,20 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{teamController.selected != null}">
                         <p:outputLabel value="#{bundle.EditTeamLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{teamController.selected.name}" title="#{bundle.EditTeamTitle_name}" />
+                        <p:inputText id="name" value="#{teamController.selected.name}" title="#{bundle.EditTeamTitle_name}" required="true"/>
+                        <p:outputLabel value="#{bundle.CreateTeamLabel_members}" for="members" />
+                        <p:autoComplete id="members" multiple="true" 
+                                        value="#{teamController.selected.members}" 
+                                        completeMethod="#{accountController.filterAccounts}"
+                                        var="account" itemLabel="#{account.names}" itemValue="#{account}"
+                                        converter="accountConverter" forceSelection="true">
+                            <p:column style="width:10%">
+                                <h:outputText styleClass="ui-theme ui-theme-#{account.rut}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{account.names}" />
+                            </p:column>
+                        </p:autoComplete>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{teamController.update}" value="#{bundle.Save}" update="display,:TeamListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TeamEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TeamEditDialog.hide()"/>

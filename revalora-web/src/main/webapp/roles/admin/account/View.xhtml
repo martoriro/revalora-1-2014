@@ -22,7 +22,7 @@
                         <h:outputText value="#{accountController.selected.gender}" title="#{bundle.ViewAccountTitle_gender}"/>
                         <h:outputText value="#{bundle.ViewAccountLabel_birthdate}"/>
                         <h:outputText value="#{accountController.selected.birthdate}" title="#{bundle.ViewAccountTitle_birthdate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="es" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAccountLabel_address}"/>
                         <h:outputText value="#{accountController.selected.address}" title="#{bundle.ViewAccountTitle_address}"/>

@@ -13,11 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{climateStudyController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{climateStudyController.selected.name}" title="#{bundle.CreateClimateStudyTitle_name}" />
+                        <p:inputText id="name" value="#{climateStudyController.selected.name}" title="#{bundle.CreateClimateStudyTitle_name}" required="true"/>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_description}" for="description" />
                         <p:inputText id="description" value="#{climateStudyController.selected.description}" title="#{bundle.CreateClimateStudyTitle_description}" />
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_startAt}" for="startAt" />
-                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button"/>
+                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button" required="true"/>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_endAt}" for="endAt" />
                         <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_accounts}" for="accounts" />
