@@ -51,6 +51,7 @@ public class AccountController implements Serializable {
 
     public Account prepareCreate() {
         selected = new Account();
+        selected.setAccess(Boolean.TRUE);
         initializeEmbeddableKey();
         return selected;
     }
@@ -61,7 +62,7 @@ public class AccountController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AccountUpdated"));
     }
@@ -72,6 +73,16 @@ public class AccountController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    
+    public void updateAccess(){
+        if(selected.getAccess()){
+            selected.setAccess(Boolean.FALSE);
+        }
+        else{
+            selected.setAccess(Boolean.TRUE);
+        }
+        update();
     }
 
     public List<Account> getItems() {
@@ -86,6 +97,11 @@ public class AccountController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    String rut = selected.getRut();
+                    rut = rut.toUpperCase();
+                    rut = rut.replace(".", "");
+                    rut = rut.replace("-", "");
+                    selected.setRut(rut);
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

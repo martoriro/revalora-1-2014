@@ -66,6 +66,8 @@ public class Account implements Serializable {
     
     private String position;
     
+    private boolean access;
+    
     @JoinColumn(nullable = false)
     @ManyToOne
     private AccountType accountType;
@@ -158,6 +160,14 @@ public class Account implements Serializable {
         this.accountType = accountType;
     }
     
+    public boolean getAccess(){
+        return access;
+    }
+    
+    public void setAccess(boolean access){
+        this.access = access;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -205,6 +215,17 @@ public class Account implements Serializable {
     
     public java.lang.String getNames() {
         return firstName + " " + lastName;
+    }
+    
+    public java.lang.String getAccessName(){
+        String accessName = "";
+        if(access){
+            accessName = "Habilitado";
+        }
+        else{
+            accessName = "Deshabilitado";
+        }
+        return accessName;
     }
     
 }

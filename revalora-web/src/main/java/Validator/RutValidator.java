@@ -21,20 +21,14 @@ public class RutValidator implements Validator {
     }
 
     @Override
-    public void validate(FacesContext context, UIComponent component,
-            Object value) throws ValidatorException {
-
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         rut = value.toString();
         if (!validarRut(rut)) {
 
-            FacesMessage msg
-                    = new FacesMessage("Rut inválido.",
-                            "Invalid Rut format.");
+            FacesMessage msg = new FacesMessage("Rut inválido.", "Invalid Rut format.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);
-
         }
-
     }
 
     public static boolean validarRut(String rut) {
