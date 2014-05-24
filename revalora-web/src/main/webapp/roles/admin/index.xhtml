@@ -16,10 +16,6 @@
         <ui:define name="body">
             
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
-            
-        </ui:define>
-        
-        <ui:define name="body">
             <h:form id="AccountListForm">
                 <p:panel header="#{bundle.ListAccountTitle}" >
                     <p:dataTable id="datalist" value="#{accountController.items}" var="item"
