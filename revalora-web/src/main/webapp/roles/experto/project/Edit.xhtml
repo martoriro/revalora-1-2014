@@ -15,9 +15,12 @@
                         <p:outputLabel value="#{bundle.EditProjectLabel_name}" for="name" />
                         <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.EditProjectTitle_name}" required="true"/>
                         <p:outputLabel value="#{bundle.EditProjectLabel_startAt}" for="startAt" />
-                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}"  showOn="button"/>
+                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}" showOn="button" readonly="true"/>                        
                         <p:outputLabel value="#{bundle.EditProjectLabel_endAt}" for="endAt" />
-                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{projectController.selected.endAt}" title="#{bundle.EditProjectTitle_endAt}"  showOn="button"/>
+                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{projectController.selected.endAt}" title="#{bundle.EditProjectTitle_endAt}"  showOn="button">
+                            <f:validator validatorId="Validator.DateValidator" />
+                            <f:attribute name="startAt" value="#{startAt}" />
+                        </p:calendar>
                         <p:outputLabel value="#{bundle.EditProjectLabel_organization}" for="organization" />
                         <p:selectOneMenu id="organization" value="#{projectController.selected.organization}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
