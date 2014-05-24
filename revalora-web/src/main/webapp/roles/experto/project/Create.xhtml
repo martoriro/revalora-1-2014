@@ -13,9 +13,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{projectController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateProjectLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.CreateProjectTitle_name}" />
+                        <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.CreateProjectTitle_name}" required="true"/>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_startAt}" for="startAt" />
-                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}"  showOn="button"/>
+                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}"  showOn="button" required="true"/>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_endAt}" for="endAt" />
                         <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{projectController.selected.endAt}" title="#{bundle.EditProjectTitle_endAt}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_organization}" for="organization" />
