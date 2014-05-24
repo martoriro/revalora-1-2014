@@ -33,8 +33,7 @@ public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @NotNull
-    @Size(min = 1, message="Debe colocar un RUT")
-    
+    @Size(min = 1, message="Debe colocar un RUT")    
     private String rut;
     
     @NotNull
@@ -43,10 +42,12 @@ public class Account implements Serializable {
     
     @NotNull
     @Size(min=1, message= "El campo Nombre no puede estar vacío")
+    @Pattern(regexp="^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", message="El campo nombre solo puede contener letras.")
     private String firstName;
     
     @NotNull
     @Size(min=1, message= "El campo Apellido no puede estar vacío")
+    @Pattern(regexp="^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", message="El campo Apellido solo puede contener letras.")
     private String lastName;
     
     @NotNull
