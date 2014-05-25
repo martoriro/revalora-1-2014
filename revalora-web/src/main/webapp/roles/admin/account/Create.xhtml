@@ -13,24 +13,24 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{accountController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateAccountLabel_rut}" for="rut" />
-                        <p:inputText id="rut" value="#{accountController.selected.rut}" title="#{bundle.CreateAccountTitle_rut}"> 
+                        <p:inputText id="RUT" value="#{accountController.selected.rut}" title="#{bundle.CreateAccountTitle_rut}"> 
                             <f:validator validatorId="Validator.RutValidator"/> 
                         </p:inputText>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" />
+                        <p:inputText id="Contraseña" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_firstName}" for="firstName" />
-                        <p:inputText id="firstName" value="#{accountController.selected.firstName}" title="#{bundle.CreateAccountTitle_firstName}" />
+                        <p:inputText id="Nombre" value="#{accountController.selected.firstName}" title="#{bundle.CreateAccountTitle_firstName}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_lastName}" for="lastName" />
-                        <p:inputText id="lastName" value="#{accountController.selected.lastName}" title="#{bundle.CreateAccountTitle_lastName}" />
+                        <p:inputText id="Apellidos" value="#{accountController.selected.lastName}" title="#{bundle.CreateAccountTitle_lastName}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_gender}" for="gender" />
                         
-                        <p:selectOneMenu id="gender" value="#{accountController.selected.gender}" required="true" requiredMessage="#{bundle.EditAccountRequiredMessage_gender}">
+                        <p:selectOneMenu id="Genero" value="#{accountController.selected.gender}" required="true" requiredMessage="#{bundle.EditAccountRequiredMessage_gender}">
                             <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
                             <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{bundle.CreateAccountLabel_birthdate}" for="birthdate" />
-                        <p:calendar id="birthdate" value="#{accountController.selected.birthdate}" pattern="dd/MM/yyyy" title="#{bundle.EditAccountTitle_birthdate}" navigator="true" locale="es" showOn="button" yearRange="1900:2010"/>
+                        <p:calendar id="Fecha de Nacimiento" value="#{accountController.selected.birthdate}" pattern="dd/MM/yyyy" title="#{bundle.EditAccountTitle_birthdate}" navigator="true" locale="es" showOn="button" yearRange="1900:2010"/>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_address}" for="address" />
                         <p:inputText id="address" value="#{accountController.selected.address}" title="#{bundle.CreateAccountTitle_address}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_phone}" for="phone" />
