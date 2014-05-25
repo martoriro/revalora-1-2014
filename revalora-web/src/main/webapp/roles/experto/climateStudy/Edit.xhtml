@@ -17,9 +17,12 @@
                         <p:outputLabel value="#{bundle.EditClimateStudyLabel_description}" for="description" />
                         <p:inputText id="description" value="#{climateStudyController.selected.description}" title="#{bundle.EditClimateStudyTitle_description}" />
                         <p:outputLabel value="#{bundle.EditClimateStudyLabel_startAt}" for="startAt" />
-                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button"/>
+                        <p:calendar id="startAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}" showOn="button" readonly="true"/>
                         <p:outputLabel value="#{bundle.EditClimateStudyLabel_endAt}" for="endAt" />
-                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button"/>
+                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button">
+                            <f:validator validatorId="Validator.DateValidator" />
+                            <f:attribute name="startAt" value="#{startAt}" />
+                        </p:calendar>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_accounts}" for="accounts" />
                         <p:autoComplete id="accounts" multiple="true" 
                                         value="#{climateStudyController.selected.accounts}" 

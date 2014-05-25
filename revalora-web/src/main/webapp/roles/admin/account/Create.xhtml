@@ -15,6 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateAccountLabel_rut}" for="rut" />
                         <p:inputText id="RUT" value="#{accountController.selected.rut}" title="#{bundle.CreateAccountTitle_rut}"> 
                             <f:validator validatorId="Validator.RutValidator"/> 
+                            <f:validator validatorId="Validator.SameRutValidator"/>
                         </p:inputText>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password" />
                         <p:inputText id="Contraseña" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}" />
