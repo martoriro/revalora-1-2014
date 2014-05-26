@@ -2,26 +2,38 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="roles/admin/sidebar-right.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="roles/experto/encuesta.xhtml" x="900" y="150" zoom="true"/>
         <Node id="roles/admin/account/Edit.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="roles/experto/climateStudy/View.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="roles/experto/organization/Edit.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="roles/experto/organization/View.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="roles/experto/climateStudy/Edit.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="roles/admin/account/Create.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="roles/experto/climateStudy/Create.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="roles/experto/organization/List.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="roles/experto/project/Edit.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="roles/experto/team/Create.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="roles/experto/climateStudy/List.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="roles/admin/account/List.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="roles/experto/organization/Create.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="layout/2columns-right.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="template.xhtml" x="993" y="181" zoom="true"/>
+        <Node id="roles/admin/account/View.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="layout/1column.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="roles/experto/team/List.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="roles/experto/index.xhtml" x="576" y="432" zoom="true"/>
         <Node id="index.xhtml" x="767" y="352" zoom="false"/>
         <Node id="roles/experto/sidebar-right.xhtml" x="650" y="150" zoom="true"/>
         <Node id="layout/header.xhtml" x="150" y="600" zoom="true"/>
         <Node id="roles/admin/index.xhtml" x="876" y="434" zoom="true"/>
-        <Node id="roles/experto/organization/Edit.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="roles/experto/organization/View.xhtml" x="150" y="750" zoom="true"/>
-        <Node id="roles/admin/account/Create.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="roles/experto/project/List.xhtml" x="400" y="750" zoom="true"/>
         <Node id="layout/2columns-left.xhtml" x="900" y="150" zoom="true"/>
         <Node id="layout/footer.xhtml" x="400" y="450" zoom="true"/>
-        <Node id="roles/experto/organization/List.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="roles/experto/organization/Create.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="roles/admin/account/List.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="roles/experto/project/View.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="roles/experto/project/Create.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="roles/experto/team/Edit.xhtml" x="400" y="450" zoom="true"/>
         <Node id="layout/3columns.xhtml" x="650" y="450" zoom="true"/>
-        <Node id="layout/2columns-right.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="template.xhtml" x="993" y="181" zoom="true"/>
-        <Node id="roles/admin/account/View.xhtml" x="1400" y="150" zoom="true"/>
-        <Node id="layout/1column.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="roles/experto/team/View.xhtml" x="900" y="450" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

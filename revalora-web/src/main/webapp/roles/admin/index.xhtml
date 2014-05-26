@@ -17,18 +17,19 @@
             
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
             <h:form id="AccountListForm">
-                <p:panel header="#{bundle.ListAccountTitle}" >
+                <p:panelGrid columns="8">
                     <p:dataTable id="datalist" value="#{accountController.items}" var="item"
                                  selectionMode="single" selection="#{accountController.selected}"
                                  paginator="true"
                                  rowKey="#{item.rut}"
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50" 
+                                 rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
+                        
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton AccessButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton AccessButton"/>
-
+                        
+                        <f:facet name="header">Lista de Usuarios</f:facet>
                         <p:column sortBy="#{item.rut}" headerText="RUT">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAccountTitle_rut}"/>
@@ -37,19 +38,19 @@
                         </p:column>
                         <p:column sortBy="#{item.lastName}" headerText="Nombre">
                             <f:facet name="header">
-                                <h:outputText value="Nombre"/>
+                                <h:outputText value="#{bundle.ListAccountTitle_firstName} #{bundle.ListAccountTitle_lastName}"/>
                             </f:facet>
                             <h:outputText value="#{item.firstName} #{item.lastName}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Genero"/>
+                                <h:outputText value="#{bundle.ListAccountTitle_gender}"/>
                             </f:facet>
                             <h:outputText value="#{item.gender}"/>
                         </p:column>
                         <p:column sortBy="#{item.birthdate}">
                             <f:facet name="header">
-                                <h:outputText value="Fecha de Nacimiento"/>
+                                <h:outputText value="#{bundle.ListAccountTitle_birthdate}"/>
                             </f:facet>
                             <h:outputText value="#{item.birthdate}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -63,19 +64,19 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Posición"/>
+                                <h:outputText value="#{bundle.ListAccountTitle_position}"/>
                             </f:facet>
                             <h:outputText value="#{item.position}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Tipo de Cuenta"/>
+                                <h:outputText value="#{bundle.ListAccountTitle_accountType}"/>
                             </f:facet>
                             <h:outputText value="#{item.accountType.name}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Acceso"/>
+                                <h:outputText value="#{bundle.ListAccountTitle_Access}"/>
                             </f:facet>
                             <h:outputText value="#{item.accessName}"/>
                         </p:column>
@@ -87,7 +88,7 @@
                             <p:commandButton id="AccessButton"  value="Dar/Quitar Acceso" actionListener="#{accountController.updateAccess(sessionUtil.rut)}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                </p:panelGrid>
             </h:form>
 
             <ui:include src="account/Create.xhtml"/>
