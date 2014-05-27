@@ -56,18 +56,18 @@ public class ProjectController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProjectsCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProjectCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProjectsUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProjectUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProjectsDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProjectDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -109,7 +109,7 @@ public class ProjectController implements Serializable {
         }
     }
 
-    public Project getProjects(java.lang.Long id) {
+    public Project getProject(java.lang.Long id) {
         return getFacade().find(id);
     }
 
@@ -122,7 +122,7 @@ public class ProjectController implements Serializable {
     }
 
     @FacesConverter(forClass = Project.class)
-    public static class ProjectsControllerConverter implements Converter {
+    public static class ProjectControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -130,8 +130,8 @@ public class ProjectController implements Serializable {
                 return null;
             }
             ProjectController controller = (ProjectController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "projectsController");
-            return controller.getProjects(getKey(value));
+                    getValue(facesContext.getELContext(), null, "projectController");
+            return controller.getProject(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

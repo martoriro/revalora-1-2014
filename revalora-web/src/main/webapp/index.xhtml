@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
-    <ui:composition template="/template-1column.xhtml">
+    <ui:composition template="/layout/1column.xhtml">
         
         <ui:define name="title">
             <h:outputText value="Bienvenido"></h:outputText>
@@ -23,11 +23,16 @@
                             <div class="panel-body">
                                 <div class="input-group">
                                     <span class="input-group-addon">RUT</span>
-                                    <h:inputText id="username" class="form-control" autocomplete="off" size="20" value="#{loginController.rut}" />
+                                    <h:inputText id="username" class="form-control" autocomplete="off" size="20" value="#{loginController.rut}">
+                                        <f:validator validatorId="Validator.AccessValidator"/>
+                                    </h:inputText>
+                                    <p:watermark for="username" value="Cédula de identidad" />
+                                    <p:tooltip id="toolTipFade" for="username" value="Ingrese RUT sin puntos ni guión" />
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-addon">Contraseña</span>
-                                    <h:inputSecret id="password" class="form-control" autocomplete="off" size="20" value="#{loginController.password}" />
+                                    <h:inputSecret id="password" styleClass="form-control" autocomplete="off" size="20" value="#{loginController.password}" />
+                                    <p:watermark for="password" value="Contraseña" />
                                 </div>
                                 <!--<a href="/revalora-web/faces/passwordRecovery.xhtml" class="btn btn-link" style="margin-top: 10px">¿Olvidó su contraseña?</a>-->
                                 <p:commandButton styleClass="btn btn-default float-right" type="submit" value="Ingresar" action="#{loginController.login()}" update=":growl"/>

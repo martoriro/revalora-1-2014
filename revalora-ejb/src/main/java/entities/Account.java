@@ -19,6 +19,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import static javax.swing.text.StyleConstants.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -28,26 +33,42 @@ import javax.persistence.Temporal;
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @NotNull
+    @Size(min = 1, message="Debe colocar un RUT")    
     private String rut;
     
+    @NotNull
+    @Size (min = 4, message = "Su contraseña debe ser de al menos 4 caracteres")
     private String password;
     
+    @NotNull
+    @Size(min=1, message= "El campo Nombre no puede estar vacío")
+    @Pattern(regexp="^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", message="El campo nombre solo puede contener letras.")
     private String firstName;
     
+    @NotNull
+    @Size(min=1, message= "El campo Apellido no puede estar vacío")
+    @Pattern(regexp="^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$", message="El campo Apellido solo puede contener letras.")
     private String lastName;
     
+    @NotNull
     private String gender;
     
     @Temporal(javax.persistence.TemporalType.DATE)
+    @Past(message = "Coloque una fecha de nacimiento anterior al día de hoy")
+    @NotNull(message= "Debe colocar una fecha de nacimiento")
     private Date birthdate;
     
     private String address;
     
     private String phone;
     
+    @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" , message = "Ingrese un correo valido, e.g.=mail@mail.com")
     private String email;
     
     private String position;
+    
+    private boolean access;
     
     @JoinColumn(nullable = false)
     @ManyToOne
@@ -163,6 +184,14 @@ public class Account implements Serializable {
         this.sendedMessages = sendedMessages;
     }
     
+    public boolean getAccess(){
+        return access;
+    }
+    
+    public void setAccess(boolean access){
+        this.access = access;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -210,6 +239,17 @@ public class Account implements Serializable {
     
     public java.lang.String getNames() {
         return firstName + " " + lastName;
+    }
+    
+    public java.lang.String getAccessName(){
+        String accessName = "";
+        if(access){
+            accessName = "Habilitado";
+        }
+        else{
+            accessName = "Deshabilitado";
+        }
+        return accessName;
     }
     
 }

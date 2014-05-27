@@ -3,7 +3,7 @@ package managedbeans;
 import entities.Organization;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
-import  sessionbeans.OrganizationFacadeLocal;
+import sessionbeans.OrganizationFacadeLocal;
 
 import java.io.Serializable;
 import java.util.List;
@@ -56,18 +56,18 @@ public class OrganizationController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OrganizationsCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OrganizationCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("OrganizationsUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("OrganizationUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("OrganizationsDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("OrganizationDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -109,7 +109,7 @@ public class OrganizationController implements Serializable {
         }
     }
 
-    public Organization getOrganizations(java.lang.Long id) {
+    public Organization getOrganization(java.lang.Long id) {
         return getFacade().find(id);
     }
 
@@ -122,7 +122,7 @@ public class OrganizationController implements Serializable {
     }
 
     @FacesConverter(forClass = Organization.class)
-    public static class OrganizationsControllerConverter implements Converter {
+    public static class OrganizationControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -130,8 +130,8 @@ public class OrganizationController implements Serializable {
                 return null;
             }
             OrganizationController controller = (OrganizationController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "organizationsController");
-            return controller.getOrganizations(getKey(value));
+                    getValue(facesContext.getELContext(), null, "organizationController");
+            return controller.getOrganization(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

@@ -8,16 +8,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -32,12 +29,12 @@ public class Project implements Serializable {
     
     private String name;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date startDate;
+    @Temporal(TemporalType.DATE) 
+    private Date startAt; 
     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date endDate;
-
+    @Temporal(TemporalType.DATE) 
+    private Date endAt;
+    
     @ManyToOne
     private Organization organization;
 
@@ -57,20 +54,20 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartAt() {
+        return startAt;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartAt(Date startAt) {
+        this.startAt = startAt;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getEndAt() {
+        return endAt;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndAt(Date endAt) {
+        this.endAt = endAt;
     }
 
     public Organization getOrganization() {
@@ -103,7 +100,7 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Project[ id=" + id + " ]";
+        return name;
     }
     
 }

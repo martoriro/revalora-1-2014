@@ -1,23 +1,24 @@
 package managedbeans;
 
+import Validator.SameRutValidator;
 import entities.Account;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.AccountFacadeLocal;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.AccountFacadeLocal;
 
 @Named("accountController")
 @SessionScoped
@@ -51,6 +52,7 @@ public class AccountController implements Serializable {
 
     public Account prepareCreate() {
         selected = new Account();
+        selected.setAccess(Boolean.TRUE);
         initializeEmbeddableKey();
         return selected;
     }
@@ -61,7 +63,7 @@ public class AccountController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AccountUpdated"));
     }
@@ -71,6 +73,21 @@ public class AccountController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void updateAccess(String Rut){
+        if(Rut.equals(selected.getRut())){
+            JsfUtil.addErrorMessage("No puede Modificar la información de Acceso de Usted");
+        }
+        else{
+            if(selected.getAccess()){
+                selected.setAccess(Boolean.FALSE);
+            }
+            else{
+                selected.setAccess(Boolean.TRUE);
+            }
+            update();
         }
     }
 
@@ -86,6 +103,11 @@ public class AccountController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    String rut = selected.getRut();
+                    rut = rut.toUpperCase();
+                    rut = rut.replace(".", "");
+                    rut = rut.replace("-", "");
+                    selected.setRut(rut);
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
@@ -161,5 +183,18 @@ public class AccountController implements Serializable {
         }
 
     }
-
+    
+    public List<Account> filterAccounts(String query) {
+        List<Account> allAccounts = ejbFacade.findAll();
+        List<Account> filteredAccounts = new ArrayList<Account>();
+        
+        for(int i = 0; i < allAccounts.size(); i++) {
+            Account skin = allAccounts.get(i);
+            if(skin.getNames().toLowerCase().startsWith(query)) {
+                filteredAccounts.add(skin);
+            }
+        }
+        
+        return filteredAccounts;
+    }
 }
