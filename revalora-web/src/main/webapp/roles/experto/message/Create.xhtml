@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MessageCreateDlg" widgetVar="MessageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMessageTitle}">
+            <h:form id="MessageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{messageController.selected.id}" title="#{bundle.CreateMessageTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_sender}" for="sender" />
+                        <p:selectOneMenu id="sender" value="#{messageController.selected.sender}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_sender}">
+                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
+                                           var="senderItem"
+                                           itemValue="#{senderItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_receiver}" for="receiver" />
+                        <p:selectOneMenu id="receiver" value="#{messageController.selected.receiver}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_receiver}">
+                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
+                                           var="receiverItem"
+                                           itemValue="#{receiverItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_subject}" for="subject" />
+                        <p:inputText id="subject" value="#{messageController.selected.subject}" title="#{bundle.CreateMessageTitle_subject}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
+                        <p:inputText id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

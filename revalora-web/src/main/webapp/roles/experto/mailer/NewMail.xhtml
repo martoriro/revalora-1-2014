@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="wvNewMailDlg" header="Nuevo Mensaje" widgetVar="wvNewMailDialog" minimizable="true" maximizable="true">
+                <h:form id="newMail">
+                    <h:panelGrid columns="2" >
+                        <h:outputLabel for="to" value="Para: " />
+                        <p:autoComplete id="to" value="#{sendMail.to}" completeMethod="#{sendMail.completeText}"/>
+                        <h:outputLabel for="" value="CC: " />
+                        <p:autoComplete id="cc" value="#{sendMail.cc}" completeMethod="#{sendMail.completeText}"/>
+                        <h:outputLabel for="subject" value="Asunto: " />
+                        <p:inputText id="subject" value="#{sendMail.subject}"/>                        
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <br/>
+                        <p:fileUpload  mode="simple" />
+                        <br/>
+                    </h:panelGrid>
+                    <p:editor widgetVar="editor"  value="#{sendMail.message}"/>
+                    <h:panelGrid columns="3" cellspacing="10" cellpadding="10">
+                        <p:commandButton id="sendButton" onclick="wvNewMail.hide()"  value="Enviar" icon="ui-icon-mail-closed" update="newMail" process="@this">
+                            <p:resetInput target="newMail" />
+                        </p:commandButton>
+                        <p:commandButton id="cancelButton" onclick="wvNewMail.hide()"  value="Cancelar" icon="ui-icon-cancel" update="newMail" process="@this">
+                            <p:resetInput target="newMail" />
+                        </p:commandButton>
+                         <p:commandButton id="saveButton" onclick="wvNewMail.hide()"  value="Guardar" icon="ui-icon-disk" update="newMail" process="@this">
+                            <p:resetInput target="newMail" />
+                        </p:commandButton>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:composition>
+</html>

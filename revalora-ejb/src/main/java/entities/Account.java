@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -52,6 +53,12 @@ public class Account implements Serializable {
     @ManyToOne
     private AccountType accountType;
 
+    @OneToMany
+    private Set<Message> recivedMessages;
+    
+    @OneToMany
+    private Set<Message> sendedMessages;
+    
     public String getRut() {
         return rut;
     }
@@ -138,6 +145,22 @@ public class Account implements Serializable {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+    public Set<Message> getRecivedMessages() {
+        return recivedMessages;
+    }
+
+    public void setRecivedMessages(Set<Message> recivedMessages) {
+        this.recivedMessages = recivedMessages;
+    }
+
+    public Set<Message> getSendedMessages() {
+        return sendedMessages;
+    }
+
+    public void setSendedMessages(Set<Message> sendedMessages) {
+        this.sendedMessages = sendedMessages;
     }
     
     @Override

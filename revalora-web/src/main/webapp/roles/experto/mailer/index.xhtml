@@ -30,13 +30,12 @@
                 <div class="col-lg-2">
                     <div class="row">
                         <h:form>
-                            <p:commandButton value="Redactar" onclick="PF('wvNewMail').show();" type="button" icon="ui-icon-pencil" />
+                            <p:commandButton value="Redactar" update=":newMail" onclick="PF('wvNewMailDialog').show();" type="button" icon="ui-icon-pencil" />
                         </h:form>
                     </div>
                     <div class="row">
-                        <h:form>
-
-                        </h:form> 
+                        
+                        
                     </div>
 
                 </div>
@@ -45,35 +44,7 @@
                 </div>
 
             </div>
-            <p:dialog header="Nuevo Mensaje" widgetVar="wvNewMail" minimizable="true" maximizable="true">
-                <h:form id="newMail">
-                    <h:panelGrid columns="2" >
-                        <h:outputLabel for="to" value="Para: " />
-                        <p:autoComplete id="to" value="#{sendMail.to}" completeMethod="#{sendMail.completeText}"/>
-                        <h:outputLabel for="" value="CC: " />
-                        <p:autoComplete id="cc" value="#{sendMail.cc}" completeMethod="#{sendMail.completeText}"/>
-                        <h:outputLabel for="subject" value="Asunto: " />
-                        <p:inputText id="subject" value="#{sendMail.subject}"/>                        
-                    </h:panelGrid>
-                    <h:panelGrid columns="1">
-                        <br/>
-                        <p:fileUpload  mode="simple" />
-                        <br/>
-                    </h:panelGrid>
-                    <p:editor widgetVar="editor"  value="#{sendMail.message}"/>
-                    <h:panelGrid columns="3" cellspacing="10" cellpadding="10">
-                        <p:commandButton id="sendButton" onclick="wvNewMail.hide()"  value="Enviar" icon="ui-icon-mail-closed" update="newMail" process="@this">
-                            <p:resetInput target="newMail" />
-                        </p:commandButton>
-                        <p:commandButton id="cancelButton" onclick="wvNewMail.hide()"  value="Cancelar" icon="ui-icon-cancel" update="newMail" process="@this">
-                            <p:resetInput target="newMail" />
-                        </p:commandButton>
-                         <p:commandButton id="saveButton" onclick="wvNewMail.hide()"  value="Guardar" icon="ui-icon-disk" update="newMail" process="@this">
-                            <p:resetInput target="newMail" />
-                        </p:commandButton>
-                    </h:panelGrid>
-                </h:form>
-            </p:dialog>
+            <ui:include src="NewMail.xhtml"/>
         </ui:define>        
     </ui:composition>
 </html>
