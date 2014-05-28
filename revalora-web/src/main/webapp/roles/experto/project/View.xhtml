@@ -18,11 +18,11 @@
                         <h:outputText value="#{projectController.selected.name}" title="#{bundle.ViewProjectTitle_name}"/>
                         <h:outputText value="#{bundle.ViewProjectLabel_startAt}"/>
                         <h:outputText value="#{projectController.selected.startAt}" title="#{bundle.ViewProjectTitle_startAt}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProjectLabel_endAt}"/>
                         <h:outputText value="#{projectController.selected.endAt}" title="#{bundle.ViewProjectTitle_endAt}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewProjectLabel_organization}"/>
                         <h:outputText value="#{projectController.selected.organization.name}" title="#{bundle.ViewProjectTitle_organization}"/>
