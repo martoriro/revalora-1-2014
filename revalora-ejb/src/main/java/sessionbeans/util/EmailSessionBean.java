@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessionbeans;
+package sessionbeans.util;
 
 import otherclasses.Email;
 import java.io.IOException;

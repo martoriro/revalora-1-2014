@@ -22,7 +22,7 @@ import javax.mail.MessagingException;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
 import managedbeans.util.SessionUtil;
-import sessionbeans.EmailSessionBean;
+import sessionbeans.util.EmailSessionBean;
 import sessionbeans.MessageFacadeLocal;
 
 @Named("messageController")
