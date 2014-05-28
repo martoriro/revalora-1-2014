@@ -28,6 +28,8 @@ public class ContactController implements Serializable {
     private List<Contact> items = null;
     private Contact selected;
     
+    private List<Contact> filteredContacts;
+    
     public ContactController() {
     }
 
@@ -162,6 +164,14 @@ public class ContactController implements Serializable {
 
     }
 
+    public List<Contact> getFilteredContacts() {
+        return filteredContacts;
+    }
+
+    public void setFilteredContacts(List<Contact> filteredContacts) {
+        this.filteredContacts = filteredContacts;
+    }
+     
     public List<Contact> filterContacts(String query) {
         List<Contact> allContacts = ejbFacadeLocal.findAll();
         List<Contact> filteredContacts = new ArrayList<Contact>();

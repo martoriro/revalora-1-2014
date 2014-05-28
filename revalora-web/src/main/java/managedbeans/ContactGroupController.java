@@ -27,6 +27,8 @@ public class ContactGroupController implements Serializable {
     private ContactGroupFacadeLocal ejbFacadeLocal;
     private List<ContactGroup> items = null;
     private ContactGroup selected;
+    
+    private List<ContactGroup> filteredContactGroups;
 
     public ContactGroupController() {
     }
@@ -160,6 +162,14 @@ public class ContactGroupController implements Serializable {
             }
         }
 
+    }
+
+    public List<ContactGroup> getFilteredContactGroups() {
+        return filteredContactGroups;
+    }
+
+    public void setFilteredContactGroups(List<ContactGroup> filteredContactGroups) {
+        this.filteredContactGroups = filteredContactGroups;
     }
     
     public List<ContactGroup> filterContactGroups(String query) {

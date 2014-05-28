@@ -26,18 +26,29 @@
                              rowKey="#{item.email}"
                              rows="10"
                              rowsPerPageTemplate="10,20,30,40,50"
+                             
+                             widgetVar="datalist"
+                             emptyMessage="No se encontraron resultados segun el criterio" 
+                             filteredValue="#{contactController.filteredContacts}" 
                              >
 
                     <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                    <p:column>
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Buscar contactos:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('datalist').filter()" style="width:150px" placeholder="Ingreso..."/>
+                        </p:outputPanel>
+                    </f:facet>
+                    
+                    <p:column filterBy="#{item.name}" headerText="Name" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListContactTitle_name}"/>
                         </f:facet>
                         <h:outputText value="#{item.name}"/>
                     </p:column>
-                    <p:column>
+                    <p:column filterBy="#{item.email}" headerText="Email" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListContactTitle_email}"/>
                         </f:facet>

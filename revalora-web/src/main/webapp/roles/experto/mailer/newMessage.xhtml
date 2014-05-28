@@ -16,7 +16,7 @@
                                         value="#{messageController.selected.receiverContacts}" 
                                         completeMethod="#{contactController.filterContacts}"
                                         var="receiverContact" itemLabel="#{receiverContact.email}" itemValue="#{receiverContact}"
-                                        converter="contactConverter" forceSelection="false">
+                                        converter="contactConverter" forceSelection="true">
                             <p:column>
                                 <h:outputText value="#{receiverContact.email}" />
                             </p:column>
