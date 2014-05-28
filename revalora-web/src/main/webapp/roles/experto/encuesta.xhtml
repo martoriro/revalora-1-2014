@@ -8,17 +8,13 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/layout/2columns-right.xhtml">
-
         <ui:define name="title">
             <h:outputText value="Encuesta de Clima"></h:outputText>
         </ui:define>
-
         <ui:define name="sidebar-right">
             <ui:include src="sidebar-right.xhtml"/>
         </ui:define>
-
         <ui:define name="body">
-
             <h4 class="white">Hola <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}! </b> Por favor responde</h4>
             <h5 class="white"><b>Encuesta de Clima Organizacional</b></h5>
             <h:form id="surveyForm">
@@ -126,6 +122,5 @@
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>
 
