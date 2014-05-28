@@ -6,17 +6,24 @@
 
 package otherclasses;
 
+import java.text.DateFormat;
 import java.util.Date;
 
-/**
- *
- * @author sylar
- */
 public class Email {
-    String subject;
-    String from;
-    Date sendDate;
-    String content;
+    
+    private String subject;
+    private String from;
+    private Date sendDate;
+    private String content;
+    private DateFormat dfDafault = DateFormat.getInstance();
+
+    public DateFormat getDfDafault() {
+        return dfDafault;
+    }
+
+    public void setDfDafault(DateFormat dfDafault) {
+        this.dfDafault = dfDafault;
+    }
 
     public String getSubject() {
         return subject;

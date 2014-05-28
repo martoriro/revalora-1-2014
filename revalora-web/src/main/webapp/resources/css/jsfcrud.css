@@ -5331,3 +5331,8 @@ html, body {
 
 body {
   background-color: #814fb0; }
+
+.panelGridForm tr, .panelGridForm td {
+     border-style: hidden !important;
+     vertical-align: top;
+}

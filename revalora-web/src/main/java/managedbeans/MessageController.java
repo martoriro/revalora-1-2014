@@ -220,7 +220,6 @@ public class MessageController implements Serializable {
 
         try {
                 emailSessionBean.sendMail(recipient,"","","", subject, content);
-                emailSessionBean.readMailImap();
                 JsfUtil.addSuccessMessage(successMessage);
         }catch(MessagingException ex){
                 JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");

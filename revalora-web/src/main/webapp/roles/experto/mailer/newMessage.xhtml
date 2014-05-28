@@ -36,7 +36,7 @@
                         <p:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
                         <p:inputText id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
+                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.Save}" update="display,:inbox,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MessageCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
