@@ -9,7 +9,7 @@ package entities;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -75,10 +75,10 @@ public class Account implements Serializable {
     private AccountType accountType;
 
     @OneToMany
-    private Set<Message> recivedMessages;
+    private List<Message> receivedMessages;
     
     @OneToMany
-    private Set<Message> sendedMessages;
+    private List<Message> sendedMessages;
     
     public String getRut() {
         return rut;
@@ -168,19 +168,19 @@ public class Account implements Serializable {
         this.accountType = accountType;
     }
 
-    public Set<Message> getRecivedMessages() {
-        return recivedMessages;
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
     }
 
-    public void setRecivedMessages(Set<Message> recivedMessages) {
-        this.recivedMessages = recivedMessages;
+    public void setReceivedMessages(List<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
     }
 
-    public Set<Message> getSendedMessages() {
+    public List<Message> getSendedMessages() {
         return sendedMessages;
     }
 
-    public void setSendedMessages(Set<Message> sendedMessages) {
+    public void setSendedMessages(List<Message> sendedMessages) {
         this.sendedMessages = sendedMessages;
     }
     

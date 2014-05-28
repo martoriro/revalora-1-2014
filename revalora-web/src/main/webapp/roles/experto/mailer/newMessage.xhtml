@@ -11,6 +11,12 @@
             <h:form id="MessageCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_sender}" for="sender" />
+                        <p:selectOneMenu id="sender" value="#{messageController.selected.sender}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_sender}">
+                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
+                                           var="senderItem"
+                                           itemValue="#{senderItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMessageLabel_receiver}" for="receiver" />
                         <p:selectOneMenu id="receiver" value="#{messageController.selected.receiver}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_receiver}">
                             <f:selectItems value="#{accountController.itemsAvailableSelectOne}"

@@ -1,10 +1,6 @@
 package managedbeans;
 
 import entities.Message;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.MessageFacadeLocal;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,12 +8,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import managedbeans.util.SessionUtil;
+import sessionbeans.AccountFacadeLocal;
+import sessionbeans.MessageFacadeLocal;
 
 @Named("messageController")
 @SessionScoped
@@ -27,7 +29,12 @@ public class MessageController implements Serializable {
     private MessageFacadeLocal ejbFacadeLocal;
     private List<Message> items = null;
     private Message selected;
-
+    
+    @Inject
+    private SessionUtil session;
+    @EJB
+    private AccountFacadeLocal accountFacadeLocal;
+    
     public MessageController() {
     }
 
@@ -76,7 +83,7 @@ public class MessageController implements Serializable {
 
     public List<Message> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = accountFacadeLocal.find(session.getCurrentUser()).getReceivedMessages();
         }
         return items;
     }
@@ -161,5 +168,5 @@ public class MessageController implements Serializable {
         }
 
     }
-
+    
 }
