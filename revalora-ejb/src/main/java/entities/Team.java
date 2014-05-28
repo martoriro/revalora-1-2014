@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Team implements Serializable {
     private Long id;
     
     @NotNull
+    @Size(min=1, message="El campo Nombre no puede estar vacío")
     private String name;
     
     @ManyToMany

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClimateStudySurveyCreateDlg" widgetVar="ClimateStudySurveyCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClimateStudySurveyTitle}">
+            <h:form id="ClimateStudySurveyCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{climateStudySurveyController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClimateStudySurveyLabel_account}" for="account" />
+                        <p:selectOneMenu id="account" value="#{climateStudySurveyController.selected.account}" >
+                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
+                                           var="accountItem"
+                                           itemValue="#{accountItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateClimateStudySurveyLabel_climateStudy}" for="climateStudy" />
+                        <p:selectOneMenu id="climateStudy" value="#{climateStudySurveyController.selected.climateStudy}" >
+                            <f:selectItems value="#{climateStudyController.itemsAvailableSelectOne}"
+                                           var="climateStudyItem"
+                                           itemValue="#{climateStudyItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateClimateStudySurveyLabel_createdAt}" for="createdAt" />
+                        <p:calendar id="createdAt" pattern="MM/dd/yyyy" value="#{climateStudySurveyController.selected.createdAt}" title="#{bundle.EditClimateStudySurveyTitle_createdAt}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateClimateStudySurveyLabel_endAt}" for="endAt" />
+                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudySurveyController.selected.endAt}" title="#{bundle.EditClimateStudySurveyTitle_endAt}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{climateStudySurveyController.create}" value="#{bundle.Save}" update="display,:ClimateStudySurveyListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClimateStudySurveyCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClimateStudySurveyCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,6 +1,10 @@
 package managedbeans;
 
-import entities.ClimateStudy;
+import entities.Answer;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.AnswerFacadeLocal;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -8,38 +12,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.inject.Named;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import managedbeans.util.SessionUtil;
-import sessionbeans.ClimateStudyFacadeLocal;
 
-@Named("climateStudyController")
+@Named("answerController")
 @SessionScoped
-public class ClimateStudyController implements Serializable {
+public class AnswerController implements Serializable {
 
     @EJB
-    private ClimateStudyFacadeLocal ejbFacade;
-    private List<ClimateStudy> items = null;
-    private ClimateStudy selected;
-    
-    @Inject
-    private SessionUtil sessionUtil;
+    private AnswerFacadeLocal ejbFacade;
+    private List<Answer> items = null;
+    private Answer selected;
 
-    public ClimateStudyController() {
+    public AnswerController() {
     }
 
-    public ClimateStudy getSelected() {
+    public Answer getSelected() {
         return selected;
     }
 
-    public void setSelected(ClimateStudy selected) {
+    public void setSelected(Answer selected) {
         this.selected = selected;
     }
 
@@ -49,37 +45,36 @@ public class ClimateStudyController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private ClimateStudyFacadeLocal getFacade() {
+    private AnswerFacadeLocal getFacade() {
         return ejbFacade;
     }
 
-    public ClimateStudy prepareCreate() {
-        selected = new ClimateStudy();
-        selected.setCreator(sessionUtil.getCurrentUser());
+    public Answer prepareCreate() {
+        selected = new Answer();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnswerCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AnswerUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AnswerDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<ClimateStudy> getItems() {
+    public List<Answer> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -114,29 +109,29 @@ public class ClimateStudyController implements Serializable {
         }
     }
 
-    public ClimateStudy getClimateStudy(java.lang.Long id) {
+    public Answer getAnswer(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<ClimateStudy> getItemsAvailableSelectMany() {
+    public List<Answer> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<ClimateStudy> getItemsAvailableSelectOne() {
+    public List<Answer> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = ClimateStudy.class)
-    public static class ClimateStudyControllerConverter implements Converter {
+    @FacesConverter(forClass = Answer.class)
+    public static class AnswerControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ClimateStudyController controller = (ClimateStudyController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "climateStudyController");
-            return controller.getClimateStudy(getKey(value));
+            AnswerController controller = (AnswerController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "answerController");
+            return controller.getAnswer(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -156,19 +151,15 @@ public class ClimateStudyController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof ClimateStudy) {
-                ClimateStudy o = (ClimateStudy) object;
+            if (object instanceof Answer) {
+                Answer o = (Answer) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ClimateStudy.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Answer.class.getName()});
                 return null;
             }
         }
 
     }
 
-    public void sendInvitations() {
-        
-    }
-    
 }

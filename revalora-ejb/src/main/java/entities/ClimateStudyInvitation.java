@@ -7,27 +7,37 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author pingeso
  */
 @Entity
-public class Organization implements Serializable {
+public class ClimateStudyInvitation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @NotNull
-    @Size(min=1, message="El campo Nombre no puede estar vacío")
-    private String name;
+    @ManyToOne
+    private Account account;
+    
+    @ManyToOne
+    private ClimateStudySurvey study;
+    
+    private String state;
+    // Puede ser "Invitación enviada", "Correo rebotó", "Completado" (Respondió de manera satisfactoria) 
+    
+    @Temporal(TemporalType.DATE) 
+    private Date date;
 
     public Long getId() {
         return id;
@@ -37,12 +47,28 @@ public class Organization implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public ClimateStudySurvey getStudy() {
+        return study;
+    }
+
+    public void setStudy(ClimateStudySurvey study) {
+        this.study = study;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override
@@ -55,10 +81,10 @@ public class Organization implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Organization)) {
+        if (!(object instanceof ClimateStudyInvitation)) {
             return false;
         }
-        Organization other = (Organization) object;
+        ClimateStudyInvitation other = (ClimateStudyInvitation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,7 +93,7 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return "entities.ClimateStudyInvitation[ id=" + id + " ]";
     }
     
 }

@@ -11,23 +11,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author pingeso
  */
 @Entity
-public class Organization implements Serializable {
+public class Answer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @NotNull
-    @Size(min=1, message="El campo Nombre no puede estar vacío")
-    private String name;
+    @ManyToOne
+    private Question question;
+    
+    private String answer;
+    // Acá anotaremos las respuestas según el dominio definido en Question
+    // Ejemplo: Sí, No, 1, 4, Me gusta dejar la bolsita mientras me tomo el té
+    
+    @ManyToOne
+    private Account account;
+    // Necesariamente toda respuesta es proporcionada por un usuario de Revalora
 
     public Long getId() {
         return id;
@@ -37,12 +43,20 @@ public class Organization implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     @Override
@@ -55,10 +69,10 @@ public class Organization implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Organization)) {
+        if (!(object instanceof Answer)) {
             return false;
         }
-        Organization other = (Organization) object;
+        Answer other = (Answer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,7 +81,7 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return "entities.Answer[ id=" + id + " ]";
     }
     
 }

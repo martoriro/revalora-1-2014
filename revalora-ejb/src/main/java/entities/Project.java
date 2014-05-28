@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -27,14 +29,21 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @NotNull
+    @Size(min=1, message="El campo Nombre no puede estar vacío")
     private String name;
     
+    @NotNull
+    @Size(min=1, message="Es necesario proporcionar una fecha de Comienzo para el proyecto")
     @Temporal(TemporalType.DATE) 
     private Date startAt; 
     
+    @NotNull
+    @Size(min=1, message="Es necesario proporcionar una fecha de Termino para el proyecto")
     @Temporal(TemporalType.DATE) 
     private Date endAt;
     
+    @NotNull(message="Es necesario seleccionar una organización")
     @ManyToOne
     private Organization organization;
 

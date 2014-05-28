@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -31,6 +32,8 @@ public class ClimateStudy implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @NotNull
+    @Size(min=1, message="El campo Nombre no puede estar vacío")
     private String name;
     
     @Column(columnDefinition = "TEXT")

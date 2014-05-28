@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClimateStudySurveyViewDlg" widgetVar="ClimateStudySurveyViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClimateStudySurveyTitle}">
+            <h:form id="ClimateStudySurveyViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{climateStudySurveyController.selected != null}">
+                        <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_id}"/>
+                        <h:outputText value="#{climateStudySurveyController.selected.id}" title="#{bundle.ViewClimateStudySurveyTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_account}"/>
+                        <h:outputText value="#{climateStudySurveyController.selected.account}" title="#{bundle.ViewClimateStudySurveyTitle_account}"/>
+                        <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_climateStudy}"/>
+                        <h:outputText value="#{climateStudySurveyController.selected.climateStudy}" title="#{bundle.ViewClimateStudySurveyTitle_climateStudy}"/>
+                        <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_createdAt}"/>
+                        <h:outputText value="#{climateStudySurveyController.selected.createdAt}" title="#{bundle.ViewClimateStudySurveyTitle_createdAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_endAt}"/>
+                        <h:outputText value="#{climateStudySurveyController.selected.endAt}" title="#{bundle.ViewClimateStudySurveyTitle_endAt}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ClimateStudySurveyViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
