@@ -17,7 +17,7 @@
             
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
             <h:form id="AccountListForm">
-                <p:panelGrid columns="8">
+                <p:panelGrid columns="8" style="margin:0 auto;">
                     <p:dataTable id="datalist" value="#{accountController.items}" var="item"
                                  selectionMode="single" selection="#{accountController.selected}"
                                  paginator="true"

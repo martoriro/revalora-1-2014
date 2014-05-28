@@ -60,6 +60,7 @@ public class Account implements Serializable {
     
     private String address;
     
+    @Pattern(regexp = "^[0-9]+$", message = "Ingrese solo números e.g = 56991234567")
     private String phone;
     
     @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" , message = "Ingrese un correo valido, e.g.=mail@mail.com")
