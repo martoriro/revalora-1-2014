@@ -21,13 +21,6 @@
                                            var="senderItem"
                                            itemValue="#{senderItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditMessageLabel_receiver}" for="receiver" />
-                        <p:selectOneMenu id="receiver" value="#{messageController.selected.receiver}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_receiver}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
-                                           var="receiverItem"
-                                           itemValue="#{receiverItem}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditMessageLabel_subject}" for="subject" />
                         <p:inputText id="subject" value="#{messageController.selected.subject}" title="#{bundle.EditMessageTitle_subject}" />
                         <p:outputLabel value="#{bundle.EditMessageLabel_content}" for="content" />

@@ -7,6 +7,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -32,9 +34,11 @@ public class Message implements Serializable {
     @ManyToOne
     private Account sender;
     
-    @JoinColumn(nullable = false)
-    @ManyToOne
-    private Account receiver;
+    @OneToMany
+    private List<Contact> receiverContacts;
+    
+    @OneToMany
+    private List<ContactGroup> receiverContactGroups;
         
     @NotNull(message = "Debe ingresar un Asunto")
     private String subject;
@@ -58,14 +62,6 @@ public class Message implements Serializable {
         this.sender = sender;
     }
 
-    public Account getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Account receiver) {
-        this.receiver = receiver;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -80,6 +76,22 @@ public class Message implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Contact> getReceiverContacts() {
+        return receiverContacts;
+    }
+
+    public void setReceiverContacts(List<Contact> receiverContacts) {
+        this.receiverContacts = receiverContacts;
+    }
+
+    public List<ContactGroup> getReceiverContactGroups() {
+        return receiverContactGroups;
+    }
+
+    public void setReceiverContactGroups(List<ContactGroup> receiverContactGroups) {
+        this.receiverContactGroups = receiverContactGroups;
     }
 
     @Override

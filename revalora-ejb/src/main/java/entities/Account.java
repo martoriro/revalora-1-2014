@@ -80,6 +80,12 @@ public class Account implements Serializable {
     @OneToMany
     private List<Message> sendedMessages;
     
+    @OneToMany
+    private List<Contact> contacts;
+    
+    @OneToMany
+    private List<ContactGroup> contactgroups;
+    
     public String getRut() {
         return rut;
     }
@@ -190,6 +196,22 @@ public class Account implements Serializable {
     
     public void setAccess(boolean access){
         this.access = access;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<ContactGroup> getContactgroups() {
+        return contactgroups;
+    }
+
+    public void setContactgroups(List<ContactGroup> contactgroups) {
+        this.contactgroups = contactgroups;
     }
     
     @Override

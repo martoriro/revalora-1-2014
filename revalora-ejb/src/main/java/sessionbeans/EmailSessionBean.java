@@ -26,9 +26,9 @@ public class EmailSessionBean {
 	private String portIn ="995";	//puerto que se conecta al servidor de entrada POP 
 	private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
 	private String hostIn = "pop.gmail.com";	//Servidor de entrada de la cuenta
-	private String from = "grupotresihc@gmail.com";	//Email remitente del mensaje
-	private final String userName = "grupotresihc@gmail.com";	//Nombre de usuario de la cuenta para enviar email
-	private final String password = "ihc12345678";	//Contraseña de la cuenta de correo
+	private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
+	private final String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
+	private final String password = "ihc12014";	//Contraseña de la cuenta de correo
 /**
 	 * Envía un correo electrónico utilizando protocolo SMTP con SLL a un destinatario específico
 	 * Los parámetros de entrada carbonCopy, BlindCarbonCopy y attached pueden ser ingresados como

@@ -18,20 +18,12 @@
         
         <ui:define name="body">            
             <h4 class="white">Bandeja de Entrada</h4>
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="row">
-                        <h:form>
-                            <p:commandButton value="Redactar" update=":newMail" onclick="PF('wvNewMailDialog').show();" type="button" icon="ui-icon-pencil" />
-                        </h:form>
-                    </div>
-                    <div class="row">
-                        <ui:include src="inboxReceived.xhtml"/>            
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                </div>
-            </div>
+            <h:form>
+                <p:commandButton value="Redactar" update=":newMail" onclick="PF('wvNewMailDialog').show();" type="button" icon="ui-icon-pencil" />
+            </h:form>
+            
+            <ui:include src="inboxReceived.xhtml"/>            
+
             <ui:include src="NewMail.xhtml"/>
         </ui:define>      
         

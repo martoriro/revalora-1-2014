@@ -11,24 +11,32 @@
             <h:form id="MessageCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMessageLabel_sender}" for="sender" />
-                        <p:selectOneMenu id="sender" value="#{messageController.selected.sender}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_sender}">
-                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
-                                           var="senderItem"
-                                           itemValue="#{senderItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateMessageLabel_receiver}" for="receiver" />
-                        <p:selectOneMenu id="receiver" value="#{messageController.selected.receiver}" required="true" requiredMessage="#{bundle.EditMessageRequiredMessage_receiver}">
-                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
-                                           var="receiverItem"
-                                           itemValue="#{receiverItem}"/>
-                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateContactLabel_contacts}" for="contacts" />
+                        <p:autoComplete id="contacts" multiple="true" 
+                                        value="#{messageController.selected.receiverContacts}" 
+                                        completeMethod="#{contactController.filterContacts}"
+                                        var="receiverContact" itemLabel="#{receiverContact.email}" itemValue="#{receiverContact}"
+                                        converter="contactConverter" forceSelection="false">
+                            <p:column>
+                                <h:outputText value="#{receiverContact.email}" />
+                            </p:column>
+                        </p:autoComplete>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_contactGroups}" for="contactGroups" />
+                        <p:autoComplete id="contactGroups" multiple="true" 
+                                        value="#{messageController.selected.receiverContactGroups}" 
+                                        completeMethod="#{contactGroupController.filterContactGroups}"
+                                        var="receiverContactGroup" itemLabel="#{receiverContactGroup.name}" itemValue="#{receiverContactGroup}"
+                                        converter="contactGroupConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{receiverContactGroup.name}" />
+                            </p:column>
+                        </p:autoComplete>
                         <p:outputLabel value="#{bundle.CreateMessageLabel_subject}" for="subject" />
                         <p:inputText id="subject" value="#{messageController.selected.subject}" title="#{bundle.CreateMessageTitle_subject}" />
                         <p:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
                         <p:inputText id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.SendMessage}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
+                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="MessageCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

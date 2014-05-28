@@ -1,6 +1,10 @@
 package managedbeans;
 
-import entities.Message;
+import entities.ContactGroup;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.ContactGroupFacadeLocal;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -8,38 +12,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.inject.Named;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import managedbeans.util.SessionUtil;
-import sessionbeans.MessageFacadeLocal;
 
-@Named("messageController")
+@Named("contactGroupController")
 @SessionScoped
-public class MessageController implements Serializable {
+public class ContactGroupController implements Serializable {
 
+    @EJB
+    private ContactGroupFacadeLocal ejbFacadeLocal;
+    private List<ContactGroup> items = null;
+    private ContactGroup selected;
 
-    @EJB private MessageFacadeLocal ejbFacadeLocal;
-    private List<Message> items = null;
-    private Message selected;
-
-    @Inject
-    private SessionUtil session;
-    
-    public MessageController() {
+    public ContactGroupController() {
     }
 
-    public Message getSelected() {
+    public ContactGroup getSelected() {
         return selected;
     }
 
-    public void setSelected(Message selected) {
+    public void setSelected(ContactGroup selected) {
         this.selected = selected;
     }
 
@@ -49,37 +45,36 @@ public class MessageController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MessageFacadeLocal getFacade() {
+    private ContactGroupFacadeLocal getFacade() {
         return ejbFacadeLocal;
     }
 
-    public Message prepareCreate() {
-        selected = new Message();
+    public ContactGroup prepareCreate() {
+        selected = new ContactGroup();
         initializeEmbeddableKey();
-        selected.setSender(session.getCurrentUser());
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ContactGroupCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MessageUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ContactGroupUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MessageDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ContactGroupDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Message> getItems() {
+    public List<ContactGroup> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -114,29 +109,29 @@ public class MessageController implements Serializable {
         }
     }
 
-    public Message getMessage(java.lang.Long id) {
+    public ContactGroup getContactGroup(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Message> getItemsAvailableSelectMany() {
+    public List<ContactGroup> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Message> getItemsAvailableSelectOne() {
+    public List<ContactGroup> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Message.class)
-    public static class MessageControllerConverter implements Converter {
+    @FacesConverter(forClass = ContactGroup.class)
+    public static class ContactGroupControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MessageController controller = (MessageController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "messageController");
-            return controller.getMessage(getKey(value));
+            ContactGroupController controller = (ContactGroupController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "contactGroupController");
+            return controller.getContactGroup(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -156,11 +151,11 @@ public class MessageController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Message) {
-                Message o = (Message) object;
+            if (object instanceof ContactGroup) {
+                ContactGroup o = (ContactGroup) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Message.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), ContactGroup.class.getName()});
                 return null;
             }
         }

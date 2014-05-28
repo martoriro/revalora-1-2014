@@ -1,7 +1,8 @@
 package managedbeans;
 
-import entities.Message;
+import entities.Contact;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,33 +14,28 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
 import javax.inject.Named;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
-import managedbeans.util.SessionUtil;
-import sessionbeans.MessageFacadeLocal;
+import sessionbeans.ContactFacadeLocal;
 
-@Named("messageController")
+@Named("contactController")
 @SessionScoped
-public class MessageController implements Serializable {
+public class ContactController implements Serializable {
 
-
-    @EJB private MessageFacadeLocal ejbFacadeLocal;
-    private List<Message> items = null;
-    private Message selected;
-
-    @Inject
-    private SessionUtil session;
+    @EJB
+    private ContactFacadeLocal ejbFacadeLocal;
+    private List<Contact> items = null;
+    private Contact selected;
     
-    public MessageController() {
+    public ContactController() {
     }
 
-    public Message getSelected() {
+    public Contact getSelected() {
         return selected;
     }
 
-    public void setSelected(Message selected) {
+    public void setSelected(Contact selected) {
         this.selected = selected;
     }
 
@@ -49,37 +45,36 @@ public class MessageController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MessageFacadeLocal getFacade() {
+    private ContactFacadeLocal getFacade() {
         return ejbFacadeLocal;
     }
 
-    public Message prepareCreate() {
-        selected = new Message();
+    public Contact prepareCreate() {
+        selected = new Contact();
         initializeEmbeddableKey();
-        selected.setSender(session.getCurrentUser());
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ContactCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("MessageUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ContactUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("MessageDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ContactDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Message> getItems() {
+    public List<Contact> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -114,38 +109,38 @@ public class MessageController implements Serializable {
         }
     }
 
-    public Message getMessage(java.lang.Long id) {
+    public Contact getContact(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Message> getItemsAvailableSelectMany() {
+    public List<Contact> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Message> getItemsAvailableSelectOne() {
+    public List<Contact> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Message.class)
-    public static class MessageControllerConverter implements Converter {
+    @FacesConverter(forClass = Contact.class)
+    public static class ContactControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MessageController controller = (MessageController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "messageController");
-            return controller.getMessage(getKey(value));
+            ContactController controller = (ContactController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "contactController");
+            return controller.getContact(getKey(value));
         }
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Long value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -156,15 +151,28 @@ public class MessageController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Message) {
-                Message o = (Message) object;
-                return getStringKey(o.getId());
+            if (object instanceof Contact) {
+                Contact o = (Contact) object;
+                return getStringKey(o.getEmail());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Message.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Contact.class.getName()});
                 return null;
             }
         }
 
     }
 
+    public List<Contact> filterContacts(String query) {
+        List<Contact> allContacts = ejbFacadeLocal.findAll();
+        List<Contact> filteredContacts = new ArrayList<Contact>();
+        
+        for(int i = 0; i < allContacts.size(); i++) {
+            Contact skin = allContacts.get(i);
+            if(skin.getName().toLowerCase().startsWith(query)) {
+                filteredContacts.add(skin);
+            }
+        }
+        
+        return filteredContacts;
+    }
 }
