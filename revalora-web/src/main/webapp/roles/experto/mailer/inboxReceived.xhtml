@@ -16,7 +16,7 @@
                              rowsPerPageTemplate="10,20,30,40,50"
                              >
                 <f:facet name="header">
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{messageController.prepareCreate}" update=":MessageCreateForm" oncomplete="PF('MessageCreateDialog').show()"/>
+                    <p:commandButton id="createButton" icon="ui-icon-mail-closed"   value="#{bundle.Create}" actionListener="#{messageController.prepareCreate}" update=":MessageCreateForm" oncomplete="PF('MessageCreateDialog').show()"/>
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MessageViewForm" oncomplete="PF('MessageViewDialog').show()" disabled="#{empty messageController.selected}"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MessageEditForm" oncomplete="PF('MessageEditDialog').show()" disabled="#{empty messageController.selected}"/>
                     <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{messageController.destroy}" update=":growl,datalist" disabled="#{empty messageController.selected}"/>

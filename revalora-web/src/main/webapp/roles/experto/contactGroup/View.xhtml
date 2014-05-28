@@ -12,11 +12,17 @@
             <h:form id="ContactGroupViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contactGroupController.selected != null}">
-                        <h:outputText value="#{bundle.ViewContactGroupLabel_id}"/>
-                        <h:outputText value="#{contactGroupController.selected.id}" title="#{bundle.ViewContactGroupTitle_id}"/>
                         <h:outputText value="#{bundle.ViewContactGroupLabel_name}"/>
                         <h:outputText value="#{contactGroupController.selected.name}" title="#{bundle.ViewContactGroupTitle_name}"/>
                     </p:panelGrid>
+                    <p:dataTable var="contact" value="#{contactGroupController.selected.contacts}">
+                        <p:column headerText="Nombre de contacto">
+                            <h:outputText value="#{contact.name}" />
+                        </p:column>
+                        <p:column headerText="Correo electrónico">
+                            <h:outputText value="#{contact.email}" />
+                        </p:column>
+                    </p:dataTable>
                     <p:commandButton value="#{bundle.Close}" onclick="ContactGroupViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

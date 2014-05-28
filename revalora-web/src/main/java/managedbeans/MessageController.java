@@ -1,6 +1,9 @@
 package managedbeans;
 
+import entities.Contact;
+import entities.ContactGroup;
 import entities.Message;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,9 +18,11 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
 import managedbeans.util.SessionUtil;
+import sessionbeans.EmailSessionBean;
 import sessionbeans.MessageFacadeLocal;
 
 @Named("messageController")
@@ -31,6 +36,9 @@ public class MessageController implements Serializable {
 
     @Inject
     private SessionUtil session;
+    
+    @EJB
+    private EmailSessionBean emailSessionBean;
     
     public MessageController() {
     }
@@ -56,14 +64,20 @@ public class MessageController implements Serializable {
     public Message prepareCreate() {
         selected = new Message();
         initializeEmbeddableKey();
-        selected.setSender(session.getCurrentUser());
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+//        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
+        try {
+            createEmails();
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } catch (MessagingException ex) {
+            Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -166,5 +180,59 @@ public class MessageController implements Serializable {
         }
 
     }
+    
+    public void createEmails() throws MessagingException, IOException{
+        send(ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    private void send(String successMessage) throws MessagingException, IOException{
+        List<Contact> recipientContacts = selected.getReceiverContacts();
+        List<ContactGroup> recipientGroups = selected.getReceiverContactGroups();
+        
+        if(recipientContacts!=null){
+            for (int i = 0; i < recipientContacts.size(); i++) {
+                sendMessage(recipientContacts.get(i).getEmail(),
+                        selected.getSubject(),
+                        selected.getContent(),
+                        successMessage);
+            }
+        }
+        
+        if(recipientGroups!=null){
+            for (int i = 0; i < recipientGroups.size(); i++) {
+                List<Contact> tempContacts = recipientGroups.get(i).getContacts();
+                for (int j = 0; j < tempContacts.size(); j++) {
+                        sendMessage(tempContacts.get(i).getEmail(),
+                        selected.getSubject(),
+                        selected.getContent(),
+                        successMessage);
+                    
+                }
+            }
+        }
+    }
 
+    public void sendMessage(String recipient, String subject, String content, String successMessage) throws IOException, MessagingException{
+        String resultMessage = "";
+
+        try {
+                emailSessionBean.sendMail(recipient,"","","", subject, content);
+                emailSessionBean.readMailImap();
+                JsfUtil.addSuccessMessage(successMessage);
+        }catch(MessagingException ex){
+                JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");
+        } 
+//        catch (InterruptedException ex) {
+//            Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        finally{
+//                request.setAttribute("Message",resultMessage);
+//                getServletContext().getRequestDispatcher("/Result.jsp").forward(request, response);
+//        }
+//        }
+    }
+    
 }

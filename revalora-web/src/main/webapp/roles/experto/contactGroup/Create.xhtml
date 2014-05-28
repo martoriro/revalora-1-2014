@@ -12,9 +12,11 @@
             <h:form id="ContactGroupCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contactGroupController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_description}" for="name" />
-                        <p:inputText id="name" value="#{contactGroupController.selected.description}" title="#{bundle.CreateContactGroupTitle_description}" />
-                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_description}" for="contacts" />
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{contactGroupController.selected.name}" title="#{bundle.CreateContactGroupTitle_name}" required="true" />
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{contactGroupController.selected.description}" title="#{bundle.CreateContactGroupTitle_description}"/>
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_contacts}" for="contacts" />
                         <p:autoComplete id="contacts" multiple="true" 
                                         value="#{contactGroupController.selected.contacts}" 
                                         completeMethod="#{contactController.filterContacts}"

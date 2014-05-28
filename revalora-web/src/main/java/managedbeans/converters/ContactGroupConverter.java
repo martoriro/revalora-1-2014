@@ -6,7 +6,7 @@
 
 package managedbeans.converters;
 
-import entities.Team;
+import entities.ContactGroup;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,7 +29,7 @@ public class ContactGroupConverter implements Converter {
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if(object != null)
-            return ((Team) object).getId().toString();
+            return ((ContactGroup) object).getId().toString();
         else 
             return null;
     }   

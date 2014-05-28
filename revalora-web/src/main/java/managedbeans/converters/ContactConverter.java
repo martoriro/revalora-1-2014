@@ -6,7 +6,7 @@
 
 package managedbeans.converters;
 
-import entities.Team;
+import entities.Contact;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,14 +22,14 @@ public class ContactConverter implements Converter {
     
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if(value != null && value.trim().length() > 0)
-            return ejbFacade.find(Long.parseLong(value));
+            return ejbFacade.find(value.toString());
         else
             return null;
     }
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if(object != null)
-            return ((Team) object).getId().toString();
+            return ((Contact) object).getEmail().toString();
         else 
             return null;
     }   

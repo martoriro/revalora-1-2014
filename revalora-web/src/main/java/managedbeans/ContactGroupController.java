@@ -1,23 +1,23 @@
 package managedbeans;
 
 import entities.ContactGroup;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.ContactGroupFacadeLocal;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.ContactGroupFacadeLocal;
 
 @Named("contactGroupController")
 @SessionScoped
@@ -160,6 +160,20 @@ public class ContactGroupController implements Serializable {
             }
         }
 
+    }
+    
+    public List<ContactGroup> filterContactGroups(String query) {
+        List<ContactGroup> allContactGroup = ejbFacadeLocal.findAll();
+        List<ContactGroup> filteredContactGroup = new ArrayList<ContactGroup>();
+        
+        for(int i = 0; i < allContactGroup.size(); i++) {
+            ContactGroup skin = allContactGroup.get(i);
+            if(skin.getName().toLowerCase().startsWith(query)) {
+                filteredContactGroup.add(skin);
+            }
+        }
+        
+        return filteredContactGroup;
     }
 
 }
