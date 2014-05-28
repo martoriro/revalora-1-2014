@@ -14,17 +14,9 @@
         </ui:define>
         
         <ui:define name="sidebar-right">            
-            <h4 class="white">Mis proyectos</h4>        
-            <h:form>
-                <p:menu style="width: 100%">
-                    <p:menuitem value="Inicio" outcome="/roles/experto/index.xhtml" update="messages" />
-                    <p:menuitem value="Estudios de clima" outcome="/roles/experto/climateStudy/List.xhtml" update="messages" />
-                    <p:menuitem value="Crear Organización" outcome="/roles/experto/organization/List.xhtml" update="messages" />
-                    <p:menuitem value="Crear Proyecto" outcome="/roles/experto/project/List.xhtml" update="messages" />
-                    <p:menuitem value="Bandeja de Entrada" outcome="/roles/experto/mailer/index.xhtml" update="messages" />
-                </p:menu>
-            </h:form>            
+            <ui:include src="sidebar-right.xhtml"/>            
         </ui:define>
+        
         <ui:define name="body">            
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
         </ui:define>        
