@@ -14,7 +14,20 @@
         </ui:define>
         
         <ui:define name="sidebar-right">
-            <ui:include src="sidebar-right.xhtml"/>
+            <h4 class="white">Mis proyectos</h4>
+            <h:form>
+                <p:dataTable id="projects" 
+                             var="project" 
+                             value="#{sessionUtil.currentUser.projects}" 
+                             selectionMode="single" 
+                             selection="#{projectController.selected}" 
+                             rowKey="#{project.id}">
+                    <p:column>
+                        <h:outputText value="#{project.name}" />
+                    </p:column>
+                </p:dataTable>
+                <p:button value="Gestionar mis proyectos" outcome="project/List.xhtml" style="width: 100%" icon="ui-icon-plus" />
+            </h:form>
         </ui:define>
         
         <ui:define name="body">

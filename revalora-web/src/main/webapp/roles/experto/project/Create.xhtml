@@ -13,16 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{projectController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateProjectLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.CreateProjectTitle_name}" required="true"/>
+                        <p:inputText id="name" value="#{projectController.selected.name}" title="#{bundle.CreateProjectTitle_name}"/>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_startAt}" for="startAt" />
-                        <p:calendar id="startAt" pattern="dd/MM/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}"  showOn="button" required="true" yearRange="2013:2100">
-                            <f:validator validatorId="Validator.DateValidator" />
-                        </p:calendar>
+                        <p:calendar id="startAt" pattern="dd/MM/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}"  showOn="button" yearRange="2013:2100"></p:calendar>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_endAt}" for="endAt" />
-                        <p:calendar id="endAt" pattern="dd/MM/yyyy" value="#{projectController.selected.endAt}" title="#{bundle.EditProjectTitle_endAt}"  showOn="button" yearRange="2013:2100">
-                            <f:validator validatorId="Validator.DateValidator" />
-                            <f:attribute name="startAt" value="#{startAt}" />
-                        </p:calendar>
+                        <p:calendar id="endAt" pattern="dd/MM/yyyy" value="#{projectController.selected.endAt}" title="#{bundle.EditProjectTitle_endAt}" showOn="button" yearRange="2013:2100"></p:calendar>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_organization}" for="organization" />
                         <p:selectOneMenu id="organization" value="#{projectController.selected.organization}" >
                             <f:selectItems value="#{organizationController.itemsAvailableSelectOne}"

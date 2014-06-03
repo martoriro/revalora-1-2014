@@ -7,7 +7,10 @@
 package sessionbeans;
 
 import java.util.List;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import static org.eclipse.persistence.sessions.SessionProfiler.Transaction;
 
 /**
  *
@@ -24,8 +27,10 @@ public abstract class AbstractFacade<T> {
 
     public void create(T entity) {
         getEntityManager().persist(entity);
+        getEntityManager().flush();
+        getEntityManager().refresh(entity);
     }
-
+    
     public void edit(T entity) {
         getEntityManager().merge(entity);
     }
@@ -35,7 +40,9 @@ public abstract class AbstractFacade<T> {
     }
 
     public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+       Object obj= getEntityManager().find(entityClass, id);
+       getEntityManager().refresh(obj);
+       return getEntityManager().find(entityClass, id);
     }
 
     public List<T> findAll() {

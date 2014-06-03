@@ -1,23 +1,25 @@
 package managedbeans;
 
 import entities.Project;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.ProjectFacadeLocal;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import managedbeans.util.SessionUtil;
+import sessionbeans.ProjectFacadeLocal;
 
 @Named("projectController")
 @SessionScoped
@@ -27,6 +29,9 @@ public class ProjectController implements Serializable {
     private ProjectFacadeLocal ejbFacade;
     private List<Project> items = null;
     private Project selected;
+    
+    @Inject 
+    private SessionUtil sessionUtil;
 
     public ProjectController() {
     }
@@ -75,9 +80,8 @@ public class ProjectController implements Serializable {
     }
 
     public List<Project> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = new ArrayList<Project>();
+        items.addAll(sessionUtil.getCurrentUser().getProjects());
         return items;
     }
 
@@ -85,7 +89,11 @@ public class ProjectController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if(persistAction == PersistAction.CREATE) {
+                    selected.getAccounts().add(sessionUtil.getCurrentUser());
+                    getFacade().create(selected);
+                    // sessionUtil.getCurrentUser().getProjects().add(selected);
+                } else if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

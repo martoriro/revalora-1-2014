@@ -28,6 +28,8 @@ public class SessionUtil implements Serializable {
     private AccountFacadeLocal ejbFacade;
     
     private String rut;
+    
+    private Account currentUser;
 
     /**
      * Creates a new instance of SessionUtil
@@ -84,9 +86,20 @@ public class SessionUtil implements Serializable {
         }
         return true;
     }
-    
+
     public Account getCurrentUser() {
-        return ejbFacade.find(this.rut);
+        
+//        if(currentUser == null) {
+//            currentUser = ejbFacade.find(rut);
+//        }
+        // currentUser = ejbFacade.find(rut);
+        currentUser = ejbFacade.find(rut);
+        System.out.println(currentUser.getProjects().toString());
+        return currentUser;
+    }
+
+    public void setCurrentUser(Account currentUser) {
+        this.currentUser = currentUser;
     }
     
     public String route66() {

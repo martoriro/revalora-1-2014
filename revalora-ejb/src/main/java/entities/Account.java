@@ -8,17 +8,20 @@ package entities;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
-import static javax.swing.text.StyleConstants.Size;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -73,6 +76,12 @@ public class Account implements Serializable {
     @JoinColumn(nullable = false)
     @ManyToOne
     private AccountType accountType;
+    
+    @ManyToMany(mappedBy = "accounts")
+    @JoinTable(name="ACCOUNT_PROJECT",
+        joinColumns={@JoinColumn(name="projects_ID")}, 
+        inverseJoinColumns={@JoinColumn(name="accounts_RUT")})
+    private Set<Project> projects;
 
     public String getRut() {
         return rut;
@@ -168,6 +177,17 @@ public class Account implements Serializable {
     
     public void setAccess(boolean access){
         this.access = access;
+    }
+
+    public Set<Project> getProjects() {
+        if(projects == null) {
+            projects = new HashSet<Project>();
+        }
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
     
     @Override

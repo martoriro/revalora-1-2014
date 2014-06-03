@@ -30,7 +30,7 @@ html,body {
 }
 
 .footer-ghost {
-	height: $footer-height;
+	height: ($footer-height + 30);
 }
 
 .footer {
