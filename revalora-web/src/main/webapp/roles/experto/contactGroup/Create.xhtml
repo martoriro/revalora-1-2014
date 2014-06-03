@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ContactGroupCreateDlg" widgetVar="ContactGroupCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContactGroupTitle}">
+            <h:form id="ContactGroupCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contactGroupController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{contactGroupController.selected.id}" title="#{bundle.CreateContactGroupTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{contactGroupController.selected.name}" title="#{bundle.CreateContactGroupTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{contactGroupController.selected.description}" title="#{bundle.CreateContactGroupTitle_description}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contactGroupController.create}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContactGroupCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ContactGroupCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

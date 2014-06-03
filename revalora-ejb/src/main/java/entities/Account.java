@@ -9,7 +9,7 @@ package entities;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import static javax.swing.text.StyleConstants.Size;
 import javax.validation.constraints.NotNull;
@@ -70,6 +71,12 @@ public class Account implements Serializable {
     
     private boolean access;
     
+    @OneToMany
+    private List<Contact> contacts;
+    
+    @OneToMany
+    private List<ContactGroup> contactgroups;
+        
     @JoinColumn(nullable = false)
     @ManyToOne
     private AccountType accountType;
@@ -168,6 +175,22 @@ public class Account implements Serializable {
     
     public void setAccess(boolean access){
         this.access = access;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<ContactGroup> getContactgroups() {
+        return contactgroups;
+    }
+
+    public void setContactgroups(List<ContactGroup> contactgroups) {
+        this.contactgroups = contactgroups;
     }
     
     @Override
