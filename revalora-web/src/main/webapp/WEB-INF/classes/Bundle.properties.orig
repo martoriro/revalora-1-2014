@@ -370,6 +370,8 @@ ViewTeamLabel_members=Miembros
 ViewTeamTitle_members=Miembros
 
 MessageCreated=El mensaje fue enviado de manera satisfactoria
+<<<<<<< HEAD
+=======
 
 ContactCreated=Contact was successfully created.
 ContactUpdated=Contact was successfully updated.
@@ -522,3 +524,4 @@ CreateMessageLabel_contactGroups=Grupos de contactos:
 CreateContactLabel_contacts=Contactos:
 CreateContactGroupLabel_name=Nombre:
 CreateContactGroupTitle_name=Nombre
+>>>>>>> 727e3892a390d4cbf6f4e6685d9c3435bb397d44
