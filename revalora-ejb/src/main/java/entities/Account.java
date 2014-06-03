@@ -15,13 +15,16 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import static javax.swing.text.StyleConstants.Size;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -73,6 +76,12 @@ public class Account implements Serializable {
     
     private boolean access;
     
+    @OneToMany
+    private List<Contact> contacts;
+    
+    @OneToMany
+    private List<ContactGroup> contactgroups;
+        
     @JoinColumn(nullable = false)
     @ManyToOne
     private AccountType accountType;
@@ -179,7 +188,23 @@ public class Account implements Serializable {
         this.access = access;
     }
 
-    public Set<Project> getProjects() {
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public List<ContactGroup> getContactgroups() {
+        return contactgroups;
+    }
+
+    public void setContactgroups(List<ContactGroup> contactgroups) {
+        this.contactgroups = contactgroups;
+    }
+
+	public Set<Project> getProjects() {
         if(projects == null) {
             projects = new HashSet<Project>();
         }

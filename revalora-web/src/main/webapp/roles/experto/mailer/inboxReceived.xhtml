@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    
+                <h:form id="inbox" >
+                    <p:commandButton id="createButton" icon="ui-icon-mail-closed"   value="#{bundle.Create}" actionListener="#{emailController.prepareCreate}" update=":MessageCreateForm" oncomplete="PF('MessageCreateDialog').show()"/>
+                    <p:commandButton actionListener="#{emailInbox.refresh}"  icon="ui-icon-refresh" update="inbox" />
+                    <p:commandButton type="button" icon="ui-icon-trash" />
+                    <p:commandButton value="Marcar como Leído" type="button" icon="ui-icon-check" />
+                    <p:dataTable var="mail" value="#{emailInbox.emails}" style="margin-bottom:40px"
+                                 paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,15,30" rows="10" paginatorPosition="bottom"
+                                 selectionMode="single" selection="#{emailInbox.selectedEmail}" rowKey="#{mail}">
+
+                        <p:ajax event="rowSelect" listener="#{readMail.reading}" update=":idView"  oncomplete="view.show();" />
+                        <f:facet name="header">
+                            Bandeja de Entrada 
+                        </f:facet> 
+                        <p:column selectionMode="multiple" style="width:2%;text-align:center" />
+                        <p:column headerText="De" sortBy="#{mail.from}">
+                            <h:outputText value="#{mail.from}" />
+                        </p:column>
+                        <p:column headerText="Asunto" sortBy="#{mail.subject}">
+                            <h:outputText value="#{mail.subject}" />
+                        </p:column>
+                        <p:column headerText="Fecha" sortBy="#{mail.dfDafault.format(mail.sendDate)}" >
+                            <h:outputText value="#{mail.dfDafault.format(mail.sendDate)}" />
+                        </p:column>
+                    </p:dataTable> 
+                </h:form>
+    
+            <ui:include src="newMessage.xhtml"/>
+
+            <p:dialog id="idView" header="Mensaje de #{readMail.from}" widgetVar="view" 
+                      minimizable="true"  showEffect="fade" hideEffect="fade"
+                      width="600" height="500" closeOnEscape="true" >                
+                    <p:panelGrid columns="2" styleClass="panelGridForm">
+                        <h:outputText value="De:" />
+                        <h:outputText value="#{readMail.from}" />
+                        <h:outputText value="Fecha:" />
+                        <h:outputText value="#{readMail.sendDate}" />
+                        <h:outputText value="Asunto:" />
+                        <h:outputText value="#{readMail.subject}" />
+                        <h:outputText value="Mensaje:" />
+                        <h:outputText escape="false"  value="#{readMail.content}" />                        
+                    </p:panelGrid>
+            </p:dialog>
+
+</html>
+

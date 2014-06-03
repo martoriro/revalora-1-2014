@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+
+        <p:dialog id="MessageCreateDlg" widgetVar="MessageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMessageTitle}">
+            <h:form id="MessageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{emailController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateContactLabel_contacts}" for="contacts" />
+                        <p:autoComplete id="contacts" multiple="true" 
+                                        value="#{emailController.selected.receiverContacts}" 
+                                        completeMethod="#{contactController.filterContacts}"
+                                        var="receiverContact" itemLabel="#{receiverContact.email}" itemValue="#{receiverContact}"
+                                        converter="contactConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{receiverContact.email}" />
+                            </p:column>
+                        </p:autoComplete>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_contactGroups}" for="contactGroups" />
+                        <p:autoComplete id="contactGroups" multiple="true" 
+                                        value="#{emailController.selected.receiverContactGroups}" 
+                                        completeMethod="#{contactGroupController.filterContactGroups}"
+                                        var="receiverContactGroup" itemLabel="#{receiverContactGroup.name}" itemValue="#{receiverContactGroup}"
+                                        converter="contactGroupConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{receiverContactGroup.name}" />
+                            </p:column>
+                        </p:autoComplete>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_subject}" for="subject" />
+                        <p:inputText id="subject" value="#{emailController.selected.subject}" title="#{bundle.CreateMessageTitle_subject}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
+                        <p:inputText id="content" value="#{emailController.selected.content}" title="#{bundle.CreateMessageTitle_content}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{emailController.create}" value="#{bundle.Save}" update="display,:inbox,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+
