@@ -80,8 +80,7 @@ public class ProjectController implements Serializable {
     }
 
     public List<Project> getItems() {
-        items = new ArrayList<Project>();
-        items.addAll(sessionUtil.getCurrentUser().getProjects());
+        items = sessionUtil.getCurrentUser().getProjects();
         return items;
     }
 
@@ -92,7 +91,6 @@ public class ProjectController implements Serializable {
                 if(persistAction == PersistAction.CREATE) {
                     selected.getAccounts().add(sessionUtil.getCurrentUser());
                     getFacade().create(selected);
-                    // sessionUtil.getCurrentUser().getProjects().add(selected);
                 } else if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
                 } else {

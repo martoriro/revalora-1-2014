@@ -10,13 +10,8 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -24,7 +19,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
-import static javax.swing.text.StyleConstants.Size;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -90,7 +84,7 @@ public class Account implements Serializable {
     @JoinTable(name="ACCOUNT_PROJECT",
         joinColumns={@JoinColumn(name="projects_ID")}, 
         inverseJoinColumns={@JoinColumn(name="accounts_RUT")})
-    private Set<Project> projects;
+    private List<Project> projects;
 
     public String getRut() {
         return rut;
@@ -204,17 +198,16 @@ public class Account implements Serializable {
         this.contactgroups = contactgroups;
     }
 
-	public Set<Project> getProjects() {
-        if(projects == null) {
-            projects = new HashSet<Project>();
-        }
+    public List<Project> getProjects() {
+        if(projects == null)
+                projects = new ArrayList<Project>();
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

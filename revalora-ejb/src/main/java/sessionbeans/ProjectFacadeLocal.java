@@ -24,7 +24,7 @@ public interface ProjectFacadeLocal {
     void remove(Project project);
 
     Project find(Object id);
-
+    
     List<Project> findAll();
 
     List<Project> findRange(int[] range);

@@ -88,13 +88,7 @@ public class SessionUtil implements Serializable {
     }
 
     public Account getCurrentUser() {
-        
-//        if(currentUser == null) {
-//            currentUser = ejbFacade.find(rut);
-//        }
-        // currentUser = ejbFacade.find(rut);
         currentUser = ejbFacade.find(rut);
-        System.out.println(currentUser.getProjects().toString());
         return currentUser;
     }
 
