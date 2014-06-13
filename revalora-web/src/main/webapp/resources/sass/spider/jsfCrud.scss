@@ -18,3 +18,55 @@
 .ui-button {
     margin-top: 10px !important;
 }
+
+.ui-datatable {
+	.ui-paginator-top {
+		display: none;
+	}
+	.ui-corner-bottom {
+		padding: 0px!important;
+		border: 0px!important;
+
+		.ui-button {
+			margin-top: 7px!important;
+		}
+	}
+}
+
+.ui-datatable-odd {
+	background: none repeat scroll 0 0 #ECECEC;
+}
+
+.ui-state-hover:not(input) {
+	border: 1px solid #8F9192!important;
+	background: #BBBBBB url("/revalora-web/faces/javax.faces.resource/images/ui-bg_highlight-hard_80_85b2cb_1x100.png?ln=primefaces-aristo") 50% 50% repeat-x!important;
+	background: #BBBBBB linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0))!important;
+	background: #BBBBBB -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)))!important;
+	background: #BBBBBB -moz-linear-gradient(top, rgba(255,255,255,0.6), rgba(255,255,255,0))!important;
+	font-weight: bold!important;
+	color: #313131!important;
+	-moz-box-shadow: 0 0 5px #BBBBBB!important;
+	-webkit-box-shadow: 0px 0px 8px #BBBBBB!important;
+	box-shadow: 0px 0px 8px #BBBBBB!important;
+
+	&.ui-datatable-selectable {
+		font-weight: normal!important;
+	}
+}
+
+
+.ui-state-active {
+	border: 1px solid #8F9192!important;
+	background: #BBBBBB url("/revalora-web/faces/javax.faces.resource/images/ui-bg_inset-hard_65_85b2cb_1x100.png?ln=primefaces-aristo") 50% 50% repeat-x!important;
+	background: #BBBBBB linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0.4))!important;
+	background: #BBBBBB -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255,0.4)))!important;
+	background: #BBBBBB -moz-linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0.4))!important;
+	font-weight: bold!important;
+	color: #1C4257!important;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7)!important;
+}
+
+.ui-button {
+	border-radius: 0px;
+	margin-right: 7px;
+}
