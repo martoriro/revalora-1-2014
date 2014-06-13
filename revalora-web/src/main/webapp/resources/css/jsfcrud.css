@@ -4281,7 +4281,7 @@ a.list-group-item-danger {
 .panel-footer {
   padding: 10px 15px;
   background-color: #e0dede;
-  border-top: 1px solid #814fb0;
+  border-top: 1px solid #dbdbdb;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px; }
 
@@ -4416,22 +4416,22 @@ a.list-group-item-danger {
   .panel-group .panel-heading {
     border-bottom: 0; }
     .panel-group .panel-heading + .panel-collapse .panel-body {
-      border-top: 1px solid #814fb0; }
+      border-top: 1px solid #dbdbdb; }
   .panel-group .panel-footer {
     border-top: 0; }
     .panel-group .panel-footer + .panel-collapse .panel-body {
-      border-bottom: 1px solid #814fb0; }
+      border-bottom: 1px solid #dbdbdb; }
 
 .panel-default {
-  border-color: #814fb0; }
+  border-color: #dbdbdb; }
   .panel-default > .panel-heading {
     color: #333333;
     background-color: #e0dede;
-    border-color: #814fb0; }
+    border-color: #dbdbdb; }
     .panel-default > .panel-heading + .panel-collapse > .panel-body {
-      border-top-color: #814fb0; }
+      border-top-color: #dbdbdb; }
   .panel-default > .panel-footer + .panel-collapse > .panel-body {
-    border-bottom-color: #814fb0; }
+    border-bottom-color: #dbdbdb; }
 
 .panel-primary {
   border-color: transparent; }
@@ -5253,6 +5253,45 @@ button.close {
 .ui-button {
   margin-top: 10px !important; }
 
+.ui-datatable .ui-paginator-top {
+  display: none; }
+.ui-datatable .ui-corner-bottom {
+  padding: 0px !important;
+  border: 0px !important; }
+  .ui-datatable .ui-corner-bottom .ui-button {
+    margin-top: 7px !important; }
+
+.ui-datatable-odd {
+  background: none repeat scroll 0 0 #ECECEC; }
+
+.ui-state-hover:not(input) {
+  border: 1px solid #8f9192 !important;
+  background: #bbbbbb url("/revalora-web/faces/javax.faces.resource/images/ui-bg_highlight-hard_80_85b2cb_1x100.png?ln=primefaces-aristo") 50% 50% repeat-x !important;
+  background: #bbbbbb linear-gradient(top, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0)) !important;
+  background: #bbbbbb -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0))) !important;
+  background: #bbbbbb -moz-linear-gradient(top, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0)) !important;
+  font-weight: bold !important;
+  color: #313131 !important;
+  -moz-box-shadow: 0 0 5px #bbbbbb !important;
+  -webkit-box-shadow: 0px 0px 8px #bbbbbb !important;
+  box-shadow: 0px 0px 8px #bbbbbb !important; }
+  .ui-state-hover:not(input).ui-datatable-selectable {
+    font-weight: normal !important; }
+
+.ui-state-active {
+  border: 1px solid #8f9192 !important;
+  background: #bbbbbb url("/revalora-web/faces/javax.faces.resource/images/ui-bg_inset-hard_65_85b2cb_1x100.png?ln=primefaces-aristo") 50% 50% repeat-x !important;
+  background: #bbbbbb linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)) !important;
+  background: #bbbbbb -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(rgba(255, 255, 255, 0.4))) !important;
+  background: #bbbbbb -moz-linear-gradient(top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4)) !important;
+  font-weight: bold !important;
+  color: #1c4257 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important; }
+
+.ui-button {
+  border-radius: 0px;
+  margin-right: 7px; }
+
 .float-right {
   float: right; }
 
@@ -5286,23 +5325,23 @@ html, body {
   width: 100%; }
 
 .footer {
-  background-color: #372251; }
+  background-color: #dbdbdb; }
   .footer .links {
     padding-top: 15px; }
     .footer .links h4 {
-      color: white; }
+      color: #eb8d00; }
     .footer .links ul {
       list-style: none;
       color: white;
       padding-left: 0; }
       .footer .links ul li a {
-        color: #b3b3b3; }
+        color: #686868; }
   .footer .about-us {
     padding-top: 15px; }
     .footer .about-us h4 {
-      color: white; }
+      color: #eb8d00; }
     .footer .about-us p {
-      color: #b3b3b3; }
+      color: #686868; }
   .footer .logo {
     width: 165px;
     margin-top: 26px;
@@ -5321,30 +5360,18 @@ html, body {
   font-size: 14px; }
 
 .navbar-static-top {
-  border-bottom: 4px solid #814fb0;
-  background-color: #f0f0f0; }
+  border-bottom: 1px solid #eb8d00;
+  background-color: #f0f0f0;
+  -webkit-box-shadow: 0px 0px 6px 0px #eb8d00;
+  -moz-box-shadow: 0px 0px 6px 0px #eb8d00;
+  box-shadow: 0px 0px 6px 0px #eb8d00; }
 
 .navbar-brand .logo {
-  width: 147px;
+  width: 162px;
   margin-top: -14px; }
 
-body {
-  background: #e2e2e2;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e2e2e2), color-stop(50%, #dbdbdb), color-stop(51%, #d1d1d1), color-stop(100%, #fefefe));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 );
-  /* IE6-9 */ }
+.white {
+  color: #eb8d00; }
 
 .footer {
-  border-bottom: 20px solid #814fb0; }
+  border-bottom: 2px solid #eb8d00; }

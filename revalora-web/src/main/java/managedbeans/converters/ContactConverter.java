@@ -22,7 +22,7 @@ public class ContactConverter implements Converter {
     
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if(value != null && value.trim().length() > 0)
-            return ejbFacade.find(value.toString());
+            return ejbFacade.find(value);
         else
             return null;
     }

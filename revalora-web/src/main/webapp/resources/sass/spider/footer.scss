@@ -6,7 +6,7 @@
 		padding-top: 15px;
 
 		h4 {
-			color: white;
+			color: $theme-color;
 		}
 		ul {
 			list-style: none;
@@ -14,7 +14,7 @@
 			padding-left: 0;
 
 			li a {
-				color: darken(white, 30%);
+				color: darken($footer-back, 45%);
 			}
 		}
 	}
@@ -23,10 +23,10 @@
 		padding-top: 15px;
 
 		h4 {
-			color: white;
+			color: $theme-color;
 		}
 		p {
-			color: darken(white, 30%);
+			color: darken($footer-back, 45%);
 		}
 	}
 
