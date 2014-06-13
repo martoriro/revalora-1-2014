@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.mail.*;
 import javax.mail.internet.AddressException;
@@ -19,15 +20,14 @@ import javax.mail.internet.MimeMessage;
  * @author Gustavo Salvo Lara
  */
 @Stateless
-@LocalBean
-public class EmailSessionBean {
+public class EmailSessionBean implements EmailSessionBeanLocal{
         private String portOut ="465";	//puerto que se conecta al servidor de salida SMTP SSL
 	private String portIn ="995";	//puerto que se conecta al servidor de entrada POP 
 	private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
 	private String hostIn = "pop.gmail.com";	//Servidor de entrada de la cuenta
 	private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
-	private final String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
-	private final String password = "ihc12014";	//Contraseña de la cuenta de correo
+	private String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
+	private String password = "ihc12014";	//Contraseña de la cuenta de correo
 /**
 	 * Envía un correo electrónico utilizando protocolo SMTP con SLL a un destinatario específico
 	 * Los parámetros de entrada carbonCopy, BlindCarbonCopy y attached pueden ser ingresados como
@@ -46,14 +46,14 @@ public class EmailSessionBean {
 	 * @throws AddressException	excepción lanzada cuando el formato de correo es considerado incorrecto
 	 * @throws MessagingException excepción lanzada por cualquier error del mensaje
 	 */
-    public int sendMail(String to,String carbonCopy, String BlindCarbonCopy, String attached, String subject, String body) throws AddressException, MessagingException{
+    public int sendMail(String to, String carbonCopy, String BlindCarbonCopy, String attached, String subject, String body) throws AddressException, MessagingException{
     	// Se configuran las propiedades para la conexión con el servidor de salida utilizando SSL
     	Properties props = new Properties();
     	props.put("mail.smtp.host", hostOut); 
-		props.put("mail.smtp.socketFactory.port", portOut);
-		props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", portOut);
+        props.put("mail.smtp.socketFactory.port", portOut);
+        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", portOut);
     	
        	//Se crea una clase para proteger los datos de conexión
     	Authenticator auth = new Authenticator() {
@@ -105,6 +105,22 @@ public class EmailSessionBean {
         	return -1;	//retorno para prueba unitaria
         }
          
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     
