@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/layout/2columns-right.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Usuarios registrados en el sistema"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="sidebar-right">
+            <ui:include src="#{sessionUtil.currentUser.accountType.name}/sidebar-right.xhtml"/>
+        </ui:define>
+
+        <ui:define name="body">
+            
+            <h4>Perfil de #{sessionUtil.currentUser.names}</h4>
+            
+            #{accountController.setSelected(sessionUtil.currentUser)}            
+            
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    
+                    <h:form id="AccountEditForm">
+                        <h:panelGroup id="display">
+                            <p:panelGrid columns="2" rendered="#{accountController.selected != null}">
+                                <p:outputLabel value="RUT" for="rut"/>
+                                <h:outputText id="rut" value="#{accountController.selected.rut}" title="Cédula de identidad"/>
+                                <p:outputLabel value="Nombre" for="name"/>
+                                <p:inputText id="name" value="#{accountController.selected.names}" title="Nombre" validatorMessage="Es necesario proporcionar un nombre alfabético con un largo mínimo de 4 caracteres y máximo 50">
+                                    <f:validateLength minimum="4" maximum="50" />
+                                    <f:validateRegex pattern="[a-z A-Záéíóú]+" />
+                                </p:inputText>
+                                <p:outputLabel value="Teléfono" for="phone" />
+                                <p:inputText id="phone" value="#{accountController.selected.phone}" title="Teléfono de contacto" validatorMessage="El teléfono debe contener 8 dígitos numericos">
+                                    <f:validateLength minimum="8" maximum="8" />
+                                    <f:validateRegex pattern="[0-9]+" />
+                                </p:inputText>
+                                <p:outputLabel value="Tipo" for="accountType" />
+                                <h:outputText id="accountType" value="#{sessionUtil.currentUser.accountType.name}" title="Tipo de usuario"/>
+                            </p:panelGrid>
+                            <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}" update="display, :growl" />
+                            <a href="/revalora-web/faces/roles/Profile.xhtml" class="btn btn-link">Volver</a>
+                        </h:panelGroup>
+                    </h:form>
+                    
+                </div>
+            </div>
+            
+        </ui:define>
+        
+    </ui:composition>
+
+</html>

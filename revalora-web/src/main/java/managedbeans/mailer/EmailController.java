@@ -104,10 +104,10 @@ public class EmailController implements Serializable {
     public void sendMessage(String recipient, String subject, String content, String successMessage) throws IOException{
         
         try {
-                emailSessionBean.sendMail(recipient,"","","", subject, content);
-                JsfUtil.addSuccessMessage(successMessage);
+            emailSessionBean.sendMail(recipient,"","","", subject, content);
+            JsfUtil.addSuccessMessage(successMessage);
         }catch(MessagingException ex){
-                JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");
+            JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");
         }
     }
     

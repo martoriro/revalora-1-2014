@@ -67,6 +67,8 @@ public class Account implements Serializable {
     @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$" , message = "Ingrese un correo valido, e.g.=mail@mail.com")
     private String email;
     
+    private String emailPassword;
+    
     private String position;
     
     private boolean access;
@@ -207,6 +209,14 @@ public class Account implements Serializable {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public String getEmailPassword() {
+        return emailPassword;
+    }
+
+    public void setEmailPassword(String emailPassword) {
+        this.emailPassword = emailPassword;
     }
 
     @Override
