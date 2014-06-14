@@ -29,18 +29,18 @@
                         <h:outputText value="#{bundle.ViewClimateStudyLabel_creator}"/>
                         <h:outputText value="#{climateStudyController.selected.creator.firstName} #{climateStudyController.selected.creator.lastName}" title="#{bundle.ViewClimateStudyTitle_creator}"/>
                         <h:outputText/>
-                        <p:dataList value="#{climateStudyController.selected.accounts}" var="account" type="ordered">
+                        <p:dataList value="#{climateStudyController.selected.contacts}" var="contact" type="ordered">
                             <f:facet name="header">
                                 #{bundle.ViewclimateStudyLabel_accounts}
                             </f:facet>
-                            #{account.names}
+                            #{contact.name}
                         </p:dataList>
                         <h:outputText/>
-                        <p:dataList value="#{climateStudyController.selected.teams}" var="team" type="ordered">
+                        <p:dataList value="#{climateStudyController.selected.groups}" var="group" type="ordered">
                             <f:facet name="header">
                                 #{bundle.ViewclimateStudyLabel_teams}
                             </f:facet>
-                            #{team.name}
+                            #{group.name}
                         </p:dataList>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ClimateStudyViewDialog.hide()"/>

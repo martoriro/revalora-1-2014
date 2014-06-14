@@ -118,6 +118,10 @@ public class ProjectController implements Serializable {
     public Project getProject(java.lang.Long id) {
         return getFacade().find(id);
     }
+    
+    public void refreshSelected() {
+        selected = getProject(selected.getId());
+    }
 
     public List<Project> getItemsAvailableSelectMany() {
         return getFacade().findAll();

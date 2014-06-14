@@ -20,11 +20,11 @@
                         <h:outputText value="#{climateStudySurveyController.selected.climateStudy}" title="#{bundle.ViewClimateStudySurveyTitle_climateStudy}"/>
                         <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_createdAt}"/>
                         <h:outputText value="#{climateStudySurveyController.selected.createdAt}" title="#{bundle.ViewClimateStudySurveyTitle_createdAt}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewClimateStudySurveyLabel_endAt}"/>
                         <h:outputText value="#{climateStudySurveyController.selected.endAt}" title="#{bundle.ViewClimateStudySurveyTitle_endAt}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ClimateStudySurveyViewDialog.hide()"/>

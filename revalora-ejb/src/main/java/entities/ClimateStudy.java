@@ -45,15 +45,17 @@ public class ClimateStudy implements Serializable {
     @Temporal(TemporalType.DATE) 
     private Date endAt;
     
-    @NotNull
     @ManyToOne
     private Account creator;
     
     @ManyToMany
-    private List<Account> accounts; // Account participants
+    private List<Contact> contacts; // Contact participants
     
     @ManyToMany
-    private List<Team> teams; // Team participants
+    private List<ContactGroup> groups; // Group participants
+    
+    @ManyToOne
+    private Project project;
 
     public Long getId() {
         return id;
@@ -103,20 +105,28 @@ public class ClimateStudy implements Serializable {
         this.creator = creator;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 
-    public List<Team> getTeams() {
-        return teams;
+    public List<ContactGroup> getGroups() {
+        return groups;
     }
 
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
+    public void setGroups(List<ContactGroup> groups) {
+        this.groups = groups;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     @Override

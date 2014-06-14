@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -54,6 +55,9 @@ public class Project implements Serializable {
             joinColumns={@JoinColumn(name="accounts_RUT")}, 
             inverseJoinColumns={@JoinColumn(name="projects_ID")})
     private List<Account> accounts;
+    
+    @OneToMany(mappedBy = "project")
+    private List<ClimateStudy> climateStudies;
     
     public Long getId() {
         return id;
@@ -103,6 +107,14 @@ public class Project implements Serializable {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<ClimateStudy> getClimateStudies() {
+        return climateStudies;
+    }
+
+    public void setClimateStudies(List<ClimateStudy> climateStudies) {
+        this.climateStudies = climateStudies;
     }
 
     @Override
