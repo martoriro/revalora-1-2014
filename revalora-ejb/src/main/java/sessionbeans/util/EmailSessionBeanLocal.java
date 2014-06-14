@@ -6,7 +6,6 @@
 
 package sessionbeans.util;
 
-import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -24,4 +23,6 @@ public interface EmailSessionBeanLocal {
                         String subject, 
                         String body)
             throws AddressException, MessagingException;
+    
+    public boolean isAuthenticated(); 
 }

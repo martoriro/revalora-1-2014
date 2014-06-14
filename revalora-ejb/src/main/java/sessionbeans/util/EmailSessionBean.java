@@ -4,11 +4,10 @@
  */
 package sessionbeans.util;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
-import javax.ejb.LocalBean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.mail.*;
@@ -19,7 +18,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author Gustavo Salvo Lara
  */
-@Stateless
+@Stateful
 public class EmailSessionBean implements EmailSessionBeanLocal{
         private String portOut ="465";	//puerto que se conecta al servidor de salida SMTP SSL
 	private String portIn ="995";	//puerto que se conecta al servidor de entrada POP 
@@ -28,7 +27,35 @@ public class EmailSessionBean implements EmailSessionBeanLocal{
 	private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
 	private String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
 	private String password = "ihc12014";	//Contraseña de la cuenta de correo
-/**
+        
+        private Session session;
+        private Properties props;
+        private Authenticator auth;
+        
+        
+        public void setProperties() {
+            // Se configuran las propiedades para la conexión con el servidor de salida utilizando SSL
+            props = new Properties();
+            props.put("mail.smtp.host", hostOut); 
+            props.put("mail.smtp.socketFactory.port", portOut);
+            props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.port", portOut);
+
+            //Se crea una clase para proteger los datos de conexión
+            auth = new Authenticator() {
+                @Override
+                public PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(userName, password);
+                }
+            };
+
+            //Se crea un objeto session que representa una sessión de correo
+            session = Session.getInstance(props, auth);
+            
+        }
+        
+        /**
 	 * Envía un correo electrónico utilizando protocolo SMTP con SLL a un destinatario específico
 	 * Los parámetros de entrada carbonCopy, BlindCarbonCopy y attached pueden ser ingresados como
 	 * un String vacío dado que no nos necesarios y, en el caso de attached, no está implementado en 
@@ -47,25 +74,7 @@ public class EmailSessionBean implements EmailSessionBeanLocal{
 	 * @throws MessagingException excepción lanzada por cualquier error del mensaje
 	 */
     public int sendMail(String to, String carbonCopy, String BlindCarbonCopy, String attached, String subject, String body) throws AddressException, MessagingException{
-    	// Se configuran las propiedades para la conexión con el servidor de salida utilizando SSL
-    	Properties props = new Properties();
-    	props.put("mail.smtp.host", hostOut); 
-        props.put("mail.smtp.socketFactory.port", portOut);
-        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", portOut);
     	
-       	//Se crea una clase para proteger los datos de conexión
-    	Authenticator auth = new Authenticator() {
-            @Override
-            public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(userName, password);
-            }
-        };
-        
-        //Se crea un objeto session que representa una sessión de correo
-        Session session = Session.getInstance(props, auth);
-        
         //Se crea un objeto msg que representa el mensaje que se desea enviar
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(from));	//se establece la dirección del remitente
@@ -76,6 +85,8 @@ public class EmailSessionBean implements EmailSessionBeanLocal{
          * para el primer Sprint se deja así *ver pag 27
          */
         msg.setText(body); //se establece el cuerpo del mensaje
+        
+        setProperties();
         
         /*
          * Se debe adaptar para poder enviar a un conjunto de personas
@@ -123,5 +134,16 @@ public class EmailSessionBean implements EmailSessionBeanLocal{
         this.password = password;
     }
     
+    public boolean isAuthenticated() {
+        try {
+            session.getStore().connect();
+            return true;
+        } catch (AuthenticationFailedException | NoSuchProviderException ex) {
+            Logger.getLogger(EmailSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(EmailSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
 }
