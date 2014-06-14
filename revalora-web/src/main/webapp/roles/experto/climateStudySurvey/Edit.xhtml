@@ -29,9 +29,9 @@
                                            itemValue="#{climateStudyItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditClimateStudySurveyLabel_createdAt}" for="createdAt" />
-                        <p:calendar id="createdAt" pattern="MM/dd/yyyy" value="#{climateStudySurveyController.selected.createdAt}" title="#{bundle.EditClimateStudySurveyTitle_createdAt}"  showOn="button"/>
+                        <p:calendar id="createdAt" pattern="dd/MM/yyyy" value="#{climateStudySurveyController.selected.createdAt}" title="#{bundle.EditClimateStudySurveyTitle_createdAt}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditClimateStudySurveyLabel_endAt}" for="endAt" />
-                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudySurveyController.selected.endAt}" title="#{bundle.EditClimateStudySurveyTitle_endAt}"  showOn="button"/>
+                        <p:calendar id="endAt" pattern="dd/MM/yyyy" value="#{climateStudySurveyController.selected.endAt}" title="#{bundle.EditClimateStudySurveyTitle_endAt}"  showOn="button"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{climateStudySurveyController.update}" value="#{bundle.Save}" update="display,:ClimateStudySurveyListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClimateStudySurveyEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClimateStudySurveyEditDialog.hide()"/>

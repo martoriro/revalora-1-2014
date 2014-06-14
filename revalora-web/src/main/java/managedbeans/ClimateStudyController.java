@@ -31,6 +31,8 @@ public class ClimateStudyController implements Serializable {
     
     @Inject
     private SessionUtil sessionUtil;
+    
+    @Inject ProjectController projectController;
 
     public ClimateStudyController() {
     }
@@ -56,6 +58,7 @@ public class ClimateStudyController implements Serializable {
     public ClimateStudy prepareCreate() {
         selected = new ClimateStudy();
         selected.setCreator(sessionUtil.getCurrentUser());
+        selected.setProject(projectController.getSelected());
         initializeEmbeddableKey();
         return selected;
     }
@@ -80,9 +83,8 @@ public class ClimateStudyController implements Serializable {
     }
 
     public List<ClimateStudy> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        projectController.refreshSelected();
+        items = projectController.getSelected().getClimateStudies();
         return items;
     }
 
@@ -90,7 +92,9 @@ public class ClimateStudyController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if(persistAction == PersistAction.CREATE) {
+                    getFacade().create(selected);
+                } else if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

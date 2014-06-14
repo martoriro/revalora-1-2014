@@ -17,32 +17,32 @@
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_description}" for="description" />
                         <p:inputText id="description" value="#{climateStudyController.selected.description}" title="#{bundle.CreateClimateStudyTitle_description}" />
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_startAt}" for="startAt" />
-                        <p:calendar id="startAt" binding="#{startAt}" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button" required="true">
+                        <p:calendar id="startAt" binding="#{startAt}" pattern="dd/MM/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button" required="true">
                             <f:validator validatorId="Validator.DateValidator" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_endAt}" for="endAt" />
-                        <p:calendar id="endAt" pattern="MM/dd/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button">
+                        <p:calendar id="endAt" pattern="dd/MM/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button">
                             <f:validator validatorId="Validator.DateValidator" />
                             <f:attribute name="startAt" value="#{startAt}" />
                         </p:calendar>
-                        <p:outputLabel value="#{bundle.CreateClimateStudyLabel_accounts}" for="accounts" />
-                        <p:autoComplete id="accounts" multiple="true" 
-                                        value="#{climateStudyController.selected.accounts}" 
-                                        completeMethod="#{accountController.filterAccounts}"
-                                        var="account" itemLabel="#{account.names}" itemValue="#{account}"
-                                        converter="accountConverter" forceSelection="true">
+                        <p:outputLabel value="#{bundle.CreateClimateStudyLabel_accounts}" for="contacts" />
+                        <p:autoComplete id="contacts" multiple="true" 
+                                        value="#{climateStudyController.selected.contacts}" 
+                                        completeMethod="#{contactController.filterContacts}"
+                                        var="contact" itemLabel="#{contact.name}" itemValue="#{contact}"
+                                        converter="contactConverter" forceSelection="true">
                             <p:column>
-                                <h:outputText value="#{account.names}" />
+                                <h:outputText value="#{contact.name}" />
                             </p:column>
                         </p:autoComplete>
-                        <p:outputLabel value="#{bundle.CreateClimateStudyLabel_teams}" for="teams" />
-                        <p:autoComplete id="teams" multiple="true" 
-                                        value="#{climateStudyController.selected.teams}" 
-                                        completeMethod="#{teamController.filterTeams}"
-                                        var="team" itemLabel="#{team.name}" itemValue="#{team}"
-                                        converter="teamConverter" forceSelection="true">
+                        <p:outputLabel value="#{bundle.CreateClimateStudyLabel_teams}" for="groups" />
+                        <p:autoComplete id="groups" multiple="true" 
+                                        value="#{climateStudyController.selected.groups}" 
+                                        completeMethod="#{contactGroupController.filterContactGroups}"
+                                        var="group" itemLabel="#{group.name}" itemValue="#{group}"
+                                        converter="contactGroupConverter" forceSelection="true">
                             <p:column>
-                                <h:outputText value="#{team.name}" />
+                                <h:outputText value="#{group.name}" />
                             </p:column>
                         </p:autoComplete>
                     </p:panelGrid>
