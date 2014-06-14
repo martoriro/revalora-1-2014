@@ -57,6 +57,11 @@ public class EmailInbox {
     private TreeNode root;
     private TreeNode selectedFolder;
 
+    private String subjectRead;
+    private String fromEmailRead;
+    private String sendDateRead;
+    private String contentRead;
+
     @PostConstruct
     public void init() {
         root = new DefaultTreeNode("Root", null);
@@ -318,7 +323,7 @@ public class EmailInbox {
             Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
             store.connect(hostIn, userName, password);	//Se realiza la conexión
             Folder folder = store.getFolder(currentFolder);
-            Folder deleteFolder = store.getFolder("[Gmali]/Papelera");
+            Folder deleteFolder = store.getFolder("[Gmail]/Papelera");
             deleteFolder.open(Folder.READ_WRITE);
             folder.open(Folder.READ_WRITE);
             Message[] msgOldFlags = folder.getMessages();
@@ -327,7 +332,7 @@ public class EmailInbox {
                 m = (MimeMessage) msgOldFlags[i];
                 for (int j = 0; j < selectedEmails.size(); j++) {
                     if (m.getMessageID().equals(selectedEmails.get(j).getIdMessage())) {
-                        toDelete[j]= msgOldFlags[i];
+                        toDelete[j] = msgOldFlags[i];
                         folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.DELETED), true);
                         for (int k = 0; k < emails.size(); k++) {
                             if (emails.get(k).getIdMessage().equals(selectedEmails.get(j).getIdMessage())) {
@@ -341,7 +346,7 @@ public class EmailInbox {
             folder.close(true);
             folder.close(true);
             store.close();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como no leídos"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correo(s) eliminados correctamente."));
 
         } catch (Exception ex) {
             System.err.println(ex.toString());
@@ -354,6 +359,14 @@ public class EmailInbox {
         } catch (IOException ex) {
             Logger.getLogger(EmailInbox.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void reading() {
+        subjectRead = selectedEmails.get(0).getSubject();
+        fromEmailRead= selectedEmails.get(0).getFrom();
+        sendDateRead= selectedEmails.get(0).getDfDafault().format(selectedEmails.get(0).getSendDate());
+        contentRead= selectedEmails.get(0).getContent();
+
     }
 
     public void onNodeSelect(NodeSelectEvent event) throws IOException {
@@ -408,6 +421,38 @@ public class EmailInbox {
 
     public void setTitleFolder(String titleFolder) {
         this.titleFolder = titleFolder;
+    }
+
+    public String getSubjectRead() {
+        return subjectRead;
+    }
+
+    public void setSubjectRead(String subjectRead) {
+        this.subjectRead = subjectRead;
+    }
+
+    public String getFromEmailRead() {
+        return fromEmailRead;
+    }
+
+    public void setFromEmailRead(String fromEmailRead) {
+        this.fromEmailRead = fromEmailRead;
+    }
+
+    public String getSendDateRead() {
+        return sendDateRead;
+    }
+
+    public void setSendDateRead(String sendDateRead) {
+        this.sendDateRead = sendDateRead;
+    }
+
+    public String getContentRead() {
+        return contentRead;
+    }
+
+    public void setContentRead(String contentRead) {
+        this.contentRead = contentRead;
     }
 
 }
