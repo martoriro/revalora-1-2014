@@ -16,9 +16,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.mail.MessagingException;
 import managedbeans.util.JsfUtil;
+import managedbeans.util.SessionUtil;
 import otherclasses.Email;
 import sessionbeans.util.EmailSessionBeanLocal;
 
@@ -34,9 +36,10 @@ public class EmailController implements Serializable {
     
     @EJB
     private EmailSessionBeanLocal emailSessionBean;
-    /**
-     * Creates a new instance of EmailController
-     */
+    
+    @Inject
+    private SessionUtil sessionUtil;
+    
     public EmailController() {
     }
 
@@ -110,5 +113,22 @@ public class EmailController implements Serializable {
             JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");
         }
     }
+     
+    public void confirmSetingsAndGo(String destiny) {
+        if (checkSettings()) {
+            JsfUtil.redirect(destiny);
+        } else {
+            JsfUtil.redirect("/faces/roles/ProfileConfigEmail.xhtml");
+        }        
+    }
     
+    public boolean checkSettings() {
+        String email = sessionUtil.getCurrentUser().getEmail();
+        String emailPass = sessionUtil.getCurrentUser().getEmailPassword();
+        if ((email!=null) && (emailPass != null)) {
+            Boolean go = !email.contentEquals("") && !emailPass.contentEquals(""); 
+            return go;  
+        }
+        return false;
+    }
 }

@@ -18,7 +18,7 @@
                 
                 <p:menuitem value="Mis Grupos de Contactos" outcome="/roles/experto/contactGroup/List.xhtml" update="messages" />
 
-                <p:menuitem value="Comunicaciones" outcome="/roles/experto/mailer/index.xhtml" update="messages" />
+                <p:menuitem value="Comunicaciones" actionListener="#{emailController.confirmSetingsAndGo('/faces/roles/experto/mailer/index.xhtml')}" />
                
             </p:menu>
         </h:form> 
