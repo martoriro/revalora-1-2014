@@ -10,9 +10,9 @@
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
-
+    
     <h:body>
-
+        
         <p:growl id="growl" life="3000" />
         
         <div class="wrapper">
@@ -20,11 +20,14 @@
             <ui:include src="header.xhtml"/>
 
             <div class="container">
-
+                <h:form>
+                        <ui:include src="../roles/experto/breadcrumb.xhtml"/>
+                </h:form>
                 <div class="row">
                     <div class="col-md-9">
                         <ui:insert name="body"/>
                     </div>
+                    
                     <div class="col-md-3">
                         <ui:insert name="sidebar-right"/>
                     </div>

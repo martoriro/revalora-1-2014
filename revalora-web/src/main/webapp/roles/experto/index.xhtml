@@ -6,9 +6,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+     
     
     <ui:composition template="/layout/2columns-right.xhtml">
-        
         <ui:define name="title">
             <h:outputText value="Bienvenido"></h:outputText>
         </ui:define>
@@ -25,8 +25,13 @@
                     <p:column>
                         <h:outputText value="#{project.name}" />
                     </p:column>
+                    <p:column style="width:4%;text-align: center">
+                        <p:commandButton actionListener="#{projectController.projectIndex}" icon="ui-icon-search" title="Ver">
+                            <f:setPropertyActionListener value="#{project}" target="#{projectController.selected}" />
+                        </p:commandButton>
+                    </p:column>
                 </p:dataTable>
-                <p:button value="Gestionar mis proyectos" outcome="project/List.xhtml" style="width: 100%" icon="ui-icon-plus" />
+                <p:button value="Gestionar mis proyectos" outcome="project/List.xhtml" style="width: 100%" icon="ui-icon-plus"/><script>breadcrumbs.navigate("Proyectos","project/List.xhtml")</script>
             </h:form>
         </ui:define>
         
@@ -35,7 +40,7 @@
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
             
         </ui:define>
-        
+            
     </ui:composition>
 
 </html>

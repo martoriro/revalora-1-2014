@@ -167,5 +167,9 @@ public class ProjectController implements Serializable {
         }
 
     }
+    
+    public void projectIndex() {
+        JsfUtil.redirect("/faces/roles/experto/project/index.xhtml");
+    }
 
 }

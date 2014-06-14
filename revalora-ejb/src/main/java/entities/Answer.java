@@ -32,8 +32,8 @@ public class Answer implements Serializable {
     // Ejemplo: Sí, No, 1, 4, Me gusta dejar la bolsita mientras me tomo el té
     
     @ManyToOne
-    private Account account;
-    // Necesariamente toda respuesta es proporcionada por un usuario de Revalora
+    private Contact participant;
+    // Necesariamente toda respuesta es proporcionada por un participante de Revalora
 
     public Long getId() {
         return id;
@@ -57,6 +57,14 @@ public class Answer implements Serializable {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Contact getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Contact participant) {
+        this.participant = participant;
     }
 
     @Override
