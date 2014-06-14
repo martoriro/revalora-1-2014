@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/layout/2columns-right.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Proyecto #{projectController.selected.name}"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="sidebar-right">
+            <ui:include src="../sidebar-right.xhtml"/>
+        </ui:define>
+        
+        <ui:define name="header-links">
+            <li>
+                <a href="/revalora-web/faces/roles/experto/index.xhtml">Inicio</a>
+            </li>
+        </ui:define>
+        
+
+        <ui:define name="body">
+            
+            <h4 class="white">Proyecto #{projectController.selected.name}</h4>
+            
+            
+            
+        </ui:define>
+
+    </ui:composition>
+
+</html>

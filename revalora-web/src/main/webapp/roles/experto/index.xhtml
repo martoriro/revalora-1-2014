@@ -25,6 +25,11 @@
                     <p:column>
                         <h:outputText value="#{project.name}" />
                     </p:column>
+                    <p:column style="width:4%;text-align: center">
+                        <p:commandButton actionListener="#{projectController.projectIndex}" icon="ui-icon-search" title="Ver">
+                            <f:setPropertyActionListener value="#{project}" target="#{projectController.selected}" />
+                        </p:commandButton>
+                    </p:column>
                 </p:dataTable>
                 <p:button value="Gestionar mis proyectos" outcome="project/List.xhtml" style="width: 100%" icon="ui-icon-plus"/><script>breadcrumbs.navigate("Proyectos","project/List.xhtml")</script>
             </h:form>
