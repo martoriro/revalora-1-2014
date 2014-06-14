@@ -36,10 +36,7 @@
                     <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                     <f:facet name="header">
-                        <p:outputPanel>
-                            <h:outputText value="Buscar contactos:" />
-                            <p:inputText id="globalFilter" onkeyup="PF('datalist').filter()" style="width:150px" placeholder="Ingreso..."/>
-                        </p:outputPanel>
+                        <p:inputText id="globalFilter" onkeyup="PF('datalist').filter()" style="width:150px" placeholder="Buscar..."/>
                     </f:facet>
                     
                     <p:column filterBy="#{item.name}" headerText="Name" filterMatchMode="contains">

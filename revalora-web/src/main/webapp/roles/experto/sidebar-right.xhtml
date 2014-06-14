@@ -21,7 +21,14 @@
                 <p:menuitem value="Comunicaciones" actionListener="#{emailController.confirmSetingsAndGo('/faces/roles/experto/mailer/index.xhtml')}" />
                
             </p:menu>
-        </h:form> 
+        </h:form>
+        
+        <h4 class="white">Estudios de clima</h4>
+        <h:form>   
+            <p:menu style="width: 100%">
+                <p:menuitem value="Estudio Organizacional" outcome="/roles/experto/climateStudy/List.xhtml" update="messages" />
+            </p:menu>
+        </h:form>
     </ui:composition>
 </html>
 <!--<p:menuitem value="Crear Organización" outcome="/roles/experto/organization/List.xhtml" update="messages" />-->
