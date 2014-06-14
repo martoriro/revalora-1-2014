@@ -29,14 +29,15 @@
         </div>
         <div class="col-xs-9">
             <h:form id="inbox" >                    
+                <p:growl id="messagesInbox" showDetail="true" />    
                 <p:commandButton actionListener="#{emailInbox.refresh}"  icon="ui-icon-refresh" update="inbox" />
                 <p:commandButton type="button" icon="ui-icon-trash" value="Eliminar" />
-                <p:commandButton  value="Marcar como leído"  icon="ui-icon-mail-open" actionListener="#{emailInbox.markAsRead}" update="inbox"/>
-                <p:commandButton  value="Marcar como no leído"   icon="ui-icon-mail-closed" actionListener="#{emailInbox.markAsNoRead}" update=":inbox" />
+                <p:commandButton  value="Marcar como leído"  icon="ui-icon-mail-open" actionListener="#{emailInbox.markAsRead}" update="inbox messagesInbox"/>
+                <p:commandButton  value="Marcar como no leído"   icon="ui-icon-mail-closed" actionListener="#{emailInbox.markAsNoRead}" update="inbox messagesInbox" />
                 <p:dataTable var="mail" value="#{emailInbox.emails}" style="margin-bottom:40px; width: 100%;  font-size: 12px;"
                              paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="10,15,30" rows="10" paginatorPosition="bottom"
-                             selection="#{readMail.selectedEmail}" rowKey="#{mail}" resizableColumns="true">                    
+                             selection="#{emailInbox.selectedEmails}" rowKey="#{mail}" resizableColumns="true">                    
                     <f:facet name="header">
                         <p:outputLabel value="#{emailInbox.titleFolder}"/>
                     </f:facet> 
@@ -51,7 +52,7 @@
                     <p:column headerText="Fecha" sortBy="#{mail.sendDate}" style="width:118px;text-align:center" >
                         <h:outputText value="#{mail.dfDafault.format(mail.sendDate)}" />
                     </p:column>
-                    <p:column headerText="Leído" sortBy="#{mail.seen}" style="width:68px;text-align:center" >
+                    <p:column headerText="Leído" sortBy="#{mail.seen}" resizable="false" style="width:68px;text-align:center"  >
                         <h:outputText  styleClass="#{mail.seen==true ? 'ui-corner-all ui-icon ui-icon-mail-open':'ui-corner-all ui-icon ui-icon-mail-closed'}" />  
                     </p:column>                    
                 </p:dataTable> 

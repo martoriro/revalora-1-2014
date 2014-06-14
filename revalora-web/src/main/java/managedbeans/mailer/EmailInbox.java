@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.mail.Flags;
@@ -40,11 +39,10 @@ import otherclasses.Email;
 @ApplicationScoped
 public class EmailInbox {
 
-    @ManagedProperty(value = "#{readMail.selectedEmail}")
-    private List<Email> selectedEmailsInbox;
-    private String currentFolder="Bandeja de Entrada";
+    private List<Email> selectedEmails;
+    private String currentFolder = "INBOX";
     private String titleFolder = "Bandeja de Entrada";
-    
+
     private String portOut = "465";	//puerto que se conecta al servidor de salida SMTP SSL
     private String portIn = "995";	//puerto que se conecta al servidor de entrada POP 
     private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
@@ -52,8 +50,8 @@ public class EmailInbox {
     private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
     private final String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
     private final String password = "ihc12014";	//Contraseña de la cuenta de correo
+
     private List<Email> emails;
-//    private List<Email> selectedEmails;
     private String emailContent;
 
     private TreeNode root;
@@ -62,7 +60,6 @@ public class EmailInbox {
     @PostConstruct
     public void init() {
         root = new DefaultTreeNode("Root", null);
-
         emails = new ArrayList<Email>();
         try {
             loadFolders();
@@ -207,84 +204,148 @@ public class EmailInbox {
     }
 
     public void markAsRead() throws MessagingException {
-        System.out.println("La lista contiene: mcl");
-//        try {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            Properties props = System.getProperties();
-//
-//            //Validamos que se hayan seleccionado correos
-//            if (selectedEmailsInbox.isEmpty()) {
-//                context.addMessage(null, new FacesMessage("No se han seleccionado correos", ""));
-//                return;
-//            }
-//
-//            //Volvemos a cargar todos los correos de INBOX
-//            //Seleccionamos aquellos que han sido escogidos para marcar leídos, comparándo los ids
-//            //Luego, los marcamos todos a la vez como leídos
-//            emails.clear();
-//            MimeMessage m;
-//            Session sesion = Session.getDefaultInstance(props, null);
-//            Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
-//            store.connect(hostIn, userName, password);	//Se realiza la conexión
-//            Folder folder = store.getFolder(currentFolder);
-//            folder.open(Folder.READ_WRITE);
-//            Message[] msgOldFlags = folder.getMessages();
-//            for (int i = 0; i < msgOldFlags.length; i++) {
-//                System.out.println("Se esta marcando como leído el correo '" + selectedEmailsInbox.get(i).getSubject() + "'");
-//                m = (MimeMessage) msgOldFlags[i];
-//                for (int j = 0; j < selectedEmailsInbox.size(); j++) {
-//                    if (m.getMessageID().equals(selectedEmailsInbox.get(j).getIdMessage())) {
-//                        folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.SEEN), true);
-//                    }
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Properties props = System.getProperties();
+            //Validamos que se hayan seleccionado correos
+            if (selectedEmails.isEmpty()) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atención", "Debe seleccionar un correo"));
+                return;
+            }
+            //Volvemos a cargar todos los correos de INBOX
+            //Seleccionamos aquellos que han sido escogidos para marcar leídos, comparándo los ids
+            //Luego, los marcamos todos a la vez como leídos
+            MimeMessage m;
+            Session sesion = Session.getDefaultInstance(props, null);
+            Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
+            store.connect(hostIn, userName, password);	//Se realiza la conexión
+            Folder folder = store.getFolder(currentFolder);
+            folder.open(Folder.READ_WRITE);
+            Message[] msgOldFlags = folder.getMessages();
+            for (int i = 0; i < msgOldFlags.length; i++) {
+//                System.out.println("Se esta marcando como leído el correo '" + selectedEmails.get(i).getSubject() + "'");
+                m = (MimeMessage) msgOldFlags[i];
+                for (int j = 0; j < selectedEmails.size(); j++) {
+                    if (m.getMessageID().equals(selectedEmails.get(j).getIdMessage())) {
+                        folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.SEEN), true);
+                        for (int k = 0; k < emails.size(); k++) {
+                            if (emails.get(k).getIdMessage().equals(selectedEmails.get(j).getIdMessage())) {
+                                emails.get(k).setSeen(true);
+                            }
+                        }
+                    }
+
+                }
+//                Email email = new Email();
+//                if (msgOldFlags[i].isSet(Flags.Flag.SEEN)) {
+//                    email.setSeen(true);
+//                } else {
+//                    email.setSeen(false);
 //                }
-//            }
+//                email.setIdMessage(m.getMessageID());
+//                email.setSubject(msgOldFlags[i].getSubject());
+//                email.setFrom(msgOldFlags[i].getFrom()[0].toString());
+//                email.setSendDate(msgOldFlags[i].getSentDate());
+//                analyzeMessage(msgOldFlags[i]);
+//                email.setContent(emailContent);
+//                emails.add(email);
+
+            }
 //            System.out.println("Se va a cerrar la conexión tras marcar como leídos");
-//            folder.close(true);
-//            store.close();
-//            context.addMessage(null, new FacesMessage("Correos marcados como leídos", ""));
-//        } catch (Exception ex) {
-//             System.err.println(ex.toString());
-//        }
+            folder.close(true);
+            store.close();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como leídos"));
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+        }
     }
 
     public void markAsNoRead() throws MessagingException {
-        System.out.println("La lista contiene: ");
-//        try {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            Properties props = System.getProperties();
-//            //Validamos que se hayan seleccionado correos
-//            if (selectedEmailsInbox.isEmpty()) {
-//                context.addMessage(null, new FacesMessage("No se han seleccionado correos", ""));
-//                return;
-//            }
-//
-//            //Volvemos a cargar todos los correos de INBOX
-//            //Seleccionamos aquellos que han sido escogidos para marcar leídos, comparándo los ids
-//            //Luego, los marcamos todos a la vez como leídos
-//            emails.clear();
-//            MimeMessage m;
-//            Session sesion = Session.getDefaultInstance(props, null);
-//            Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
-//            store.connect(hostIn, userName, password);	//Se realiza la conexión
-//            Folder folder = store.getFolder(currentFolder);
-//            folder.open(Folder.READ_WRITE);
-//            Message[] msgOldFlags = folder.getMessages();
-//            for (int i = 0; i < msgOldFlags.length; i++) {
-//                System.out.println("Se esta marcando como no leído el correo '" + selectedEmailsInbox.get(i).getSubject() + "'");
-//                m = (MimeMessage) msgOldFlags[i];
-//                for (int j = 0; j < selectedEmailsInbox.size(); j++) {
-//                    if (m.getMessageID().equals(selectedEmailsInbox.get(j).getIdMessage())) {
-//                        folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.SEEN), false);
-//                    }
-//                }
-//            }
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Properties props = System.getProperties();
+            //Validamos que se hayan seleccionado correos
+            if (selectedEmails.isEmpty()) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atención", "Debe seleccionar un correo"));
+                return;
+            }
+
+            //Volvemos a cargar todos los correos de INBOX
+            //Seleccionamos aquellos que han sido escogidos para marcar leídos, comparándo los ids
+            //Luego, los marcamos todos a la vez como leídos
+            MimeMessage m;
+            Session sesion = Session.getDefaultInstance(props, null);
+            Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
+            store.connect(hostIn, userName, password);	//Se realiza la conexión
+            Folder folder = store.getFolder(currentFolder);
+            folder.open(Folder.READ_WRITE);
+            Message[] msgOldFlags = folder.getMessages();
+            for (int i = 0; i < msgOldFlags.length; i++) {
+//                System.out.println("Se esta marcando como no leído el correo '" + selectedEmails.get(i).getSubject() + "'");
+                m = (MimeMessage) msgOldFlags[i];
+                for (int j = 0; j < selectedEmails.size(); j++) {
+                    if (m.getMessageID().equals(selectedEmails.get(j).getIdMessage())) {
+                        folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.SEEN), false);
+                        for (int k = 0; k < emails.size(); k++) {
+                            if (emails.get(k).getIdMessage().equals(selectedEmails.get(j).getIdMessage())) {
+                                emails.get(k).setSeen(false);
+                            }
+                        }
+                    }
+
+                }
+            }
 //            System.out.println("Se va a cerrar la conexión tras marcar como no leídos");
-//            folder.close(true);
-//            store.close();
-//            context.addMessage(null, new FacesMessage("Correos marcados como no leídos", ""));
-//        } catch (Exception ex) {
-//            System.err.println(ex.toString());
-//        }
+            folder.close(true);
+            store.close();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como no leídos"));
+
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+        }
+    }
+
+    public void deleteMessage() {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Properties props = System.getProperties();
+            if (selectedEmails.isEmpty()) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Atención", "Debe seleccionar un correo"));
+                return;
+            }
+            MimeMessage m;
+            Session sesion = Session.getDefaultInstance(props, null);
+            Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
+            store.connect(hostIn, userName, password);	//Se realiza la conexión
+            Folder folder = store.getFolder(currentFolder);
+            Folder deleteFolder = store.getFolder("[Gmali]/Papelera");
+            deleteFolder.open(Folder.READ_WRITE);
+            folder.open(Folder.READ_WRITE);
+            Message[] msgOldFlags = folder.getMessages();
+            Message[] toDelete = new Message[selectedEmails.size()];
+            for (int i = 0; i < msgOldFlags.length; i++) {
+                m = (MimeMessage) msgOldFlags[i];
+                for (int j = 0; j < selectedEmails.size(); j++) {
+                    if (m.getMessageID().equals(selectedEmails.get(j).getIdMessage())) {
+                        toDelete[j]= msgOldFlags[i];
+                        folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.DELETED), true);
+                        for (int k = 0; k < emails.size(); k++) {
+                            if (emails.get(k).getIdMessage().equals(selectedEmails.get(j).getIdMessage())) {
+                                emails.remove(k);
+                            }
+                        }
+                    }
+                }
+            }
+            folder.copyMessages(toDelete, deleteFolder);
+            folder.close(true);
+            folder.close(true);
+            store.close();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como no leídos"));
+
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+        }
     }
 
     public void refresh() {
@@ -332,21 +393,15 @@ public class EmailInbox {
     public void setEmails(List<Email> emails) {
         this.emails = emails;
     }
-    
-//    public Email getSelectedEmail() {
-//        return selectedEmail;
-//    }
-//
-//    public void setSelectedEmail(Email selectedEmail) {
-//        this.selectedEmail = selectedEmail;
-//    }
-//    public List<Email> getSelectedEmails() {
-//        return selectedEmails;
-//    }
-//
-//    public void setSelectedEmails(List<Email> selectedEmails) {
-//        this.selectedEmails = selectedEmails;
-//    }
+
+    public List<Email> getSelectedEmails() {
+        return selectedEmails;
+    }
+
+    public void setSelectedEmails(List<Email> selectedEmails) {
+        this.selectedEmails = selectedEmails;
+    }
+
     public String getTitleFolder() {
         return titleFolder;
     }
@@ -354,6 +409,5 @@ public class EmailInbox {
     public void setTitleFolder(String titleFolder) {
         this.titleFolder = titleFolder;
     }
-
 
 }

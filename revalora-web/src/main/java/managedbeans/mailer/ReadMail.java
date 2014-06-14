@@ -6,8 +6,10 @@
 
 package managedbeans.mailer;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 import otherclasses.Email;
@@ -20,18 +22,23 @@ import otherclasses.Email;
 @RequestScoped
 public class ReadMail {
     
+    @ManagedProperty(value ="#{emailInbox.selectedEmails}")
     private List<Email> selectedEmail;
+    @ManagedProperty(value ="#{emailInbox.titleFolder}" )
     private String subject;
     private String from;
     private String sendDate;
     private String content;
     
     public void reading(SelectEvent event){
-        Email myEmail = selectedEmail.get(0);
-        this.setContent(myEmail.getContent());
-        this.setSubject(myEmail.getSubject());
-        this.setFrom(myEmail.getFrom());
-        this.setSendDate(myEmail.getDfDafault().format(myEmail.getSendDate()));
+        
+        
+        System.out.println(subject);
+//        Email myEmail = selectedEmail.get(0);
+//        this.setContent(myEmail.getContent());
+//        this.setSubject(myEmail.getSubject());
+//        this.setFrom(myEmail.getFrom());
+//        this.setSendDate(myEmail.getDfDafault().format(myEmail.getSendDate()));
     }
 
     public String getSubject() {
