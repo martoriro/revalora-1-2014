@@ -19,6 +19,13 @@
                         <h:outputText value="#{bundle.ViewContactGroupLabel_description}"/>
                         <h:outputText value="#{contactGroupController.selected.description}" title="#{bundle.ViewContactGroupTitle_description}"/>
                     </p:panelGrid>
+                    <br/>
+                    <p:dataList value="#{contactGroupController.selected.contacts}" var="contact" type="ordered">
+                        <f:facet name="header">
+                            Miembros del grupo
+                        </f:facet>
+                        #{contact.name}
+                    </p:dataList>
                     <p:commandButton value="#{bundle.Close}" onclick="ContactGroupViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
