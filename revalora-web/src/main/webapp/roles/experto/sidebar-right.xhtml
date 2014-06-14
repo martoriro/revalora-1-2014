@@ -10,10 +10,17 @@
         <h4 class="white">Herramientas</h4>
         <h:form>   
             <p:menu style="width: 100%">
-                <p:menuitem value="Portada" outcome="/roles/experto/project/index.xhtml" update="messages" />
+                <p:menuitem value="Portada proyecto" outcome="/roles/experto/project/index.xhtml" update="messages" />
                 <p:menuitem value="Mis Contactos" outcome="/roles/experto/contact/List.xhtml" update="messages" />
                 <p:menuitem value="Mis Grupos de Contactos" outcome="/roles/experto/contactGroup/List.xhtml" update="messages" />
                 <p:menuitem value="Comunicaciones" outcome="/roles/experto/mailer/index.xhtml" update="messages" />
+            </p:menu>
+        </h:form>
+        
+        <h4 class="white">Estudios de clima</h4>
+        <h:form>   
+            <p:menu style="width: 100%">
+                <p:menuitem value="Estudio Organizacional" outcome="/roles/experto/climateStudy/List.xhtml" update="messages" />
             </p:menu>
         </h:form>
     </ui:composition>
