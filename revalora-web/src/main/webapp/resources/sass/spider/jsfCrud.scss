@@ -40,13 +40,13 @@
 	.ui-corner-top {
 		border:0px;
 		border-radius:0px;
-		padding:0px;
+		padding:0px!important;
 
 		input {
 			float: right;
 			position: absolute;
 			right: 14px;
-			top: 9px;
+			top: 5px;
 			width: 250px!important;
 		}
 	}
@@ -90,4 +90,8 @@
 .ui-button {
 	border-radius: 0px;
 	margin-right: 7px;
+}
+
+.ui-breadcrumb {
+	margin-bottom: 15px!important;
 }
