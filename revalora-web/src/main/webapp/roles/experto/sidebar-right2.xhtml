@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h4 class="white">Herramientas</h4>
+        <h:form>   
+            <p:menu style="width: 100%">
+                <p:menuitem value="Inicio" outcome="/roles/experto/index.xhtml" update="messages" />
+                <p:menuitem value="Mis Contactos" outcome="/roles/experto/contact/List.xhtml" update="messages" />
+                <p:menuitem value="Mis Grupos de Contactos" outcome="/roles/experto/contactGroup/List.xhtml" update="messages" />
+                <p:menuitem value="Comunicaciones" actionListener="#{emailController.confirmSetingsAndGo('/faces/roles/experto/mailer/index.xhtml')}" />
+            </p:menu>
+        </h:form>
+        
+    </ui:composition>
+</html>
+<!--<p:menuitem value="Crear Organización" outcome="/roles/experto/organization/List.xhtml" update="messages" />-->
+<!--<p:menuitem value="Estudio Organizacional" outcome="/roles/experto/climateStudy/List.xhtml" update="messages" />-->
+<!--<p:menuitem value="Crear grupo" outcome="/roles/experto/team/List.xhtml" update="messages" />-->
+
