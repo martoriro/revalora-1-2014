@@ -67,6 +67,11 @@ public class AccountController implements Serializable {
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AccountUpdated"));
     }
+    
+    public void updateAndGo(String destiny) {
+        persist(PersistAction.UPDATE, "El usuario ha sido actualizado");
+        JsfUtil.redirect(destiny);
+    }
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AccountDeleted"));

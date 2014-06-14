@@ -20,7 +20,7 @@ import javax.inject.Named;
 import javax.mail.MessagingException;
 import managedbeans.util.JsfUtil;
 import otherclasses.Email;
-import sessionbeans.util.EmailSessionBean;
+import sessionbeans.util.EmailSessionBeanLocal;
 
 /**
  *
@@ -33,7 +33,7 @@ public class EmailController implements Serializable {
     private Email selected;
     
     @EJB
-    private EmailSessionBean emailSessionBean;
+    private EmailSessionBeanLocal emailSessionBean;
     /**
      * Creates a new instance of EmailController
      */
@@ -51,6 +51,15 @@ public class EmailController implements Serializable {
     public Email prepareCreate() {
         selected = new Email();
         return selected;
+    }
+    
+    public void createSendSurvey(List<Contact> contacts, List<ContactGroup> cGroups, String subject, String content) {
+        selected = prepareCreate();
+        selected.setReceiverContactGroups(cGroups);
+        selected.setReceiverContacts(contacts);
+        selected.setSubject(subject);
+        selected.setContent(content);
+        create();
     }
     
     public void create() {
@@ -95,10 +104,10 @@ public class EmailController implements Serializable {
     public void sendMessage(String recipient, String subject, String content, String successMessage) throws IOException{
         
         try {
-                emailSessionBean.sendMail(recipient,"","","", subject, content);
-                JsfUtil.addSuccessMessage(successMessage);
+            emailSessionBean.sendMail(recipient,"","","", subject, content);
+            JsfUtil.addSuccessMessage(successMessage);
         }catch(MessagingException ex){
-                JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");
+            JsfUtil.addErrorMessage("Error al enviar el mensaje, intentelo más tarde");
         }
     }
     
