@@ -6,7 +6,7 @@
 
 package managedbeans.mailer;
 
-import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
@@ -19,21 +19,19 @@ import otherclasses.Email;
 @Named(value = "readMail")
 @RequestScoped
 public class ReadMail {
+    
+    private List<Email> selectedEmail;
     private String subject;
     private String from;
     private String sendDate;
     private String content;
     
     public void reading(SelectEvent event){
-        Email myEmail = (Email) event.getObject();
+        Email myEmail = selectedEmail.get(0);
         this.setContent(myEmail.getContent());
         this.setSubject(myEmail.getSubject());
         this.setFrom(myEmail.getFrom());
-        this.setSendDate(myEmail.getDfDafault().format(myEmail.getSendDate()));  
-//        System.out.println(subject);
-//        System.out.println(from);
-//        System.out.println(sendDate);
-//        System.out.println(content);
+        this.setSendDate(myEmail.getDfDafault().format(myEmail.getSendDate()));
     }
 
     public String getSubject() {
@@ -67,5 +65,15 @@ public class ReadMail {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public List<Email> getSelectedEmail() {
+        return selectedEmail;
+    }
+
+    public void setSelectedEmail(List<Email> selectedEmail) {
+        this.selectedEmail = selectedEmail;
+    }
+    
+    
     
 }

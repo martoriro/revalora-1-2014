@@ -17,7 +17,7 @@ import java.util.List;
  * @author sylar
  */
 public class Email {
-    
+    private String idMessage;
     private String subject;
     private String from;
     private List<Contact> receiverContacts;
@@ -25,7 +25,10 @@ public class Email {
     private String content;
     private Date sendDate;
     private DateFormat dfDafault = DateFormat.getInstance();
-
+    
+    private boolean seen;
+    private boolean delete;
+    
     public DateFormat getDfDafault() {
         return dfDafault;
     }
@@ -81,5 +84,31 @@ public class Email {
     public void setReceiverContactGroups(List<ContactGroup> receiverContactGroups) {
         this.receiverContactGroups = receiverContactGroups;
     }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
+
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    public String getIdMessage() {
+        return idMessage;
+    }
+
+    public void setIdMessage(String idMessage) {
+        this.idMessage = idMessage;
+    }
+    
+   
     
 }
