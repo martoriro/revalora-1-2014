@@ -6,95 +6,84 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    
+
     <ui:composition template="/layout/2columns-right.xhtml">
-        
+
         <ui:define name="title">
             <h:outputText value="Bienvenido"></h:outputText>
         </ui:define>
-        
+
         <ui:define name="body">
-            
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
             <h:form id="AccountListForm">
-                <p:panelGrid columns="8" style="margin:0 auto;">
-                    <p:dataTable id="datalist" value="#{accountController.items}" var="item"
-                                 selectionMode="single" selection="#{accountController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.rut}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-                        
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton AccessButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton AccessButton"/>
-                        
-                        <f:facet name="header">Lista de Usuarios</f:facet>
-                        <p:column sortBy="#{item.rut}" headerText="RUT">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_rut}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rut}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.lastName}" headerText="Nombre">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_firstName} #{bundle.ListAccountTitle_lastName}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.firstName} #{item.lastName}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_gender}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gender}"/>
-                        </p:column>
-                        <p:column sortBy="#{item.birthdate}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_birthdate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.birthdate}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_position}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.position}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_accountType}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.accountType.name}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAccountTitle_Access}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.accessName}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{accountController.prepareCreate}" update=":AccountCreateForm" oncomplete="PF('AccountCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AccountViewForm" oncomplete="PF('AccountViewDialog').show()" disabled="#{empty accountController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AccountEditForm" oncomplete="PF('AccountEditDialog').show()" disabled="#{empty accountController.selected}"/>
-                            <p:commandButton id="AccessButton"  value="Dar/Quitar Acceso" actionListener="#{accountController.updateAccess(sessionUtil.rut)}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panelGrid>
-            </h:form>
+                <p:dataTable id="datalist" value="#{accountController.items}" var="item"
+                             selectionMode="single" selection="#{accountController.selected}"
+                             paginator="true"
+                             rowKey="#{item.rut}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
 
+                             widgetVar="datalist"
+                             emptyMessage="No se encontraron resultados según el criterio" 
+                             filteredValue="#{accountController.filteredAccounts}"
+                             >
+
+                        <p:ajax event="rowSelect" update="createButton viewButton editButton AccessButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton AccessButton"/>
+
+                    <f:facet name="header">
+                        <p:inputText id="globalFilter" onkeyup="PF('datalist').filter()" style="width:150px" placeholder="Buscar..."/>
+                    </f:facet>
+
+                    <p:column filterBy="#{item.rut}" headerText="Name" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAccountTitle_rut}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.rut}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.firstName}" headerText="Name" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAccountTitle_firstName}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.firstName} #{item.lastName}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.email}" headerText="Name" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAccountTitle_email}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.email}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.position}" headerText="Name" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAccountTitle_position}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.position}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.accountType}" headerText="Name" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAccountTitle_accountType}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.accountType.name}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.accessName}" headerText="Name" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListAccountTitle_Access}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.accessName}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{accountController.prepareCreate}" update=":AccountCreateForm" oncomplete="PF('AccountCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AccountViewForm" oncomplete="PF('AccountViewDialog').show()" disabled="#{empty accountController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AccountEditForm" oncomplete="PF('AccountEditDialog').show()" disabled="#{empty accountController.selected}"/>
+                        <p:commandButton id="AccessButton" value="Dar/Quitar Acceso" actionListener="#{accountController.updateAccess(sessionUtil.rut)}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
             <ui:include src="account/Create.xhtml"/>
             <ui:include src="account/Edit.xhtml"/>
             <ui:include src="account/View.xhtml"/>
         </ui:define>
-        
+
     </ui:composition>
 </html>
 
