@@ -16,7 +16,9 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.AuthenticationFailedException;
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -26,6 +28,8 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.SessionUtil;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -48,25 +52,46 @@ public class EmailInbox {
     private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
     private String hostIn = "imap.gmail.com";	//Servidor de entrada de la cuenta
     private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
-    private final String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
-    private final String password = "ihc12014";	//Contraseña de la cuenta de correo
+    private String userName;	//Nombre de usuario de la cuenta para enviar email
+    private String password;	//Contraseña de la cuenta de correo
 
     private List<Email> emails;
     private String emailContent;
 
     private TreeNode root;
     private TreeNode selectedFolder;
+    
+    @Inject
+    private SessionUtil sessionUtil;
 
     @PostConstruct
     public void init() {
         root = new DefaultTreeNode("Root", null);
         emails = new ArrayList<Email>();
         try {
+            setUserName();
+            setPassword();
             loadFolders();
             readMailImap("INBOX");
         } catch (IOException ex) {
             Logger.getLogger(EmailInbox.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName() {
+        this.userName = sessionUtil.getCurrentUser().getEmail();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword() {
+        this.password = sessionUtil.getCurrentUser().getEmailPassword();
     }
 
     /**
@@ -126,7 +151,11 @@ public class EmailInbox {
         try {
             Session sesion = Session.getDefaultInstance(props, null);
             Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
-            store.connect(hostIn, userName, password);	//Se realiza la conexión
+            try {
+                store.connect(hostIn, userName, password);	//Se realiza la conexión
+            } catch (AuthenticationFailedException afe){
+                JsfUtil.redirect("/faces/roles/ProfileConfigEmail.xhtml");
+            }
             Folder[] folders = store.getDefaultFolder().list("*");
             TreeNode inbox = new DefaultTreeNode("Bandeja de entrada", root);
             TreeNode folderCase1 = null;

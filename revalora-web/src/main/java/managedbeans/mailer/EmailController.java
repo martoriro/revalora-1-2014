@@ -40,6 +40,9 @@ public class EmailController implements Serializable {
     @Inject
     private SessionUtil sessionUtil;
     
+    @Inject
+    private EmailInbox emailInbox;
+    
     public EmailController() {
     }
 
@@ -127,8 +130,12 @@ public class EmailController implements Serializable {
         String emailPass = sessionUtil.getCurrentUser().getEmailPassword();
         if ((email!=null) && (emailPass != null)) {
             Boolean go = !email.contentEquals("") && !emailPass.contentEquals(""); 
-            return go;  
+            if (go) {
+                emailInbox.setUserName();
+                emailInbox.setPassword();
+                return go;  
+            }            
         }
         return false;
-    }
+    }    
 }
