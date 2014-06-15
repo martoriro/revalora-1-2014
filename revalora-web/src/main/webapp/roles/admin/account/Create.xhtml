@@ -31,7 +31,7 @@
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{bundle.CreateAccountLabel_birthdate}" for="birthdate" />
-                        <p:calendar id="birthdate" value="#{accountController.selected.birthdate}" pattern="dd/MM/yyyy" title="#{bundle.EditAccountTitle_birthdate}" navigator="true" locale="es" showOn="button" yearRange="1900:2014"/>
+                        <p:calendar id="birthdate" value="#{accountController.selected.birthdate}" pattern="dd/MM/yyyy" title="#{bundle.EditAccountTitle_birthdate}" navigator="true" locale="es" showOn="button" yearRange="1900:2014" mask="truec"/>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_address}" for="address" />
                         <p:inputText id="address" value="#{accountController.selected.address}" title="#{bundle.CreateAccountTitle_address}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_phone}" for="phone" />

@@ -28,6 +28,10 @@
 
         </div>
         <div class="col-xs-9">
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" /> 
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="../../../resources/images/ajax-loader.gif" alt=""/>
+            </p:dialog>
             <h:form id="inbox" >                    
                 <p:growl id="messagesInbox" showDetail="true" />    
                 <p:commandButton actionListener="#{emailInbox.refresh}"  icon="ui-icon-refresh" update="inbox" />
@@ -37,11 +41,12 @@
                 <p:dataTable var="mail" value="#{emailInbox.emails}" style="margin-bottom:40px; width: 100%;  font-size: 12px;"
                              paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="10,15,30" rows="10" paginatorPosition="bottom"
-                             selection="#{emailInbox.selectedEmails}" rowKey="#{mail}" resizableColumns="true">                    
+                             selection="#{emailInbox.selectedEmails}" rowKey="#{mail}" resizableColumns="true"
+                             emptyMessage="No tiene mensajes en esta bandeja." id="inboxTable">                    
                     <f:facet name="header">
                         <p:outputLabel value="#{emailInbox.titleFolder}"/>
                     </f:facet> 
-                    <p:ajax event="rowSelect" listener="#{emailInbox.reading}" update=":idView" oncomplete="PF('viewDialog').show()"/>
+                    <p:ajax event="rowSelect" listener="#{emailInbox.reading}" update=":idView inboxTable" oncomplete="PF('viewDialog').show()"/>
                     <p:column selectionMode="multiple" style="width:41px;text-align:center" resizable="false"/>
                     <p:column headerText="De" sortBy="#{mail.from}">
                         <h:outputText value="#{mail.from}" />
@@ -63,7 +68,9 @@
 
     <p:dialog id="idView" header="Mensaje de #{emailInbox.fromEmailRead }" widgetVar="viewDialog" 
               minimizable="true"  showEffect="fade" hideEffect="fade"
-              width="600" height="500" closeOnEscape="true" >                
+              width="600" height="500" closeOnEscape="true"
+              style="font-size: 12px">      
+        
         <p:panelGrid columns="2" style="border: none !important;">
             <h:outputText value="De:" />
             <h:outputText value="#{emailInbox.fromEmailRead}" />
