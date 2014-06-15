@@ -36,7 +36,11 @@
         </ui:define>
         
         <ui:define name="body">
-            
+            <h:form>
+                <p:breadCrumb style="text-transform: none">
+                    <p:menuitem value="home" url="index.xhtml" />
+                </p:breadCrumb>
+            </h:form>
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
             
         </ui:define>

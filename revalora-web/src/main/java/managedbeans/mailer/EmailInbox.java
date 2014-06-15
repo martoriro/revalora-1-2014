@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.Address;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.Flags;
 import javax.mail.Folder;
@@ -60,7 +61,7 @@ public class EmailInbox {
 
     private TreeNode root;
     private TreeNode selectedFolder;
-    
+
     @Inject
     private SessionUtil sessionUtil;
 
@@ -68,6 +69,7 @@ public class EmailInbox {
     private String fromEmailRead;
     private String sendDateRead;
     private String contentRead;
+    private String idMessage;
 
     @PostConstruct
     public void init() {
@@ -136,7 +138,7 @@ public class EmailInbox {
                     email.setSeen(false);
                 }
                 email.setSubject(msg[i].getSubject());
-                email.setFrom(msg[i].getFrom()[0].toString());
+                email.setFrom(setFrom(msg[i].getFrom()));
                 email.setSendDate(msg[i].getSentDate());
                 analyzeMessage(msg[i]);
                 email.setContent(emailContent);
@@ -152,6 +154,14 @@ public class EmailInbox {
         }
     }
 
+    public String setFrom(Address[] address){
+        String addressAux="";
+        for (Address addres : address) {
+            addressAux +=addres.toString()+"\n";
+        }
+        return addressAux;
+    }
+    
     public void loadFolders() {
         Properties props = System.getProperties();
         try {
@@ -159,7 +169,7 @@ public class EmailInbox {
             Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
             try {
                 store.connect(hostIn, userName, password);	//Se realiza la conexión
-            } catch (AuthenticationFailedException afe){
+            } catch (AuthenticationFailedException afe) {
                 JsfUtil.redirect("/faces/roles/ProfileConfigEmail.xhtml");
             }
             Folder[] folders = store.getDefaultFolder().list("*");
@@ -216,17 +226,17 @@ public class EmailInbox {
             } else {
                 //Si part es texto, se escribe
                 if (part.isMimeType("text/*")) {
-                    emailContent += part.getContent();
+                    emailContent = part.getContent().toString();
                     //System.out.println("---------------------------------");
                 } else {
                     // Si es imagen, se guarda en fichero y se visualiza en JFrame
                     if (part.isMimeType("image/*")) {
-                        emailContent += part.getContentType();
-                        emailContent += part.getFileName();
+                        emailContent = part.getContentType();
+                        emailContent = part.getFileName();
                         //System.out.println("---------------------------------");
                     } else {
                         // Si no es ninguna de las anteriores, escribimos el tipo
-                        emailContent += part.getContentType();
+                        emailContent = part.getContentType();
                         //System.out.println("---------------------------------");
                     }
                 }
@@ -289,7 +299,7 @@ public class EmailInbox {
 //            System.out.println("Se va a cerrar la conexión tras marcar como leídos");
             folder.close(true);
             store.close();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como leídos"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correo(s) marcado(s) como leído(s)"));
         } catch (Exception ex) {
             System.err.println(ex.toString());
         }
@@ -333,7 +343,7 @@ public class EmailInbox {
 //            System.out.println("Se va a cerrar la conexión tras marcar como no leídos");
             folder.close(true);
             store.close();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como no leídos"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correo(s) marcado(s) como no leído(s)"));
 
         } catch (Exception ex) {
             System.err.println(ex.toString());
@@ -376,7 +386,7 @@ public class EmailInbox {
             folder.close(true);
             folder.close(true);
             store.close();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correo(s) eliminados correctamente."));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correo(s) eliminado(s) correctamente."));
 
         } catch (Exception ex) {
             System.err.println(ex.toString());
@@ -391,11 +401,13 @@ public class EmailInbox {
         }
     }
 
-    public void reading() {
+    public void reading() throws MessagingException {
         subjectRead = selectedEmails.get(0).getSubject();
-        fromEmailRead= selectedEmails.get(0).getFrom();
-        sendDateRead= selectedEmails.get(0).getDfDafault().format(selectedEmails.get(0).getSendDate());
-        contentRead= selectedEmails.get(0).getContent();
+        fromEmailRead = selectedEmails.get(0).getFrom();
+        sendDateRead = selectedEmails.get(0).getDfDafault().format(selectedEmails.get(0).getSendDate());
+        contentRead = selectedEmails.get(0).getContent();
+        idMessage = selectedEmails.get(0).getIdMessage();
+        markAsRead();
 
     }
 
@@ -408,9 +420,8 @@ public class EmailInbox {
             titleFolder = (event.getTreeNode().toString());
         }
         readMailImap(currentFolder);
-
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", event.getTreeNode().toString());
-        FacesContext.getCurrentInstance().addMessage(null, message);
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", event.getTreeNode().toString());
+//        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public TreeNode getSelectedFolder() {
@@ -483,6 +494,14 @@ public class EmailInbox {
 
     public void setContentRead(String contentRead) {
         this.contentRead = contentRead;
+    }
+
+    public String getIdMessage() {
+        return idMessage;
+    }
+
+    public void setIdMessage(String idMessage) {
+        this.idMessage = idMessage;
     }
 
 }

@@ -19,6 +19,14 @@
 
         <ui:define name="body">
             
+            <h:form>
+                <p:breadCrumb style="text-transform: none">
+                    <p:menuitem value="Home" url="#{sessionUtil.currentUser.accountType.name}/index.xhtml" />
+                    <p:menuitem value="Mi Perfil" url="Profile.xhtml" />
+                    <p:menuitem value="Editar Información" url="ProfileEdit.xhtml" />
+                </p:breadCrumb>
+            </h:form>
+            
             <h4>Perfil de #{sessionUtil.currentUser.names}</h4>
             
             #{accountController.setSelected(sessionUtil.currentUser)}            

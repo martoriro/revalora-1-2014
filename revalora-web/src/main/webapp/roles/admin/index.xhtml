@@ -14,6 +14,12 @@
         </ui:define>
 
         <ui:define name="body">
+            <h:form>
+                <p:breadCrumb style="text-transform: none;">
+                    <p:menuitem value="home" url="index.xhtml" />
+                    <p:menuitem value="Gestión de Usuarios" url="index.xhtml" />
+                </p:breadCrumb>
+            </h:form>
             <h4 class="white">Bienvenido <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}</b></h4>
             <h:form id="AccountListForm">
                 <p:dataTable id="datalist" value="#{accountController.items}" var="item"
@@ -82,6 +88,10 @@
                             <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="../../resources/images/ajax-loader.gif" alt=""/>
+                        </p:dialog>
                     </f:facet>
                 </p:dataTable>
             </h:form>
