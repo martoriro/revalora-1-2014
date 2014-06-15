@@ -24,67 +24,133 @@
             <script src="http://code.highcharts.com/highcharts-more.js"></script>
             <script src="http://code.highcharts.com/modules/exporting.js"></script>
             <script>
-                $(function () {
+                $(function() {
 
-	$('#container').highcharts({
-	            
-	    chart: {
-	        polar: true,
-	        type: 'line'
-	    },
-	    
-	    title: {
-	        text: 'Resultados Encuesta',
-	        x: -80
-	    },
-	    
-	    pane: {
-	    	size: '80%'
-	    },
-	    
-	    xAxis: {
-	        categories: ['Amor', 'Rectitud', 'Paz', 'Verdad', 
-	                'No Violencia'],
-	        tickmarkPlacement: 'on',
-	        lineWidth: 0
-	    },
-	        
-	    yAxis: {
-	        gridLineInterpolation: 'polygon',
-	        lineWidth: 0,
-	        min: 0
-	    },
-	    
-	    tooltip: {
-	    	shared: true
-	        
-	    },
-	    
-	    legend: {
-	        align: 'right',
-	        verticalAlign: 'top',
-	        y: 70,
-	        layout: 'vertical'
-	    },
-	    
-	    series: [{
-	        name: 'Resultados',
-	        data: [43, 19, 60, 35, 17],
-	        pointPlacement: 'on'
-	    }, {
-	        name: 'Otros Resultados',
-	        data: [50, 39, 42, 31, 26],
-	        pointPlacement: 'on'
-	    }]
-	
-	});
-});
+                    $('#valores').highcharts({
+                        chart: {
+                            polar: true,
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Resultados Encuesta Valanti',
+                            x: -80
+                        },
+                        subtitle: {
+                            text: 'Resultados de Delphi normalizados'
+                        },
+                        pane: {
+                            size: '80%'
+                        },
+                        xAxis: {
+                            categories: ['Amor', 'Rectitud', 'Paz', 'Verdad',
+                                'No Violencia'],
+                            tickmarkPlacement: 'on',
+                            lineWidth: 0
+                        },
+                        yAxis: {
+                            gridLineInterpolation: 'polygon',
+                            lineWidth: 0,
+                            min: 0
+                        },
+                        tooltip: {
+                            shared: true
+
+                        },
+                        legend: {
+                            align: 'right',
+                            verticalAlign: 'top',
+                            y: 70,
+                            layout: 'vertical'
+                        },
+                        series: [{
+                                name: 'Resultados',
+                                data: [43, 19, 60, 35, 17],
+                                pointPlacement: 'on'
+                            }, {
+                                name: 'Otros Resultados',
+                                data: [50, 39, 42, 31, 26],
+                                pointPlacement: 'on'
+                            }]
+
+                    });
+                });
             </script>
-
-            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
-                
-
-            </div>
+            <script>
+                $(function() {
+                    $('#frases').highcharts({
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Resultados Encuesta Delphi'
+                        },
+                        subtitle: {
+                            text: 'Distribución cantidad de elecciones por prioridad'
+                        },
+                        xAxis: {
+                            categories: ['Frase 1', 'Frase 2', 'Frase 3', 'Frase 4', 'Frase 5', 'Frase 6', 'Frase 7', 'Frase 8', 'Frase 9', 'Frase 10', 'Frase 11', 'Frase 12', 'Frase 13', 'Frase 14'],
+                            title: {
+                                text: null
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Cantidad de personas.',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            }
+                        },
+                        tooltip: {
+                            valueSuffix: ' personas'
+                        },
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 100,
+                            floating: false,
+                            borderWidth: 1,
+                            backgroundColor: '#FFFFFF',
+                            shadow: true
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                                name: '1er Lugar',
+                                data: [1, 3, 6, 2, 2, 0, 1, 1, 3, 6, 2, 2, 0, 1]
+                            }, {
+                                name: '2do Lugar',
+                                data: [1, 1, 9, 4, 6, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                            }, {
+                                name: '3er Lugar',
+                                data: [3, 6, 7, 4, 6, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                            }, {
+                                name: '4to Lugar',
+                                data: [3, 5, 4, 8, 9, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                            }, {
+                                name: '5to Lugar',
+                                data: [1, 5, 9, 1, 6, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                            }, {
+                                name: '6to Lugar',
+                                data: [9, 9, 4, 7, 3, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                            }]
+                    });
+                });
+            </script>
+            <div id="frases" style="min-width: 310px; max-width: 800px; height: 1000px; margin: 0 auto"></div>
+            <div id="valores" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
         </ui:define>
