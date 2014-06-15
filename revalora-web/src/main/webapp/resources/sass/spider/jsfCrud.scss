@@ -41,12 +41,13 @@
 		border:0px;
 		border-radius:0px;
 		padding:0px!important;
+		position: relative;
 
 		input {
 			float: right;
 			position: absolute;
-			right: 14px;
-			top: 5px;
+			right: 1px;
+			top: -34px;
 			width: 250px!important;
 		}
 	}

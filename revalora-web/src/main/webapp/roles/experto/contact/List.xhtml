@@ -16,8 +16,16 @@
         <ui:define name="sidebar-right">
             <ui:include src="../sidebar-right.xhtml"/>
         </ui:define>
+        
+        <ui:define name="header-links">
+            <li>
+                <a href="/revalora-web/faces/roles/experto/index.xhtml">Inicio</a>
+            </li>
+        </ui:define>
 
         <ui:define name="body">
+            <ui:include src="../project/project-header.xhtml"/>
+            
             <h4 class="white">#{bundle.ListContactTitle}</h4>
             <h:form id="ContactListForm">
                 <p:dataTable id="datalist" value="#{contactController.items}" var="item"

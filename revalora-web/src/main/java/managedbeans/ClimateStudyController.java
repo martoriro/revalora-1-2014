@@ -170,6 +170,10 @@ public class ClimateStudyController implements Serializable {
         }
 
     }
+    
+    public void climateStudyIndex() {
+        JsfUtil.redirect("/faces/roles/experto/climateStudy/index.xhtml");
+    }
 
     public void sendInvitations() {
         

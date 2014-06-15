@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/layout/2columns-right.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Proyecto #{projectController.selected.name}"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="sidebar-right">
+            <ui:include src="../sidebar-right.xhtml"/>
+        </ui:define>
+        
+        <ui:define name="header-links">
+            <li><a href="/revalora-web/faces/roles/experto/index.xhtml">Inicio</a></li>
+        </ui:define>
+        
+
+        <ui:define name="body">
+            <ui:include src="../project/project-header.xhtml"/>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="white">Estudio #{climateStudyController.selected.name}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <p>#{climateStudyController.selected.description}</p>
+                    <div class="label label-default">
+                        <h:outputText value="#{climateStudyController.selected.startAt}" title="#{bundle.ViewClimateStudyTitle_startAt}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        -
+                        <h:outputText value="#{climateStudyController.selected.endAt}" title="#{bundle.ViewClimateStudyTitle_endAt}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <b>Creado por: </b> #{climateStudyController.selected.creator.firstName} #{climateStudyController.selected.creator.lastName}
+                </div>
+            </div>
+            <br/>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    
+                    <h4>Participantes</h4>
+
+                    <h:form id="contactList">
+                        <p:dataTable id="datalist1" value="#{climateStudyController.selected.contacts}" var="contact"
+                                     selectionMode="single" selection="#{contactController.selected}"
+                                     paginator="true"
+                                     rowKey="#{contact.email}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+
+                                     widgetVar="datalist1"
+                                     emptyMessage="No se encontraron resultados segun el criterio" 
+                                     filteredValue="#{contactController.filteredContacts}" 
+                                     >
+                            <f:facet name="header">
+                                <p:inputText id="globalFilter1" onkeyup="PF('datalist1').filter()" style="width:150px; display: none" placeholder="Buscar..."/>
+                            </f:facet>
+
+                            <p:column filterBy="#{contact.name}" headerText="Name" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContactTitle_name}"/>
+                                </f:facet>
+                                <h:outputText value="#{contact.name}"/>
+                            </p:column>
+                            <p:column filterBy="#{contact.email}" headerText="Email" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListContactTitle_email}"/>
+                                </f:facet>
+                                <h:outputText value="#{contact.email}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form> 
+                    
+                </div>
+                <div class="col-md-6">
+                    
+                    <h4>Grupos</h4>
+                    
+                    <h:form id="groupList">
+                        <p:dataTable id="datalist2" value="#{climateStudyController.selected.groups}" var="group"
+                                     selectionMode="single" selection="#{contactGroupController.selected}"
+                                     paginator="true"
+                                     rowKey="#{group.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+
+                                     widgetVar="datalist2"
+                                     emptyMessage="No se encontraron resultados segun el criterio" 
+                                     filteredValue="#{contactGroupController.filteredContactGroups}" 
+                                     >
+                            <f:facet name="header">
+                                <p:inputText id="globalFilter2" onkeyup="PF('datalist2').filter()" style="width:150px; display: none" placeholder="Buscar..."/>
+                            </f:facet>
+
+                            <p:column filterBy="#{group.name}" headerText="Name" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre grupo"/>
+                                </f:facet>
+                                <h:outputText value="#{group.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form> 
+                    
+                </div>
+            </div>
+            
+            <div>
+                <!--<p:button id="buttonReiterar" value="Reiterar invitaciones" styleClass="float-right"/>-->
+                <p:button id="buttonEnviar" value="Enviar invitaciones" styleClass="float-right"/>
+                <!--<p:tooltip id="ttButtonReiterar" for="buttonReiterar" style="width: 250px;" value="Envía las invitaciones a todos aquellos que aun no han respondido la encuesta" />-->
+                <p:tooltip id="ttButtonEnviar" for="buttonEnviar" style="width: 250px;" value="Envía las invitaciones a todos aquellos que aun no han sido invitados" />
+            </div>
+            
+            
+        </ui:define>
+
+    </ui:composition>
+
+</html>
