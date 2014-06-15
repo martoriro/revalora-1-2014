@@ -31,7 +31,7 @@
             <h:form id="inbox" >                    
                 <p:growl id="messagesInbox" showDetail="true" />    
                 <p:commandButton actionListener="#{emailInbox.refresh}"  icon="ui-icon-refresh" update="inbox" />
-                <p:commandButton type="button" icon="ui-icon-trash" value="Eliminar" />
+                <p:commandButton  icon="ui-icon-trash" value="Eliminar" actionListener="#{emailInbox.deleteMessage}" update="inbox messagesInbox"/>
                 <p:commandButton  value="Marcar como leído"  icon="ui-icon-mail-open" actionListener="#{emailInbox.markAsRead}" update="inbox messagesInbox"/>
                 <p:commandButton  value="Marcar como no leído"   icon="ui-icon-mail-closed" actionListener="#{emailInbox.markAsNoRead}" update="inbox messagesInbox" />
                 <p:dataTable var="mail" value="#{emailInbox.emails}" style="margin-bottom:40px; width: 100%;  font-size: 12px;"
@@ -41,7 +41,7 @@
                     <f:facet name="header">
                         <p:outputLabel value="#{emailInbox.titleFolder}"/>
                     </f:facet> 
-                    <p:ajax event="rowSelect" listener="#{readMail.reading}" update=":idView" oncomplete="PF('viewDialog').show()"/>
+                    <p:ajax event="rowSelect" listener="#{emailInbox.reading}" update=":idView" oncomplete="PF('viewDialog').show()"/>
                     <p:column selectionMode="multiple" style="width:41px;text-align:center" resizable="false"/>
                     <p:column headerText="De" sortBy="#{mail.from}">
                         <h:outputText value="#{mail.from}" />
@@ -61,18 +61,18 @@
     </div>
     <ui:include src="newMessage.xhtml"/>
 
-    <p:dialog id="idView" header="Mensaje de #{readMail.from}" widgetVar="viewDialog" 
+    <p:dialog id="idView" header="Mensaje de #{emailInbox.fromEmailRead }" widgetVar="viewDialog" 
               minimizable="true"  showEffect="fade" hideEffect="fade"
               width="600" height="500" closeOnEscape="true" >                
-        <p:panelGrid columns="2" styleClass="panelGridForm">
+        <p:panelGrid columns="2" style="border: none !important;">
             <h:outputText value="De:" />
-            <h:outputText value="#{readMail.from}" />
+            <h:outputText value="#{emailInbox.fromEmailRead}" />
             <h:outputText value="Fecha:" />
-            <h:outputText value="#{readMail.sendDate}" />
+            <h:outputText value="#{emailInbox.sendDateRead}" />
             <h:outputText value="Asunto:" />
-            <h:outputText value="#{readMail.subject}" />
+            <h:outputText value="#{emailInbox.subjectRead}" />
             <h:outputText value="Mensaje:" />
-            <h:outputText escape="false"  value="#{readMail.content}" />                        
+            <h:outputText escape="false"  value="#{emailInbox.contentRead}" />                        
         </p:panelGrid>
     </p:dialog>
 
