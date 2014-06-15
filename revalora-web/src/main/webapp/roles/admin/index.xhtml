@@ -76,7 +76,7 @@
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AccountViewForm" oncomplete="PF('AccountViewDialog').show()" disabled="#{empty accountController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AccountEditForm" oncomplete="PF('AccountEditDialog').show()" disabled="#{empty accountController.selected}"/>
                         <p:commandButton id="AccessButton" value="Dar/Quitar Acceso" actionListener="#{accountController.updateAccess(sessionUtil.rut)}" update=":growl,datalist" disabled="#{empty accountController.selected}">
-                            <p:confirm header="Advertencia" message="¿Está seguro que quiere inhabilitar este usuario?" icon="ui-icon-alert" />
+                            <p:confirm header="Advertencia" message="¿Está seguro que quiere #{accountController.selected.accessStatus} este usuario?" icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
