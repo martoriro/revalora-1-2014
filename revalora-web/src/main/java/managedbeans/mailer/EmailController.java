@@ -55,6 +55,8 @@ public class EmailController implements Serializable {
     }
     
     public Email prepareCreate() {
+        emailSessionBean.setUserName(sessionUtil.getCurrentUser().getEmail());
+        emailSessionBean.setPassword(sessionUtil.getCurrentUser().getEmailPassword());
         selected = new Email();
         return selected;
     }

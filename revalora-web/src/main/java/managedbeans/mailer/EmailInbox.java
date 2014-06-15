@@ -51,7 +51,7 @@ public class EmailInbox {
     private String portIn = "995";	//puerto que se conecta al servidor de entrada POP 
     private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
     private String hostIn = "imap.gmail.com";	//Servidor de entrada de la cuenta
-    private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
+    private String from;	//Email remitente del mensaje
     private String userName;	//Nombre de usuario de la cuenta para enviar email
     private String password;	//Contraseña de la cuenta de correo
 
@@ -88,6 +88,7 @@ public class EmailInbox {
     }
 
     public void setUserName() {
+        this.from = sessionUtil.getCurrentUser().getEmail();
         this.userName = sessionUtil.getCurrentUser().getEmail();
     }
 
