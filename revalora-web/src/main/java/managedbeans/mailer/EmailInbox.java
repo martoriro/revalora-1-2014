@@ -16,7 +16,9 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.AuthenticationFailedException;
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -26,6 +28,8 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.SessionUtil;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -47,26 +51,53 @@ public class EmailInbox {
     private String portIn = "995";	//puerto que se conecta al servidor de entrada POP 
     private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
     private String hostIn = "imap.gmail.com";	//Servidor de entrada de la cuenta
-    private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
-    private final String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
-    private final String password = "ihc12014";	//Contraseña de la cuenta de correo
+    private String from;	//Email remitente del mensaje
+    private String userName;	//Nombre de usuario de la cuenta para enviar email
+    private String password;	//Contraseña de la cuenta de correo
 
     private List<Email> emails;
     private String emailContent;
 
     private TreeNode root;
     private TreeNode selectedFolder;
+    
+    @Inject
+    private SessionUtil sessionUtil;
+
+    private String subjectRead;
+    private String fromEmailRead;
+    private String sendDateRead;
+    private String contentRead;
 
     @PostConstruct
     public void init() {
         root = new DefaultTreeNode("Root", null);
         emails = new ArrayList<Email>();
         try {
+            setUserName();
+            setPassword();
             loadFolders();
             readMailImap("INBOX");
         } catch (IOException ex) {
             Logger.getLogger(EmailInbox.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName() {
+        this.from = sessionUtil.getCurrentUser().getEmail();
+        this.userName = sessionUtil.getCurrentUser().getEmail();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword() {
+        this.password = sessionUtil.getCurrentUser().getEmailPassword();
     }
 
     /**
@@ -126,7 +157,11 @@ public class EmailInbox {
         try {
             Session sesion = Session.getDefaultInstance(props, null);
             Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
-            store.connect(hostIn, userName, password);	//Se realiza la conexión
+            try {
+                store.connect(hostIn, userName, password);	//Se realiza la conexión
+            } catch (AuthenticationFailedException afe){
+                JsfUtil.redirect("/faces/roles/ProfileConfigEmail.xhtml");
+            }
             Folder[] folders = store.getDefaultFolder().list("*");
             TreeNode inbox = new DefaultTreeNode("Bandeja de entrada", root);
             TreeNode folderCase1 = null;
@@ -318,7 +353,7 @@ public class EmailInbox {
             Store store = sesion.getStore("imaps");	//se define el protocolo de acceso
             store.connect(hostIn, userName, password);	//Se realiza la conexión
             Folder folder = store.getFolder(currentFolder);
-            Folder deleteFolder = store.getFolder("[Gmali]/Papelera");
+            Folder deleteFolder = store.getFolder("[Gmail]/Papelera");
             deleteFolder.open(Folder.READ_WRITE);
             folder.open(Folder.READ_WRITE);
             Message[] msgOldFlags = folder.getMessages();
@@ -327,7 +362,7 @@ public class EmailInbox {
                 m = (MimeMessage) msgOldFlags[i];
                 for (int j = 0; j < selectedEmails.size(); j++) {
                     if (m.getMessageID().equals(selectedEmails.get(j).getIdMessage())) {
-                        toDelete[j]= msgOldFlags[i];
+                        toDelete[j] = msgOldFlags[i];
                         folder.setFlags(new Message[]{msgOldFlags[i]}, new Flags(Flags.Flag.DELETED), true);
                         for (int k = 0; k < emails.size(); k++) {
                             if (emails.get(k).getIdMessage().equals(selectedEmails.get(j).getIdMessage())) {
@@ -341,7 +376,7 @@ public class EmailInbox {
             folder.close(true);
             folder.close(true);
             store.close();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correos marcados como no leídos"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Información", "Correo(s) eliminados correctamente."));
 
         } catch (Exception ex) {
             System.err.println(ex.toString());
@@ -354,6 +389,14 @@ public class EmailInbox {
         } catch (IOException ex) {
             Logger.getLogger(EmailInbox.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void reading() {
+        subjectRead = selectedEmails.get(0).getSubject();
+        fromEmailRead= selectedEmails.get(0).getFrom();
+        sendDateRead= selectedEmails.get(0).getDfDafault().format(selectedEmails.get(0).getSendDate());
+        contentRead= selectedEmails.get(0).getContent();
+
     }
 
     public void onNodeSelect(NodeSelectEvent event) throws IOException {
@@ -408,6 +451,38 @@ public class EmailInbox {
 
     public void setTitleFolder(String titleFolder) {
         this.titleFolder = titleFolder;
+    }
+
+    public String getSubjectRead() {
+        return subjectRead;
+    }
+
+    public void setSubjectRead(String subjectRead) {
+        this.subjectRead = subjectRead;
+    }
+
+    public String getFromEmailRead() {
+        return fromEmailRead;
+    }
+
+    public void setFromEmailRead(String fromEmailRead) {
+        this.fromEmailRead = fromEmailRead;
+    }
+
+    public String getSendDateRead() {
+        return sendDateRead;
+    }
+
+    public void setSendDateRead(String sendDateRead) {
+        this.sendDateRead = sendDateRead;
+    }
+
+    public String getContentRead() {
+        return contentRead;
+    }
+
+    public void setContentRead(String contentRead) {
+        this.contentRead = contentRead;
     }
 
 }

@@ -24,5 +24,13 @@ public interface EmailSessionBeanLocal {
                         String body)
             throws AddressException, MessagingException;
     
+    public String getUserName();
+    
+    public void setUserName(String userName);
+    
+    public String getPassword();
+    
+    public void setPassword(String password);
+    
     public boolean isAuthenticated(); 
 }

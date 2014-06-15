@@ -24,9 +24,9 @@ public class EmailSessionBean implements EmailSessionBeanLocal{
 	private String portIn ="995";	//puerto que se conecta al servidor de entrada POP 
 	private String hostOut = "smtp.gmail.com";	//Servidor SMTP de la cuenta
 	private String hostIn = "pop.gmail.com";	//Servidor de entrada de la cuenta
-	private String from = "sistema.revalora@gmail.com";	//Email remitente del mensaje
-	private String userName = "sistema.revalora@gmail.com";	//Nombre de usuario de la cuenta para enviar email
-	private String password = "ihc12014";	//Contraseña de la cuenta de correo
+	private String from;	//Email remitente del mensaje
+	private String userName;	//Nombre de usuario de la cuenta para enviar email
+	private String password;	//Contraseña de la cuenta de correo
         
         private Session session;
         private Properties props;
@@ -123,6 +123,7 @@ public class EmailSessionBean implements EmailSessionBeanLocal{
     }
 
     public void setUserName(String userName) {
+        this.from = userName;
         this.userName = userName;
     }
 

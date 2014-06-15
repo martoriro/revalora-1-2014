@@ -279,4 +279,15 @@ public class Account implements Serializable {
         return accessName;
     }
     
+    public java.lang.String getAccessStatus(){
+        String accessStatus = "";
+        if(access){
+            accessStatus = "inhabilitar";
+        }
+        else{
+            accessStatus = "habilitar";        
+        }
+        return accessStatus;
+    }
+    
 }

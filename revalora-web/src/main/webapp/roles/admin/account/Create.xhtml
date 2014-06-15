@@ -18,7 +18,7 @@
                             <f:validator validatorId="Validator.SameRutValidator"/>
                         </p:inputText>
                         <p:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{accountController.selected.password}" title="#{Bundle.CreateAccountTitle_password}" />
+                        <p:password id="password" value="#{accountController.selected.password}" title="#{Bundle.CreateAccountTitle_password}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_firstName}" for="firstName" />
                         <p:inputText id="firstName" value="#{accountController.selected.firstName}" title="#{bundle.CreateAccountTitle_firstName}" />
                         <p:outputLabel value="#{bundle.CreateAccountLabel_lastName}" for="lastName" />
@@ -47,7 +47,13 @@
                                            itemValue="#{accountTypeItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{accountController.create}" value="#{bundle.Save}" update="display,:AccountListForm:datalist,:growl" oncomplete="handleSubmit(args,'AccountCreateDialog');"/>
+                    <p:commandButton actionListener="#{accountController.create}" value="#{bundle.Save}" update="display,:AccountListForm:datalist,:growl" oncomplete="handleSubmit(args,'AccountCreateDialog');">
+                        <p:confirm header="Advertencia" message="¿Está seguro que quiere crear un usuario?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="AccountCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -29,6 +29,8 @@ public class AccountController implements Serializable {
     private List<Account> items = null;
     private Account selected;
 
+    private List<Account> filteredAccounts;
+
     public AccountController() {
     }
 
@@ -63,11 +65,11 @@ public class AccountController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AccountUpdated"));
     }
-    
+
     public void updateAndGo(String destiny) {
         persist(PersistAction.UPDATE, "El usuario ha sido actualizado");
         JsfUtil.redirect(destiny);
@@ -80,16 +82,14 @@ public class AccountController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
-    public void updateAccess(String Rut){
-        if(Rut.equals(selected.getRut())){
+
+    public void updateAccess(String Rut) {
+        if (Rut.equals(selected.getRut())) {
             JsfUtil.addErrorMessage("No puede Modificar la información de Acceso de Usted");
-        }
-        else{
-            if(selected.getAccess()){
+        } else {
+            if (selected.getAccess()) {
                 selected.setAccess(Boolean.FALSE);
-            }
-            else{
+            } else {
                 selected.setAccess(Boolean.TRUE);
             }
             update();
@@ -188,18 +188,26 @@ public class AccountController implements Serializable {
         }
 
     }
-    
+
+    public List<Account> getFilteredAccounts() {
+        return filteredAccounts;
+    }
+
+    public void setFilteredAccounts(List<Account> filteredAccounts) {
+        this.filteredAccounts = filteredAccounts;
+    }
+
     public List<Account> filterAccounts(String query) {
         List<Account> allAccounts = ejbFacade.findAll();
         List<Account> filteredAccounts = new ArrayList<Account>();
-        
-        for(int i = 0; i < allAccounts.size(); i++) {
+
+        for (int i = 0; i < allAccounts.size(); i++) {
             Account skin = allAccounts.get(i);
-            if(skin.getNames().toLowerCase().startsWith(query)) {
+            if (skin.getNames().toLowerCase().startsWith(query)) {
                 filteredAccounts.add(skin);
             }
         }
-        
+
         return filteredAccounts;
     }
 }

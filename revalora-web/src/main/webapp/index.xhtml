@@ -36,6 +36,11 @@
                                 </div>
                                 <!--<a href="/revalora-web/faces/passwordRecovery.xhtml" class="btn btn-link" style="margin-top: 10px">¿Olvidó su contraseña?</a>-->
                                 <p:commandButton styleClass="btn btn-default float-right" type="submit" value="Ingresar" action="#{loginController.login()}" update=":growl"/>
+                                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                    <img src="resources/images/ajax-loader.gif" alt=""/>
+                                </p:dialog>
                             </div>
                         </div>
                     </div>
