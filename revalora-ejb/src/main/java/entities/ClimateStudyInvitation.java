@@ -28,7 +28,7 @@ public class ClimateStudyInvitation implements Serializable {
     private Long id;
     
     @ManyToOne
-    private Account account;
+    private Contact contact;
     
     @ManyToOne
     private ClimateStudySurvey study;
@@ -47,12 +47,12 @@ public class ClimateStudyInvitation implements Serializable {
         this.id = id;
     }
 
-    public Account getAccount() {
-        return account;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     public ClimateStudySurvey getStudy() {
@@ -69,6 +69,14 @@ public class ClimateStudyInvitation implements Serializable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
