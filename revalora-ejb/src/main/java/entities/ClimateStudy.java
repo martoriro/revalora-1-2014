@@ -7,6 +7,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -56,6 +58,9 @@ public class ClimateStudy implements Serializable {
     
     @ManyToOne
     private Project project;
+    
+    @OneToMany
+    private List<ClimateStudyInvitation> invitations;
 
     public Long getId() {
         return id;
@@ -127,6 +132,17 @@ public class ClimateStudy implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public List<ClimateStudyInvitation> getInvitations() {
+        if(invitations == null) {
+            invitations = new ArrayList<ClimateStudyInvitation>();
+        }
+        return invitations;
+    }
+
+    public void setInvitations(List<ClimateStudyInvitation> invitations) {
+        this.invitations = invitations;
     }
 
     @Override

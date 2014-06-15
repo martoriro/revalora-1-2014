@@ -1,23 +1,24 @@
 package managedbeans;
 
 import entities.ClimateStudyInvitation;
-import managedbeans.util.JsfUtil;
-import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.ClimateStudyInvitationFacadeLocal;
-
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.inject.Named;
+import managedbeans.util.JsfUtil;
+import managedbeans.util.JsfUtil.PersistAction;
+import sessionbeans.ClimateStudyInvitationFacadeLocal;
 
 @Named("climateStudyInvitationController")
 @SessionScoped
@@ -27,7 +28,10 @@ public class ClimateStudyInvitationController implements Serializable {
     private ClimateStudyInvitationFacadeLocal ejbFacade;
     private List<ClimateStudyInvitation> items = null;
     private ClimateStudyInvitation selected;
-
+    
+    @Inject 
+    private ClimateStudyController climateStudyController;
+    
     public ClimateStudyInvitationController() {
     }
 
@@ -51,6 +55,8 @@ public class ClimateStudyInvitationController implements Serializable {
 
     public ClimateStudyInvitation prepareCreate() {
         selected = new ClimateStudyInvitation();
+        selected.setStudy(climateStudyController.getSelected());
+        selected.setDate(new Date());
         initializeEmbeddableKey();
         return selected;
     }
