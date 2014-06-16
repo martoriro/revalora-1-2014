@@ -46,6 +46,7 @@ public class ClimateStudyController implements Serializable {
     private ClimateStudyFacadeLocal ejbFacade;
     private List<ClimateStudy> items = null;
     private ClimateStudy selected;
+
     private String surveyParam;
     private String[] survey = new String[70];
     
@@ -57,6 +58,7 @@ public class ClimateStudyController implements Serializable {
     @Inject private ContactController contactController;
     
     @EJB private EmailSessionBeanLocal emailFacade;
+
 
     public ClimateStudyController() {
     }
@@ -113,14 +115,22 @@ public class ClimateStudyController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (validateDate()) {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            JsfUtil.addErrorMessage("La fecha de termino no puede ser posterior al termino del proyecto");
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyUpdated"));
+        if (validateDate()) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ClimateStudyUpdated"));
+        } else {
+            JsfUtil.addErrorMessage("La fecha de termino no puede ser posterior al termino del proyecto");
+        }
     }
 
     public void destroy() {
@@ -141,7 +151,7 @@ public class ClimateStudyController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if(persistAction == PersistAction.CREATE) {
+                if (persistAction == PersistAction.CREATE) {
                     getFacade().create(selected);
                 } else if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
@@ -223,12 +233,13 @@ public class ClimateStudyController implements Serializable {
         }
 
     }
-    
+
     public void climateStudyIndex() {
         JsfUtil.redirect("/faces/roles/experto/climateStudy/index.xhtml");
     }
 
     public void sendInvitations() {
+        System.out.println("Enviando invitaciones");
         try {
             for (Contact contact : selected.getContacts()) {
                 _sendInvitations(contact);
@@ -242,10 +253,24 @@ public class ClimateStudyController implements Serializable {
         } catch (Exception ex) {
             JsfUtil.addErrorMessage("Ha ocurrido un error y algunas de las invitaciones no se han enviado. Inténtelo mas tarde");
         }
+        System.out.println("- Invitaciones enviadas");
         JsfUtil.addSuccessMessage("Las invitaciones han sido enviadas");
     }
-    
+
+    public boolean validateDate() {
+        boolean validate = false;
+        if (selected.getProject().getEndAt() != null && selected.getEndAt() != null) {
+            if (selected.getProject().getEndAt().compareTo(selected.getEndAt()) > 0) {
+                if (selected.getProject().getStartAt().compareTo(selected.getEndAt()) < 0) {
+                    validate = true;
+                }
+            }
+        }
+        return validate;
+    }
+
     public void _sendInvitations(Contact contact) throws MessagingException {
+        System.out.println("- Enviadno mensaje a " + contact.getName() + " (" + contact.getEmail() + ")");
         littleMailer.sendClimateStudyInvitation(contact, selected);
         
         ClimateStudyInvitation invitation = new ClimateStudyInvitation();
@@ -256,10 +281,14 @@ public class ClimateStudyController implements Serializable {
         selected.getInvitations().add(invitation);
         getFacade().edit(selected);
     }
+
+
+
     
     public void submit() {
         System.out.println("Procesando encuesta");
         
     }
     
+
 }
