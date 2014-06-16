@@ -1,7 +1,11 @@
 package managedbeans;
 
 import entities.ClimateStudy;
+import entities.ClimateStudyInvitation;
+import entities.Contact;
+import entities.ContactGroup;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -15,10 +19,15 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
+import managedbeans.mailer.EmailController;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
+import managedbeans.util.LittleMailer;
 import managedbeans.util.SessionUtil;
+import otherclasses.Email;
 import sessionbeans.ClimateStudyFacadeLocal;
+import sessionbeans.util.EmailSessionBeanLocal;
 
 @Named("climateStudyController")
 @SessionScoped
@@ -32,7 +41,20 @@ public class ClimateStudyController implements Serializable {
     @Inject
     private SessionUtil sessionUtil;
     
-    @Inject ProjectController projectController;
+    @Inject 
+    private ProjectController projectController;
+    
+    @Inject
+    private ClimateStudyInvitationController climateStudyInvitationController;
+    
+    @Inject 
+    private EmailController emailController;
+    
+    @EJB
+    private EmailSessionBeanLocal emailFacade;
+    
+    @Inject
+    private LittleMailer littleMailer; // El mejor de los mailers
 
     public ClimateStudyController() {
     }
@@ -176,7 +198,33 @@ public class ClimateStudyController implements Serializable {
     }
 
     public void sendInvitations() {
-        
+        System.out.println("Enviando invitaciones");
+        try {
+            for (Contact contact : selected.getContacts()) {
+                _sendInvitations(contact);
+            }
+            for (ContactGroup group : selected.getGroups()) {
+                for (Contact contact : group.getContacts()) {
+                    _sendInvitations(contact);
+                }
+            }
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage("Ha ocurrido un error y algunas de las invitaciones no se han enviado. Inténtelo mas tarde");
+        }
+        System.out.println("- Invitaciones enviadas");
+        JsfUtil.addSuccessMessage("Las invitaciones han sido enviadas");
+    }
+    
+    public void _sendInvitations(Contact contact) throws MessagingException {
+        System.out.println("- Enviadno mensaje a " + contact.getName() + " (" + contact.getEmail() +")");
+        littleMailer.sendClimateStudyInvitation(contact, selected);
+        ClimateStudyInvitation invitation = new ClimateStudyInvitation();
+        invitation.setContact(contact);
+        invitation.setDate(new Date());
+        invitation.setStudy(selected);
+        invitation.setState("Enviado");
+        selected.getInvitations().add(invitation);
+        getFacade().edit(selected);
     }
     
 }

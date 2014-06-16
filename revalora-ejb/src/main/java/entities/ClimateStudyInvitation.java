@@ -31,7 +31,7 @@ public class ClimateStudyInvitation implements Serializable {
     private Contact contact;
     
     @ManyToOne
-    private ClimateStudySurvey study;
+    private ClimateStudy study;
     
     private String state;
     // Puede ser "Invitación enviada", "Correo rebotó", "Completado" (Respondió de manera satisfactoria) 
@@ -55,11 +55,11 @@ public class ClimateStudyInvitation implements Serializable {
         this.contact = contact;
     }
 
-    public ClimateStudySurvey getStudy() {
+    public ClimateStudy getStudy() {
         return study;
     }
 
-    public void setStudy(ClimateStudySurvey study) {
+    public void setStudy(ClimateStudy study) {
         this.study = study;
     }
 

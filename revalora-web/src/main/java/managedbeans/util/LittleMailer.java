@@ -7,10 +7,11 @@
 package managedbeans.util;
 
 import entities.Account;
-import entities.ClimateStudyInvitation;
+import entities.ClimateStudy;
+import entities.Contact;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.util.Date;
 import java.util.Properties;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -30,19 +31,21 @@ import javax.mail.internet.MimeMessage;
 @RequestScoped
 public class LittleMailer {
     
-    private final String basePath = "http://localhost:8080/revalora-web/faces/survey/answer.xhtml";
+    private final String basePath = "http://localhost:8080/revalora-web/faces/survey/index.xhtml";
 
-    public void sendClimateStudyInvitation(Account account, ClimateStudyInvitation invitation) {
-        String studyName = invitation.getStudy().getClimateStudy().getName();
-        Date studyDeadline = invitation.getStudy().getClimateStudy().getEndAt();
-                
+    public void sendClimateStudyInvitation(Contact contact, ClimateStudy study) {
         try {
-            sendMessage(account.getEmail(),
-            "Has sido invitado a participar en un estudio de clima organizacional llamado \"" + studyName + "\"", 
-            "Estimado " + account.getFirstName() + ",\n\n" +
-            "Has sido invitado a participar en el estudio de clima \"" + invitation + "\"\n" + 
-            "Agradecemos puedas responder accediendo en el siguiente link antes de la fecha " + studyDeadline.toString() + "\n\n" + 
-            basePath + "");
+            Crypto cypher = new Crypto();
+            String uri = cypher.crypt(contact.getEmail() + "||" + study.getId().toString());
+            
+            sendMessage(
+                contact.getEmail(), 
+                "Has sido invitado a participar del estudio #" + study.getId() + " - " + study.getName(), 
+                "Has sido invitado a participar del estudio #" + study.getId() + " - " + study.getName() + ". " + 
+                "Creado para la organización " + study.getProject().getOrganization().getName() + " por el experto " + study.getCreator().getNames() + ".\n" + 
+                "El Sistema Revalora te solicita que respondas las preguntas en el siguiente enlace:\n\n" +
+                basePath + "?survey=" + uri
+            );
         } catch (Exception ex) {
             System.out.println("* Error: LittleMailer::sendInvitationToSurvey: No ha sido posible enviar el correo.");
         }
@@ -67,6 +70,7 @@ public class LittleMailer {
         }        
     }
     
+    // Privates    
     private void sendMessage(String email, String messageSubject, String messageBody) {
         final String username = "sistema.revalora@gmail.com";
         final String password = "ihc12014";
@@ -99,4 +103,25 @@ public class LittleMailer {
             throw new RuntimeException(e);
         }
     }
+    
+    private String sha256(String base) {
+        System.out.println("Calling Account.sha256 (" + base + ")");
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            
+            return hexString.toString();
+            
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+    
 }

@@ -70,6 +70,13 @@ public class EmailController implements Serializable {
         create();
     }
     
+    public Email prepareCreateRevalora() {
+        emailSessionBean.setUserName("sistema.revalora@gmail.com");
+        emailSessionBean.setPassword("ihc12014");
+        selected = new Email();
+        return selected;
+    }
+    
     public void create() {
         try {
             createEmails();
@@ -108,7 +115,7 @@ public class EmailController implements Serializable {
             }
         }
     }
-
+    
     public void sendMessage(String recipient, String subject, String content, String successMessage) throws IOException{
         
         try {
