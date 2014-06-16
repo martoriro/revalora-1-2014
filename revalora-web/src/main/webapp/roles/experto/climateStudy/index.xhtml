@@ -135,8 +135,13 @@
                     <p:commandButton id="buttonEnviar" value="Enviar invitaciones" styleClass="float-right" 
                         actionListener="#{climateStudyController.sendInvitations}"
                         update=":growl,datalist3"/>
+                    
                     <!--<p:tooltip id="ttButtonReiterar" for="buttonReiterar" style="width: 250px;" value="Envía las invitaciones a todos aquellos que aun no han respondido la encuesta" />-->
                     <p:tooltip id="ttButtonEnviar" for="buttonEnviar" style="width: 250px;" value="Envía las invitaciones a todos aquellos que aun no han sido invitados" />
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="resources/images/ajax-loader.gif" alt=""/>
+                    </p:dialog>
                 </div>
 
                 <br/>
