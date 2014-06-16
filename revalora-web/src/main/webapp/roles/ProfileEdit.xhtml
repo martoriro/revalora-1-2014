@@ -52,7 +52,7 @@
                                 <p:outputLabel value="Tipo" for="accountType" />
                                 <h:outputText id="accountType" value="#{sessionUtil.currentUser.accountType.name}" title="Tipo de usuario"/>
                             </p:panelGrid>
-                            <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}" update="display, :growl" />
+                            <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}"  update="display, :growl" />
                             <a href="/revalora-web/faces/roles/Profile.xhtml" class="btn btn-link">Volver</a>
                         </h:panelGroup>
                     </h:form>

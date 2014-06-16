@@ -71,7 +71,9 @@ public class AccountController implements Serializable {
     }
 
     public void updateAndGo(String destiny) {
-        persist(PersistAction.UPDATE, "El usuario ha sido actualizado");
+        System.out.println("Antes de persist");
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AccountUpdated"));        
+        System.out.println("Después de persist");
         JsfUtil.redirect(destiny);
     }
 
@@ -116,7 +118,7 @@ public class AccountController implements Serializable {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
-                }
+                }                
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
