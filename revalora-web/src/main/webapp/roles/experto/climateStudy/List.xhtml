@@ -34,6 +34,13 @@
                 </p:breadCrumb>
             </h:form>
             
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
+            
             <ui:include src="../project/project-header.xhtml"/>
             
             <h4 class="white">Listado de estudios organizacionales</h4>
@@ -89,7 +96,9 @@
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{climateStudyController.prepareCreate}" update=":ClimateStudyCreateForm" oncomplete="PF('ClimateStudyCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{climateStudyController.climateStudyIndex}" disabled="#{empty climateStudyController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClimateStudyEditForm" oncomplete="PF('ClimateStudyEditDialog').show()" disabled="#{empty climateStudyController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{climateStudyController.destroy}" update=":growl,datalist" disabled="#{empty climateStudyController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{climateStudyController.destroy}" update=":growl,datalist" disabled="#{empty climateStudyController.selected}">
+                            <p:confirm header="Atención" message="¿Está seguro que desea eliminar este estudio?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </f:facet>
                 </p:dataTable>
                 
