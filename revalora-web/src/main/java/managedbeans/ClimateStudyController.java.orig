@@ -34,7 +34,6 @@ import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
 import managedbeans.util.LittleMailer;
 import managedbeans.util.SessionUtil;
-import otherclasses.Email;
 import sessionbeans.ClimateStudyFacadeLocal;
 import sessionbeans.util.EmailSessionBeanLocal;
 
@@ -268,6 +267,10 @@ public class ClimateStudyController implements Serializable {
     }
 
     public void _sendInvitations(Contact contact) throws MessagingException {
+<<<<<<< HEAD
+=======
+        System.out.println("- Enviadno mensaje a " + contact.getName() + " (" + contact.getEmail() + ")");
+>>>>>>> a59e01d94eb07104e8cdfef9ebe44cbe9cb0d5c1
         littleMailer.sendClimateStudyInvitation(contact, selected);
         
         ClimateStudyInvitation invitation = new ClimateStudyInvitation();
