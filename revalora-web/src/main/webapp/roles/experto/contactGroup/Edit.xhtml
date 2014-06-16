@@ -12,8 +12,6 @@
             <h:form id="ContactGroupEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contactGroupController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditContactGroupLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{contactGroupController.selected.id}" title="#{bundle.EditContactGroupTitle_id}" />
                         <p:outputLabel value="#{bundle.EditContactGroupLabel_name}" for="name" />
                         <p:inputText id="name" value="#{contactGroupController.selected.name}" title="#{bundle.EditContactGroupTitle_name}" />
                         <p:outputLabel value="#{bundle.EditContactGroupLabel_description}" for="description" />

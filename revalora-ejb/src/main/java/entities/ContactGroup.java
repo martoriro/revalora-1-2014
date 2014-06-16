@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -26,7 +27,7 @@ public class ContactGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull(message = "Debe ingresar un Nombre de grupo")
+    @Size(min = 1, message = "Debe ingresar un Nombre de grupo")
     private String name;
 
     private String description;
