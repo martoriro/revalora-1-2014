@@ -50,15 +50,13 @@
                                 <p:outputLabel value="Contraseña email" for="emailPassword" />
                                 <p:password id="emailPassword" value="#{accountController.selected.emailPassword}" match="passwordConfirm" title="Contraseña" validatorMessage="La contraseña debe contener al menos 4 caracteres y como máximo 24 del tipo alfanumérico">
                                     <f:validateLength minimum="4" maximum="24" />
-                                    <f:validateRegex pattern="[a-zA-Z0-9]+" />
                                 </p:password>
                                 <p:outputLabel value="Confirmar contraseña"/>
                                 <p:password id="passwordConfirm" title="Contraseña" validatorMessage="La contraseña debe contener al menos 4 caracteres y como máximo 24 del tipo alfanumérico">
                                     <f:validateLength minimum="4" maximum="24" />
-                                    <f:validateRegex pattern="[a-zA-Z0-9]+" />
                                 </p:password>
                             </p:panelGrid>
-                            <p:commandButton actionListener="#{accountController.update}" value="#{bundle.Save}" update="display" action="/faces/roles/Profile.xhtml" />
+                            <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}"  update="display, :growl" action="/faces/roles/Profile.xhtml" />
                             <a href="/revalora-web/faces/roles/Profile.xhtml" class="btn btn-link">Volver</a>
                         </h:panelGroup>
                     </h:form>
