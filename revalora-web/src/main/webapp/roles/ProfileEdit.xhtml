@@ -58,6 +58,7 @@
                             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                                 <img src="../resources/images/ajax-loader.gif" alt=""/>
                             </p:dialog>
+                            <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}"  update="display, :growl" />
                             <a href="/revalora-web/faces/roles/Profile.xhtml" class="btn btn-link">Volver</a>
                         </h:panelGroup>
                     </h:form>

@@ -16,7 +16,7 @@ import javax.faces.validator.ValidatorException;
 public class RutValidator implements Validator {
 
     private String rut;
-    
+
     public RutValidator() {
     }
 
@@ -33,23 +33,39 @@ public class RutValidator implements Validator {
 
     public static boolean validarRut(String rut) {
         boolean validacion = false;
-        if(rut.isEmpty())
-            return true;
         try {
             rut = rut.toUpperCase();
+            System.out.println(rut);
             rut = rut.replace(".", "");
             rut = rut.replace("-", "");
-            int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
-            char dv = rut.charAt(rut.length() - 1);
-            int m = 0, s = 1;
-            for (; rutAux != 0; rutAux /= 10) {
-                s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+
+            if (rut.endsWith("K")) {
+                rut = rut.replace("K", "11");
+                System.out.println("Entre y el rut queda en: " + rut);
+                int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 2));
+                System.out.println("Rut auxiliar: " + rutAux);
+                int dv = Integer.parseInt(rut.substring(rut.length() - 2, rut.length()));
+                System.out.println("Con digito verificador: " + dv);
+                int m = 0, s = 1;
+                for (; rutAux != 0; rutAux /= 10) {
+                    s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+                }
+                if (dv == 11) {
+                    validacion = true;
+                }
+            } else {
+                int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+                char dv = rut.charAt(rut.length() - 1);
+                int m = 0, s = 1;
+                for (; rutAux != 0; rutAux /= 10) {
+                    s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+                }
+                if (dv == (char) (s != 0 ? s + 47 : 75)) {
+                    validacion = true;
+                }
             }
-            if (dv == (char) (s != 0 ? s + 47 : 75)) {
-                validacion = true;
-            }
-        } catch (java.lang.NumberFormatException e) {
         } catch (Exception e) {
+            System.out.println("managedbeans.util.validator.Rut.validate(): Exception throwed on Rut validation of " + rut);
         }
         return validacion;
     }
