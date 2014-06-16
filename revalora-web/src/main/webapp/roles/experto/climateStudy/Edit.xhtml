@@ -44,7 +44,13 @@
                             </p:column>
                         </p:autoComplete>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{climateStudyController.update}" value="#{bundle.Save}" update="display,:ClimateStudyListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClimateStudyEditDialog');"/>
+                    <p:commandButton actionListener="#{climateStudyController.update}" value="#{bundle.Save}" update="display,:ClimateStudyListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClimateStudyEditDialog');">
+                        <p:confirm header="Advertencia" message="¿Está seguro que quiere editar el estudio?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClimateStudyEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

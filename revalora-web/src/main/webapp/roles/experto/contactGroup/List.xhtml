@@ -24,7 +24,24 @@
         </ui:define>
 
         <ui:define name="body">
+            
+            <h:form>
+                <p:breadCrumb style="text-transform: none">
+                    <p:menuitem value="home" url="../index.xhtml" />
+                    <p:menuitem value="Gestión de Proyectos" url="../project/List.xhtml" />
+                    <p:menuitem value="Mi Proyecto" url="../project/index.xhtml" />
+                    <p:menuitem value="Mis Grupos de Contactos" url ="List.xhtml"/>
+                </p:breadCrumb>
+            </h:form>
+            
             <ui:include src="../project/project-header.xhtml"/>
+            
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
             
             <h4 class="white">#{bundle.ListContactGroupTitle}</h4>
             <h:form id="ContactGroupListForm">
@@ -66,8 +83,15 @@
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contactGroupController.prepareCreate}" update=":ContactGroupCreateForm" oncomplete="PF('ContactGroupCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContactGroupViewForm" oncomplete="PF('ContactGroupViewDialog').show()" disabled="#{empty contactGroupController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContactGroupEditForm" oncomplete="PF('ContactGroupEditDialog').show()" disabled="#{empty contactGroupController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contactGroupController.destroy}" update=":growl,datalist" disabled="#{empty contactGroupController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contactGroupController.destroy}" update=":growl,datalist" disabled="#{empty contactGroupController.selected}">
+                            <p:confirm header="Advertencia" message="¿Está seguro que desea eliminar este grupo de contactos?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </f:facet>
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="../../../resources/images/ajax-loader.gif" alt=""/>
+                    </p:dialog>
                 </p:dataTable>
             </h:form>
 

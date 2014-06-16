@@ -12,14 +12,28 @@
             <h:form id="ContactGroupEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{contactGroupController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditContactGroupLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{contactGroupController.selected.id}" title="#{bundle.EditContactGroupTitle_id}" />
                         <p:outputLabel value="#{bundle.EditContactGroupLabel_name}" for="name" />
                         <p:inputText id="name" value="#{contactGroupController.selected.name}" title="#{bundle.EditContactGroupTitle_name}" />
                         <p:outputLabel value="#{bundle.EditContactGroupLabel_description}" for="description" />
                         <p:inputText id="description" value="#{contactGroupController.selected.description}" title="#{bundle.EditContactGroupTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_contacts}" for="contacts" />
+                        <p:autoComplete id="contacts" multiple="true" 
+                                        value="#{contactGroupController.selected.contacts}" 
+                                        completeMethod="#{contactController.filterContacts}"
+                                        var="contact" itemLabel="#{contact.email}" itemValue="#{contact}"
+                                        converter="contactConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{contact.email}" />
+                            </p:column>
+                        </p:autoComplete>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{contactGroupController.update}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContactGroupEditDialog');"/>
+                    <p:commandButton actionListener="#{contactGroupController.update}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContactGroupEditDialog');">
+                        <p:confirm header="Advertencia" message="¿Está seguro que desea editar este grupo de contactos?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ContactGroupEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

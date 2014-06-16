@@ -15,7 +15,13 @@
                         <p:outputLabel value="#{bundle.EditOrganizationLabel_name}" for="name" />
                         <p:inputText id="name" value="#{organizationController.selected.name}" title="#{bundle.EditOrganizationTitle_name}" required="true"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{organizationController.update}" value="#{bundle.Save}" update="display,:OrganizationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrganizationEditDialog');"/>
+                    <p:commandButton actionListener="#{organizationController.update}" value="#{bundle.Save}" update="display,:OrganizationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrganizationEditDialog');">
+                        <p:confirm header="Advertencia" message="¿Está seguro que quiere editar esta organización?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="OrganizationEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

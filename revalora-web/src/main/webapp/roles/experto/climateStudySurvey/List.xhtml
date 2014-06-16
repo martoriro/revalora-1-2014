@@ -19,6 +19,13 @@
 
         <ui:define name="body">
             
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
+            
             <h4 class="white">#{bundle.ListClimateStudySurveyTitle} ##{climateStudyController.selected.id} - <b>#{climateStudyController.selected.name}</b></h4>
             
             <h:form id="ClimateStudySurveyListForm">
@@ -72,7 +79,14 @@
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{climateStudySurveyController.prepareCreate}" update=":ClimateStudySurveyCreateForm" oncomplete="PF('ClimateStudySurveyCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClimateStudySurveyViewForm" oncomplete="PF('ClimateStudySurveyViewDialog').show()" disabled="#{empty climateStudySurveyController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClimateStudySurveyEditForm" oncomplete="PF('ClimateStudySurveyEditDialog').show()" disabled="#{empty climateStudySurveyController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{climateStudySurveyController.destroy}" update=":growl,datalist" disabled="#{empty climateStudySurveyController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{climateStudySurveyController.destroy}" update=":growl,datalist" disabled="#{empty climateStudySurveyController.selected}">
+                            <p:confirm header="Atención" message="¿Está seguro que desea eliminar esta encuesta?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="../../../resources/images/ajax-loader.gif" alt=""/>
+                        </p:dialog>
                     </f:facet>
                 </p:dataTable>
                 

@@ -27,9 +27,15 @@
             <h:form>
                 <p:breadCrumb style="text-transform: none">
                     <p:menuitem value="home" url="../index.xhtml" />
+                    <p:menuitem value="Gestión de Proyectos" url="List.xhtml" />
                     <p:menuitem value="Mi Proyecto" url="index.xhtml" />
                 </p:breadCrumb>
             </h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <img src="../../../resources/images/ajax-loader.gif" alt=""/>   
+            </p:dialog>
             <ui:include src="project-header.xhtml"/>
             
             

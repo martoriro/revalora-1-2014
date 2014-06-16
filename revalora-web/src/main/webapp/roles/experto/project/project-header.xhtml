@@ -11,6 +11,9 @@
             <h3 class="white">Proyecto ##{projectController.selected.id} - #{projectController.selected.name}</h3>
             <b>Organización: </b>#{projectController.selected.organization.name}
             <br/>
+            <b>Estado del Proyecto: </b>#{projectController.GetStatus()}
+            <br/>
+            
             <div class="label label-default">
                 <h:outputText value="#{projectController.selected.startAt}" title="#{bundle.ViewClimateStudyTitle_startAt}">
                     <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -20,6 +23,7 @@
                     <f:convertDateTime pattern="dd/MM/yyyy" />
                 </h:outputText>
             </div>
+            
             <hr/>
         </div>
     </ui:composition>

@@ -19,6 +19,13 @@
 
         <ui:define name="body">
             
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
+            
             <h4 class="white">Listado de grupos</h4>
             
             <h:form id="TeamListForm">
@@ -50,7 +57,14 @@
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{teamController.prepareCreate}" update=":TeamCreateForm" oncomplete="PF('TeamCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TeamViewForm" oncomplete="PF('TeamViewDialog').show()" disabled="#{empty teamController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TeamEditForm" oncomplete="PF('TeamEditDialog').show()" disabled="#{empty teamController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{teamController.destroy}" update=":growl,datalist" disabled="#{empty teamController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{teamController.destroy}" update=":growl,datalist" disabled="#{empty teamController.selected}">
+                            <p:confirm header="Atención" message="¿Está seguro que desea eliminar este equipo?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="../../../resources/images/ajax-loader.gif" alt=""/>
+                        </p:dialog>
                     </f:facet>
                 </p:dataTable>
                 

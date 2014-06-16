@@ -3,6 +3,8 @@ package managedbeans;
 import entities.Project;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,6 +31,8 @@ public class ProjectController implements Serializable {
     private ProjectFacadeLocal ejbFacade;
     private List<Project> items = null;
     private Project selected;
+    
+    private String ProjectStatus = "";
     
     @Inject 
     private SessionUtil sessionUtil;
@@ -170,6 +174,26 @@ public class ProjectController implements Serializable {
             }
         }
 
+    }
+    
+    public String GetStatus(){
+        if(selected != null){
+            Date StartProject = selected.getStartAt();
+            Date EndProject = selected.getEndAt();
+            
+            Calendar c1 = Calendar.getInstance();
+            Date ActualDate = c1.getTime();
+            if(ActualDate.before(StartProject)){
+                ProjectStatus = "Activo en Espera";
+            }
+            else if(ActualDate.after(EndProject)){
+                ProjectStatus = "Finalizado";
+            }
+            else{
+                ProjectStatus = "En Proceso";
+            }
+        }
+        return ProjectStatus;
     }
     
     public void projectIndex() {
