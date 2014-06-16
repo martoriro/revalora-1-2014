@@ -53,7 +53,11 @@
                     
                     <a href="/revalora-web/faces/roles/ProfileEdit.xhtml" class="btn btn-default" style="margin-top: 10px;">Editar</a>
                     <a href="/revalora-web/faces/roles/ProfileConfigEmail.xhtml" class="btn btn-danger" style="margin-top: 10px;">Configurar Email</a>
-                    
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="../resources/images/ajax-loader.gif" alt=""/>
+                    </p:dialog>
                 </div>
             </div>
             

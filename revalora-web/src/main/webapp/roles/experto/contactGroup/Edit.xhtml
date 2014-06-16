@@ -27,7 +27,13 @@
                             </p:column>
                         </p:autoComplete>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{contactGroupController.update}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContactGroupEditDialog');"/>
+                    <p:commandButton actionListener="#{contactGroupController.update}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContactGroupEditDialog');">
+                        <p:confirm header="Advertencia" message="¿Está seguro que desea editar este grupo de contactos?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ContactGroupEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
