@@ -16,6 +16,16 @@
                         <p:inputText id="name" value="#{contactGroupController.selected.name}" title="#{bundle.EditContactGroupTitle_name}" />
                         <p:outputLabel value="#{bundle.EditContactGroupLabel_description}" for="description" />
                         <p:inputText id="description" value="#{contactGroupController.selected.description}" title="#{bundle.EditContactGroupTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateContactGroupLabel_contacts}" for="contacts" />
+                        <p:autoComplete id="contacts" multiple="true" 
+                                        value="#{contactGroupController.selected.contacts}" 
+                                        completeMethod="#{contactController.filterContacts}"
+                                        var="contact" itemLabel="#{contact.email}" itemValue="#{contact}"
+                                        converter="contactConverter" forceSelection="true">
+                            <p:column>
+                                <h:outputText value="#{contact.email}" />
+                            </p:column>
+                        </p:autoComplete>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{contactGroupController.update}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContactGroupEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ContactGroupEditDialog.hide()"/>
