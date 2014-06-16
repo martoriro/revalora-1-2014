@@ -5351,13 +5351,16 @@ html, body {
   position: relative; }
 
 .footer-ghost {
-  height: 195px; }
+  height: 265px; }
 
 .footer {
   height: 165px;
   position: absolute;
   bottom: 0;
   width: 100%; }
+
+.wrapper > .container > .row > .col-md-3 {
+  padding-top: 40px; }
 
 .footer {
   background-color: #dbdbdb; }

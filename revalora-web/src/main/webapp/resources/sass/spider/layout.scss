@@ -34,7 +34,7 @@ html,body {
 }
 
 .footer-ghost {
-	height: ($footer-height + 30);
+	height: ($footer-height + 100);
 }
 
 .footer {
@@ -42,4 +42,9 @@ html,body {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
+}
+
+//
+.wrapper > .container > .row > .col-md-3 {
+	padding-top: 40px;
 }
