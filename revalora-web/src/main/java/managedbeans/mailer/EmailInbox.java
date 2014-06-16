@@ -140,11 +140,11 @@ public class EmailInbox {
 //                        + "\tContenido: " + msg[i].getContent());
 
                 for (int j=0; j < contactList.size(); j++) {
-                    System.out.println("Mensaje a analizar "+msg[i].getFrom()[0].toString());
-                    System.out.println("compara: "+ contactList.get(j).getEmail() );
+//                    System.out.println("Mensaje a analizar "+msg[i].getFrom()[0].toString());
+//                    System.out.println("compara: "+ contactList.get(j).getEmail() );
                     if (msg[i].getFrom()[0].toString().contains(contactList.get(j).getEmail().toLowerCase())) {
                         Email email = new Email();
-                        System.out.println("correo" + msg[i].getFrom()[0].toString());
+//                        System.out.println("correo" + msg[i].getFrom()[0].toString());
                         m = (MimeMessage) msg[i];
                         email.setIdMessage(m.getMessageID());
                         if (msg[i].isSet(Flags.Flag.SEEN)) {
