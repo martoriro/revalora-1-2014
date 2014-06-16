@@ -278,13 +278,20 @@ public class ClimateStudyController implements Serializable {
         selected.getInvitations().add(invitation);
         getFacade().edit(selected);
     }
-
-
-
     
     public void submit() {
         System.out.println("Procesando encuesta");
         
+        ClimateStudyInvitation invitation = new ClimateStudyInvitation();
+        invitation.setContact(contactController.getSelected());
+        invitation.setStudy(selected);
+        invitation.setDate(new Date());
+        invitation.setState("Listo");
+        selected.getInvitations().add(invitation);
+        getFacade().edit(selected);
+        refreshSelected();
+        
+        JsfUtil.redirect("/faces/survey/climateSuccess.xhtml");
     }
     
 

@@ -38,7 +38,7 @@ public class ClimateStudyInvitation implements Serializable {
     private String state;
     // Puede ser "Invitación enviada", "Correo rebotó", "Completado" (Respondió de manera satisfactoria) 
     
-    @Temporal(TemporalType.DATE) 
+    @Temporal(TemporalType.TIMESTAMP) 
     private Date date;
 
     public Long getId() {

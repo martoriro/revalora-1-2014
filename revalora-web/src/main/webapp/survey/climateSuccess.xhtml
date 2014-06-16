@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition template="/layout/1column.xhtml">
+        
+        <ui:define name="title">
+            <h:outputText value="Encuesta de clima"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="body">
+            
+            <div class="align-center">
+                
+                <h2 class="white">#{contactController.selected.name}, muchas gracias por responder el estudio <b>#{climateStudyController.selected.name}</b>!</h2>
+                <p>
+                    El estudio y análisis de la información hará posible conocer el 
+                    “ambiente o clima” que actualmente existe en su lugar de trabajo, 
+                    de acuerdo a cómo usted y sus compañeros de trabajo "sienten" 
+                    este ambiente.
+                </p>
+                <hr/>
+                <h:graphicImage library="images" name="success.png"/>
+                
+            </div>
+            
+            
+        </ui:define>
+        
+    </ui:composition>
+
+
+</html>
+
