@@ -229,7 +229,6 @@ public class ClimateStudyController implements Serializable {
     }
 
     public void sendInvitations() {
-        System.out.println("Enviando invitaciones");
         try {
             for (Contact contact : selected.getContacts()) {
                 _sendInvitations(contact);
@@ -243,12 +242,10 @@ public class ClimateStudyController implements Serializable {
         } catch (Exception ex) {
             JsfUtil.addErrorMessage("Ha ocurrido un error y algunas de las invitaciones no se han enviado. Inténtelo mas tarde");
         }
-        System.out.println("- Invitaciones enviadas");
         JsfUtil.addSuccessMessage("Las invitaciones han sido enviadas");
     }
     
     public void _sendInvitations(Contact contact) throws MessagingException {
-        System.out.println("- Enviadno mensaje a " + contact.getName() + " (" + contact.getEmail() +")");
         littleMailer.sendClimateStudyInvitation(contact, selected);
         
         ClimateStudyInvitation invitation = new ClimateStudyInvitation();
