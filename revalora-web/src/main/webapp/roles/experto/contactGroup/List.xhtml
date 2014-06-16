@@ -26,6 +26,13 @@
         <ui:define name="body">
             <ui:include src="../project/project-header.xhtml"/>
             
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
+            
             <h4 class="white">#{bundle.ListContactGroupTitle}</h4>
             <h:form id="ContactGroupListForm">
                 <p:dataTable id="datalist" value="#{contactGroupController.items}" var="item"
@@ -66,7 +73,9 @@
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{contactGroupController.prepareCreate}" update=":ContactGroupCreateForm" oncomplete="PF('ContactGroupCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ContactGroupViewForm" oncomplete="PF('ContactGroupViewDialog').show()" disabled="#{empty contactGroupController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ContactGroupEditForm" oncomplete="PF('ContactGroupEditDialog').show()" disabled="#{empty contactGroupController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contactGroupController.destroy}" update=":growl,datalist" disabled="#{empty contactGroupController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{contactGroupController.destroy}" update=":growl,datalist" disabled="#{empty contactGroupController.selected}">
+                            <p:confirm header="Atención" message="¿Está seguro que desea eliminar este grupo de contactos?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </f:facet>
                 </p:dataTable>
             </h:form>
