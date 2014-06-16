@@ -11,8 +11,6 @@
         <p:dialog id="AccountCreateDlg" widgetVar="AccountCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAccountTitle}">
             <h:form id="AccountCreateForm">
                 <h:panelGroup id="display">
-                    <p:button outcome="Undo" icon="ui-icon-arrowreturnthick-1-w" title="Undo"></p:button>
-                    <p:button outcome="Redo" icon="ui-icon-arrowreturnthick-1-e" title="Redo"></p:button>
                     <p:panelGrid columns="2" rendered="#{accountController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateAccountLabel_rut}" for="rut" />
                         <p:inputText id="rut" value="#{accountController.selected.rut}" title="#{bundle.CreateAccountTitle_rut}"> 
