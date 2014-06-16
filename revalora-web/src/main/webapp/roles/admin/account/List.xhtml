@@ -18,6 +18,14 @@
         </ui:define>        
 
         <ui:define name="body">
+
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
+
             <h:form id="AccountListForm">
                 <p:panel header="#{bundle.ListAccountTitle}">
                     <p:dataTable id="datalist" value="#{accountController.items}" var="item"
@@ -41,7 +49,7 @@
                                 <p:inputText id="globalFilter" onkeyup="PF('datalist').filter()" style="width:150px" placeholder="Buscar..."/>
                             </p:outputPanel>
                         </f:facet>
-                        
+
                         <p:column filterBy="#{item.rut}" headerText="Name" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAccountTitle_rut}"/>
@@ -90,7 +98,9 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{accountController.prepareCreate}" update=":AccountCreateForm" oncomplete="PF('AccountCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AccountViewForm" oncomplete="PF('AccountViewDialog').show()" disabled="#{empty accountController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AccountEditForm" oncomplete="PF('AccountEditDialog').show()" disabled="#{empty accountController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{accountController.destroy}" update=":growl,datalist" disabled="#{empty accountController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{accountController.destroy}" update=":growl,datalist" disabled="#{empty accountController.selected}">
+                                <p:confirm header="Atención" message="¿Está seguro que desea eliminar esta cuenta?" icon="ui-icon-alert" />
+                            </p:commandButton>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

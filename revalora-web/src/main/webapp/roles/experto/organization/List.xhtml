@@ -19,6 +19,13 @@
 
         <ui:define name="body">
             
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                </p:confirmDialog>
+            </h:form>
+            
             <h4 class="white">Listado de organizaciones</h4>
             
             <h:form id="OrganizationListForm">
@@ -50,7 +57,9 @@
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{organizationController.prepareCreate}" update=":OrganizationCreateForm" oncomplete="PF('OrganizationCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrganizationViewForm" oncomplete="PF('OrganizationViewDialog').show()" disabled="#{empty organizationController.selected}"/>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrganizationEditForm" oncomplete="PF('OrganizationEditDialog').show()" disabled="#{empty organizationController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{organizationController.destroy}" update=":growl,datalist" disabled="#{empty organizationController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{organizationController.destroy}" update=":growl,datalist" disabled="#{empty organizationController.selected}">
+                            <p:confirm header="Atención" message="¿Está seguro que desea eliminar esta organización?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </f:facet>
                 </p:dataTable>
                 

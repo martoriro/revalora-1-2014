@@ -64,11 +64,11 @@
                         },
                         series: [{
                                 name: 'Resultados',
-                                data: [43, 19, 60, 35, 17],
+                                data: #{createHighcharts.values},
                                 pointPlacement: 'on'
                             }, {
-                                name: 'Otros Resultados',
-                                data: [50, 39, 42, 31, 26],
+                                name: 'Resultados normalizados',
+                                data: #{createHighcharts.normalizedValues},
                                 pointPlacement: 'on'
                             }]
 
@@ -129,22 +129,22 @@
                         },
                         series: [{
                                 name: '1er Lugar',
-                                data: [1, 3, 6, 2, 2, 0, 1, 1, 3, 6, 2, 2, 0, 1]
+                                data: #{createHighcharts.amountPriority1}
                             }, {
                                 name: '2do Lugar',
-                                data: [1, 1, 9, 4, 6, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                                data: #{createHighcharts.amountPriority2}
                             }, {
                                 name: '3er Lugar',
-                                data: [3, 6, 7, 4, 6, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                                data: #{createHighcharts.amountPriority3}
                             }, {
                                 name: '4to Lugar',
-                                data: [3, 5, 4, 8, 9, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                                data: #{createHighcharts.amountPriority4}
                             }, {
                                 name: '5to Lugar',
-                                data: [1, 5, 9, 1, 6, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                                data: #{createHighcharts.amountPriority5}
                             }, {
                                 name: '6to Lugar',
-                                data: [9, 9, 4, 7, 3, 2, 2, 0, 1, 1, 3, 6, 2, 5]
+                                data: #{createHighcharts.amountPriority6}
                             }]
                     });
                 });
