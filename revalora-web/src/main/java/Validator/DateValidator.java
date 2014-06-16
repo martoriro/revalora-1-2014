@@ -32,7 +32,7 @@ public class DateValidator implements Validator {
         Date present = cal.getTime();
         if (date.compareTo(present) < 0) {
             throw new ValidatorException(new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "Fecha Inválida.", "La fecha no puede haber pasado."));
+                    FacesMessage.SEVERITY_ERROR, "Fecha Inválida. La fecha no puede ser anterior al día de hoy", null));
         }
         try {
             UIInput startDateComponent = (UIInput) component.getAttributes().get("startAt");
