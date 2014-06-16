@@ -6,6 +6,7 @@
 package managedbeans.mailer;
 
 import com.sun.mail.imap.IMAPFolder;
+import entities.Contact;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
+import managedbeans.ContactController;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.SessionUtil;
 import org.primefaces.event.NodeSelectEvent;
@@ -64,6 +66,9 @@ public class EmailInbox {
 
     @Inject
     private SessionUtil sessionUtil;
+    @Inject
+    private ContactController contact;
+    private List<Contact> contactList;
 
     private String subjectRead;
     private String fromEmailRead;
@@ -73,8 +78,11 @@ public class EmailInbox {
 
     @PostConstruct
     public void init() {
+        
+       
         root = new DefaultTreeNode("Root", null);
         emails = new ArrayList<Email>();
+
         try {
             setUserName();
             setPassword();
@@ -110,6 +118,7 @@ public class EmailInbox {
      * @throws java.io.IOException
      */
     public void readMailImap(String readFolder) throws IOException {
+        contactList = contact.getItems();
         Properties props = System.getProperties();
         try {
             MimeMessage m;
@@ -129,20 +138,29 @@ public class EmailInbox {
 //                        + "\tRemitente: " + msg[i].getFrom()[0] + "\n"
 //                        + "\tFecha de Envío: " + msg[i].getSentDate() + "\n"
 //                        + "\tContenido: " + msg[i].getContent());
-                Email email = new Email();
-                m = (MimeMessage) msg[i];
-                email.setIdMessage(m.getMessageID());
-                if (msg[i].isSet(Flags.Flag.SEEN)) {
-                    email.setSeen(true);
-                } else {
-                    email.setSeen(false);
+
+                for (int j=0; j < contactList.size(); j++) {
+//                    System.out.println("Mensaje a analizar "+msg[i].getFrom()[0].toString());
+//                    System.out.println("compara: "+ contactList.get(j).getEmail() );
+                    if (msg[i].getFrom()[0].toString().contains(contactList.get(j).getEmail().toLowerCase())) {
+                        Email email = new Email();
+//                        System.out.println("correo" + msg[i].getFrom()[0].toString());
+                        m = (MimeMessage) msg[i];
+                        email.setIdMessage(m.getMessageID());
+                        if (msg[i].isSet(Flags.Flag.SEEN)) {
+                            email.setSeen(true);
+                        } else {
+                            email.setSeen(false);
+                        }
+                        email.setSubject(msg[i].getSubject());
+                        email.setFrom(msg[i].getFrom()[0].toString());
+                        email.setSendDate(msg[i].getSentDate());
+                        analyzeMessage(msg[i]);
+                        email.setContent(emailContent);
+                        emails.add(email);
+                    }
+                    
                 }
-                email.setSubject(msg[i].getSubject());
-                email.setFrom(setFrom(msg[i].getFrom()));
-                email.setSendDate(msg[i].getSentDate());
-                analyzeMessage(msg[i]);
-                email.setContent(emailContent);
-                emails.add(email);
 
             }
             folder.close(false);	//como no se realiza ningún cambio a los mensajes es false
@@ -154,14 +172,14 @@ public class EmailInbox {
         }
     }
 
-    public String setFrom(Address[] address){
-        String addressAux="";
-        for (Address addres : address) {
-            addressAux +=addres.toString()+"\n";
-        }
-        return addressAux;
-    }
-    
+//    public String setFrom(Address[] address) {
+//        String addressAux = "";
+//        for (Address addres : address) {
+//            System.out.println(address.toString());
+//            addressAux += addres.toString() + " ";
+//        }
+//        return addressAux;
+//    }
     public void loadFolders() {
         Properties props = System.getProperties();
         try {
@@ -407,7 +425,9 @@ public class EmailInbox {
         sendDateRead = selectedEmails.get(0).getDfDafault().format(selectedEmails.get(0).getSendDate());
         contentRead = selectedEmails.get(0).getContent();
         idMessage = selectedEmails.get(0).getIdMessage();
-        markAsRead();
+        if (!selectedEmails.get(0).isSeen()) {
+            markAsRead();
+        }
 
     }
 
