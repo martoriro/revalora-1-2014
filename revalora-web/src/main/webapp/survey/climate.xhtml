@@ -1,0 +1,696 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <ui:composition template="/layout/1column.xhtml">
+        
+        <ui:define name="title">
+            <h:outputText value="Encuesta de clima"></h:outputText>
+        </ui:define>
+        
+        <ui:define name="body">
+            
+            #{climateStudyController.setSurveyParam(param["survey"])}
+            
+            <h2 class="white">#{contactController.selected.name}!</h2>
+            <h4>Bienvenido a la hoja de respuestas de la encuesta de clima <b>"#{climateStudyController.selected.name}"</b></h4>
+            <hr/>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        Esta encuesta tiene por objetivo conocer su actual opinión 
+                        respecto de distintas materias de interés, tanto en lo netamente 
+                        laboral como en aspectos de carácter personal, que tienen 
+                        relación con su papel de funcionario e integrante de su organización.
+                    </p>
+                    <p>
+                        El estudio y análisis de la información hará posible conocer el 
+                        “ambiente o clima” que actualmente existe en su lugar de trabajo, 
+                        de acuerdo a cómo usted y sus compañeros de trabajo "sienten" 
+                        este ambiente.
+                    </p>
+                    <p>
+                        La finalidad de estas preguntas es realizar relaciones entre las 
+                        variables consultadas y las diferentes dimensiones del clima 
+                        (por ejemplo ver si el sexo influye en la percepción del clima). 
+                        En ningún caso se buscará identificar las respuestas personales 
+                        de un funcionario.
+                    </p>
+                    <p>
+                        Sus opiniones constituyen un valioso aporte para el éxito de la 
+                        medición, contamos y apelamos a su colaboración y buena 
+                        disposición para participar activamente en este estudio de opinión.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        El procesamiento de los datos se hará en cuanto se vayan recibiendo 
+                        las respuestas que usted nos entregue. También es importante 
+                        señalar que se buscarán las medidas que apunten a mejorar 
+                        aquellos aspectos que puedan aparecer como debilidades del 
+                        clima laboral de la organización.
+                    </p>
+                    <p>
+                        En las hojas siguientes usted encontrará una serie de afirmaciones 
+                        que se refieren a distintos aspectos y situaciones del ambiente 
+                        de trabajo de su lugar de trabajo. Para responder a cada afirmación 
+                        usted tendrá cuatro posibles alternativas:
+                    </p>   
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Alternativa</th>
+                                    <th>Valor</th>
+                                </tr>
+                                <tr>
+                                    <td>Totalmente de acuerdo</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>De acuerdo</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>En desacuerdo</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Muy en desacuerdo</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+                    
+            <hr/>
+            
+            <h4>Hoja de respuestas</h4>
+            
+            <h:form>
+                
+                <table class="table table-climate">
+                        <tbody>
+                                <tr>
+                                        <th>Nº</th>
+                                        <th>Afirmación</th>
+                                        <th colspan="4">Respuesta</th>
+                                </tr>
+                                <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td width="40px">1</td>
+                                        <td width="40px">2</td>
+                                        <td width="40px">3</td>
+                                        <td width="40px">4</td>
+                                </tr>
+                                <tr>
+                                        <td>1</td>
+                                        <td>"Los funcionarios de la organización tienen clara la misión y visión de su lugar de trabajo" <h:inputText id="p-pregunta-1" value="#{climateStudyController.survey[1-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-1" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-1" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-1" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-1" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>2</td>
+                                        <td>"Los objetivos y metas que se fijan a los funcionarios para su trabajo son claras" <h:inputText id="p-pregunta-2" value="#{climateStudyController.survey[2-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-2" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-2" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-2" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-2" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>3</td>
+                                        <td>"Los objetivos y metas que se fijan a los funcionarios para su trabajo son realistas" <h:inputText id="p-pregunta-3" value="#{climateStudyController.survey[3-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-3" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-3" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-3" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-3" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>4</td>
+                                        <td>"Normalmente se explica a los funcionarios el propósito de las tareas encomendadas" <h:inputText id="p-pregunta-4" value="#{climateStudyController.survey[4-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-4" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-4" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-4" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-4" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>5</td>
+                                        <td>"Los trabajadores entienden como su cargo aporta a los objetivos finales de la organización" <h:inputText id="p-pregunta-5" value="#{climateStudyController.survey[5-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-5" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-5" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-5" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-5" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>6</td>
+                                        <td>"Los funcionarios reciben información oportuna sobre los temas importantes de la organización" <h:inputText id="p-pregunta-6" value="#{climateStudyController.survey[6-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-6" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-6" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-6" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-6" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>7</td>
+                                        <td>"Los funcionarios tienen oportunidades para conversar con su supervisor (autoridad directa) sobre la mejor manera de realizar su trabajo" <h:inputText id="p-pregunta-7" value="#{climateStudyController.survey[7-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-7" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-7" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-7" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-7" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>8</td>
+                                        <td>"La información que los funcionarios reciben y necesitan para hacer su trabajo es suficiente" <h:inputText id="p-pregunta-8" value="#{climateStudyController.survey[8-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-8" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-8" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-8" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-8" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>9</td>
+                                        <td>"La información fluye rápida y oportunamente desde las jefaturas hacia los funcionarios" <h:inputText id="p-pregunta-9" value="#{climateStudyController.survey[9-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-9" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-9" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-9" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-9" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>10</td>
+                                        <td>La información es fluida entre las diferentes unidades <h:inputText id="p-pregunta-10" value="#{climateStudyController.survey[10-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-10" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-10" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-10" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-10" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>11</td>
+                                        <td>Los funcionarios parecen estar orgullosos de pertenecer a la organización <h:inputText id="p-pregunta-11" value="#{climateStudyController.survey[11-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-11" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-11" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-11" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-11" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>12</td>
+                                        <td>En general, los funcionarios trabajan con entusiasmo <h:inputText id="p-pregunta-12" value="#{climateStudyController.survey[12-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-12" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-12" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-12" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-12" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>13</td>
+                                        <td>Habitualmente, los empleados encuentran que el trabajo es muy interesante <h:inputText id="p-pregunta-13" value="#{climateStudyController.survey[13-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-13" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-13" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-13" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-13" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>14</td>
+                                        <td>Los funcionarios está alineados con los objetivos de la organización <h:inputText id="p-pregunta-14" value="#{climateStudyController.survey[14-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-14" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-14" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-14" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-14" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>15</td>
+                                        <td>Los funcionarios comentan con sus amigos que este es un buen lugar para trabajar <h:inputText id="p-pregunta-15" value="#{climateStudyController.survey[15-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-15" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-15" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-15" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-15" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>16</td>
+                                        <td>Los funcionarios se sienten comprometidos con la organización, sus objetivos y valores <h:inputText id="p-pregunta-16" value="#{climateStudyController.survey[16-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-16" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-16" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-16" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-16" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>17</td>
+                                        <td>Los supervisores (autoridades directas) suelen felicitar a los empleados que hacen algo bien <h:inputText id="p-pregunta-17" value="#{climateStudyController.survey[17-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-17" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-17" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-17" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-17" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>18</td>
+                                        <td>Los supervisores (autoridades directas) alientan la crítica constuctiva entre sus subalternos <h:inputText id="p-pregunta-18" value="#{climateStudyController.survey[18-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-18" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-18" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-18" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-18" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>19</td>
+                                        <td>Normalmente los supervisores (autoridades directas) valoran las ideas que aportan los subordinados <h:inputText id="p-pregunta-19" value="#{climateStudyController.survey[19-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-19" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-19" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-19" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-19" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>20</td>
+                                        <td>Los supervisores (autoridades directas) confían en el trabajo de sus subordinados <h:inputText id="p-pregunta-20" value="#{climateStudyController.survey[20-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-20" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-20" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-20" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-20" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>21</td>
+                                        <td>Los supervisores (autoridades directas) apoyan realmente a sus subordinados <h:inputText id="p-pregunta-21" value="#{climateStudyController.survey[21-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-21" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-21" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-21" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-21" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>22</td>
+                                        <td>Los supervisores (autoridades directas) aplican las normas y procedimientos de trabajo con flexibilidad <h:inputText id="p-pregunta-22" value="#{climateStudyController.survey[22-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-22" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-22" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-22" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-22" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>23</td>
+                                        <td>Los supervisores (autoridades directas) ejercen una supervisión bastante razonable sobre los funcionarios <h:inputText id="p-pregunta-23" value="#{climateStudyController.survey[23-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-23" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-23" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-23" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-23" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>24</td>
+                                        <td>Las reglas de conducta que se aplican acá son flexibles <h:inputText id="p-pregunta-24" value="#{climateStudyController.survey[24-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-24" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-24" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-24" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-24" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>25</td>
+                                        <td>El nivel de control que ejercen los supervisores (autoridades directas) es adecuado <h:inputText id="p-pregunta-25" value="#{climateStudyController.survey[25-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-25" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-25" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-25" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-25" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>26</td>
+                                        <td>Se incentiva a los funcionarios para que tomen sus propias decisiones <h:inputText id="p-pregunta-26" value="#{climateStudyController.survey[26-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-26" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-26" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-26" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-26" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>27</td>
+                                        <td>Los funcionarios pueden utilizar su propia iniciativa para hacer las cosas <h:inputText id="p-pregunta-27" value="#{climateStudyController.survey[27-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-27" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-27" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-27" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-27" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>28</td>
+                                        <td>Los supervisores (autoridades directas) estimulan a los funcionarios para que resuelvan los problemas por si mismos <h:inputText id="p-pregunta-28" value="#{climateStudyController.survey[28-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-28" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-28" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-28" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-28" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>29</td>
+                                        <td>Los supervisores (autoridades directas) tienen confianza en las capacidades de sus subordinados <h:inputText id="p-pregunta-29" value="#{climateStudyController.survey[29-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-29" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-29" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-29" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-29" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>30</td>
+                                        <td>Los supervisores (autoridades directas) están abiertos a escuchar las sugerencias de sus colaboradores <h:inputText id="p-pregunta-30" value="#{climateStudyController.survey[30-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-30" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-30" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-30" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-30" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>31</td>
+                                        <td>En la organización se valora positivamente el hacer las cosas con nuevos enfoques <h:inputText id="p-pregunta-31" value="#{climateStudyController.survey[31-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-31" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-31" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-31" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-31" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>32</td>
+                                        <td>Aquí siempre se están experimentando ideas nuevas y diferentes <h:inputText id="p-pregunta-32" value="#{climateStudyController.survey[32-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-32" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-32" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-32" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-32" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>33</td>
+                                        <td>Esta organización es una de las primeras en proponer mejores servicios para sus clientes <h:inputText id="p-pregunta-33" value="#{climateStudyController.survey[33-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-33" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-33" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-33" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-33" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>34</td>
+                                        <td>La variedad y el cambio, en esta organización son especialmente importantes <h:inputText id="p-pregunta-34" value="#{climateStudyController.survey[34-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-34" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-34" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-34" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-34" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>35</td>
+                                        <td>En esta organización frecuentemente se intentan nuevas maneras de perfeccionar el trabajo <h:inputText id="p-pregunta-35" value="#{climateStudyController.survey[35-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-35" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-35" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-35" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-35" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>36</td>
+                                        <td>En general los funcionarios no pierden tiempo por falta de organización <h:inputText id="p-pregunta-36" value="#{climateStudyController.survey[36-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-36" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-36" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-36" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-36" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>37</td>
+                                        <td>Los supervisores (autoridades directas) estimulan a los funcionarios para que sean precisos y ordenados <h:inputText id="p-pregunta-37" value="#{climateStudyController.survey[37-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-37" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-37" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-37" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-37" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>38</td>
+                                        <td>Acá existe una adecuada planificación del trabajo <h:inputText id="p-pregunta-38" value="#{climateStudyController.survey[38-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-38" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-38" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-38" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-38" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>39</td>
+                                        <td>Las tareas asignadas a los funcionarios generalmente están bastante organizadas <h:inputText id="p-pregunta-39" value="#{climateStudyController.survey[39-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-39" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-39" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-39" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-39" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>40</td>
+                                        <td>Los procesos y procedimientos de trabajo están claros para todos <h:inputText id="p-pregunta-40" value="#{climateStudyController.survey[40-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-40" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-40" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-40" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-40" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>41</td>
+                                        <td>Acá la urgencia en el trabajo es razonable y entendible <h:inputText id="p-pregunta-41" value="#{climateStudyController.survey[41-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-41" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-41" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-41" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-41" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>42</td>
+                                        <td>Durante la jornada de trabajo, los funcionarios tienen oportunidades de relajarse <h:inputText id="p-pregunta-42" value="#{climateStudyController.survey[42-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-42" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-42" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-42" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-42" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>43</td>
+                                        <td>El nivel de presión para cumplir las tareas es adecuado <h:inputText id="p-pregunta-43" value="#{climateStudyController.survey[43-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-43" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-43" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-43" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-43" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>44</td>
+                                        <td>Habitualmente se puede mantener el esfuerzo que requiere el trabajo <h:inputText id="p-pregunta-44" value="#{climateStudyController.survey[44-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-44" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-44" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-44" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-44" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>45</td>
+                                        <td>El ritmo de trabajo en este lugar permite a los funcionarios disfrutar de su vida personal <h:inputText id="p-pregunta-45" value="#{climateStudyController.survey[45-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-45" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-45" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-45" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-45" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>46</td>
+                                        <td>Generalmente los funcionarios tienen tiempo suficiente para cumplir con las exigencias del trabajo <h:inputText id="p-pregunta-46" value="#{climateStudyController.survey[46-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-46" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-46" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-46" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-46" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>47</td>
+                                        <td>El ambiente acá es bastante cálido y amistoso <h:inputText id="p-pregunta-47" value="#{climateStudyController.survey[47-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-47" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-47" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-47" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-47" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>48</td>
+                                        <td>Los funcionarios se preocupan personalmente por apoyar a los demás <h:inputText id="p-pregunta-48" value="#{climateStudyController.survey[48-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-48" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-48" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-48" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-48" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>49</td>
+                                        <td>Los funcionarios de las distintas unidades de la organización se llevan bien entre si <h:inputText id="p-pregunta-49" value="#{climateStudyController.survey[49-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-49" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-49" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-49" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-49" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>50</td>
+                                        <td>En este lugar, la colaboración que se prestan las distintas áreas entre sí es adecuada <h:inputText id="p-pregunta-50" value="#{climateStudyController.survey[50-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-50" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-50" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-50" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-50" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>51</td>
+                                        <td>Los problemas que se presentan a los supervisores (autoridades directas) reciben soluciones oportunas <h:inputText id="p-pregunta-51" value="#{climateStudyController.survey[51-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-51" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-51" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-51" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-51" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>52</td>
+                                        <td>En este lugar no existe temor para expresar los desacuerdos y discutirlos abiertamente <h:inputText id="p-pregunta-52" value="#{climateStudyController.survey[52-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-52" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-52" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-52" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-52" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>53</td>
+                                        <td>Los empleados pueden expresar lo que piensan aún cuando estén en desacuerdo con sus supervisores (autoridades directas) <h:inputText id="p-pregunta-53" value="#{climateStudyController.survey[53-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-53" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-53" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-53" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-53" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>54</td>
+                                        <td>En este lugar de trabajo, los conflictos entre las áreas son tratados hasta resolverlos <h:inputText id="p-pregunta-54" value="#{climateStudyController.survey[54-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-54" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-54" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-54" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-54" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>55</td>
+                                        <td>El sistema de capacitación y entrenamiento acá es eficiente <h:inputText id="p-pregunta-55" value="#{climateStudyController.survey[55-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-55" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-55" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-55" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-55" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>56</td>
+                                        <td>En este lugar se entrega la capacitación necesaria para hacer bien el trabajo <h:inputText id="p-pregunta-56" value="#{climateStudyController.survey[56-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-56" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-56" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-56" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-56" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>57</td>
+                                        <td>La organización está preocupada del desarrollo personal de sus trabajadores <h:inputText id="p-pregunta-57" value="#{climateStudyController.survey[57-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-57" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-57" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-57" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-57" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>58</td>
+                                        <td>El trabajo permite a los funcionarios hacer uso de todas sus habilidades y conocimientos <h:inputText id="p-pregunta-58" value="#{climateStudyController.survey[58-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-58" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-58" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-58" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-58" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>59</td>
+                                        <td>La iluminación permite trabajar en forma adecuada <h:inputText id="p-pregunta-59" value="#{climateStudyController.survey[59-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-59" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-59" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-59" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-59" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>60</td>
+                                        <td>El lugar de trabajo es suficientemente amplio para trabajar con comodidad <h:inputText id="p-pregunta-60" value="#{climateStudyController.survey[60-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-60" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-60" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-60" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-60" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>61</td>
+                                        <td>El lugar de trabajo es agradable y de aspecto moderno <h:inputText id="p-pregunta-61" value="#{climateStudyController.survey[61-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-61" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-61" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-61" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-61" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>62</td>
+                                        <td>El mobiliario está, normalmente, bien colocado <h:inputText id="p-pregunta-62" value="#{climateStudyController.survey[62-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-62" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-62" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-62" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-62" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>63</td>
+                                        <td>El lugar de trabajo está siempre bien ventilado <h:inputText id="p-pregunta-63" value="#{climateStudyController.survey[63-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-63" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-63" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-63" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-63" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>64</td>
+                                        <td>El lugar de trabajo está generalmente limpio y bien ordenado <h:inputText id="p-pregunta-64" value="#{climateStudyController.survey[64-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-64" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-64" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-64" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-64" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>65</td>
+                                        <td>Los servicios (baños, sala de descanso o de colación) son adecuados <h:inputText id="p-pregunta-65" value="#{climateStudyController.survey[65-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-65" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-65" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-65" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-65" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>66</td>
+                                        <td>La información sobre el cálculo de las remuneraciones es transparente para todos <h:inputText id="p-pregunta-66" value="#{climateStudyController.survey[66-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-66" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-66" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-66" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-66" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>67</td>
+                                        <td>El reconocimiento por el trabajo bien hecho es suficiente y oportuno <h:inputText id="p-pregunta-67" value="#{climateStudyController.survey[67-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-67" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-67" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-67" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-67" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>68</td>
+                                        <td>Los empleados que tienen funciones y responsabilidades similares entre si, tienen ingresos similares <h:inputText id="p-pregunta-68" value="#{climateStudyController.survey[68-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-68" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-68" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-68" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-68" value="4" /></td>
+                                </tr>
+                                <tr>
+                                        <td>69</td>
+                                        <td>Comparado con el de otras organizaciones similares, los funcionarios están satisfechos con su actual nivel de remuneración <h:inputText id="p-pregunta-69" value="#{climateStudyController.survey[69-1]}" style="display: none" /></td>
+                                        <td><input type="radio" name="pregunta-69" value="1" /></td>
+                                        <td><input type="radio" name="pregunta-69" value="2" /></td>
+                                        <td><input type="radio" name="pregunta-69" value="3" /></td>
+                                        <td><input type="radio" name="pregunta-69" value="4" /></td>
+                                </tr>
+                        </tbody>
+                </table>
+
+                <p:commandButton id="climateStudySubmit" value="Enviar" icon="ui-icon-mail-closed" styleClass="float-right disabled" actionListener="#{climateStudyController.submit}"/>
+                <p:tooltip for="climateStudySubmit" value="Si ha respondido todo puede enviar sus respuestas"/>
+            </h:form>
+            
+            <script type="text/javascript">
+                $('[name^="pregunta"]').click(function () {
+                    var parentTr = $(this).parents("tr")
+                    var primeFacesInput = $(parentTr).find('[name*="p-pregunta"]')
+                    $(primeFacesInput).val($(this).val())
+                    $(parentTr).css('background-color', 'rgb(183, 252, 183)')
+                    $(parentTr).addClass('green')
+                    checkSend()
+                })
+                function checkSend() {
+                    if ($('tr.green').size() == 69) {
+                        $('[id*="climateStudySubmit"]').removeClass('disabled')
+                    }
+                }
+            </script>
+            
+        </ui:define>
+        
+    </ui:composition>
+
+
+</html>
+

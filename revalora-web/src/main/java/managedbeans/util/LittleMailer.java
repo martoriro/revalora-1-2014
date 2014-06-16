@@ -31,7 +31,7 @@ import javax.mail.internet.MimeMessage;
 @RequestScoped
 public class LittleMailer {
     
-    private final String basePath = "http://localhost:8080/revalora-web/faces/survey/index.xhtml";
+    private final String basePath = "http://localhost:8080/revalora-web/faces/survey/climate.xhtml";
 
     public void sendClimateStudyInvitation(Contact contact, ClimateStudy study) {
         try {

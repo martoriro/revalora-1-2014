@@ -34,7 +34,7 @@ public class Crypto {
     public Crypto() throws NoSuchAlgorithmException, InvalidKeySpecException, 
             InvalidKeyException, UnsupportedEncodingException {
         
-        generateKey();
+        generateKey();        
     }
     
     public Crypto(String keyString) throws NoSuchAlgorithmException, 

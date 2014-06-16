@@ -6,7 +6,10 @@
 
 package sessionbeans;
 
+import entities.ClimateStudy;
 import entities.ClimateStudyInvitation;
+import entities.Contact;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

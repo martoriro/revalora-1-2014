@@ -29,6 +29,8 @@ public class ClimateStudyInvitationController implements Serializable {
     private List<ClimateStudyInvitation> items = null;
     private ClimateStudyInvitation selected;
     
+    private List<ClimateStudyInvitation> filteredItems;
+    
     @Inject 
     private ClimateStudyController climateStudyController;
     
@@ -41,6 +43,14 @@ public class ClimateStudyInvitationController implements Serializable {
 
     public void setSelected(ClimateStudyInvitation selected) {
         this.selected = selected;
+    }
+
+    public List<ClimateStudyInvitation> getFilteredItems() {
+        return filteredItems;
+    }
+
+    public void setFilteredItems(List<ClimateStudyInvitation> filteredItems) {
+        this.filteredItems = filteredItems;
     }
 
     protected void setEmbeddableKeys() {
