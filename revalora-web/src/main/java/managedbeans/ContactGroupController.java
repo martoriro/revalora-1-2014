@@ -1,8 +1,10 @@
 package managedbeans;
 
+import entities.Contact;
 import entities.ContactGroup;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -88,7 +90,8 @@ public class ContactGroupController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    removeRepeateds();
+                    getFacade().edit(selected);                       
                 } else {
                     getFacade().remove(selected);
                 }
@@ -109,6 +112,15 @@ public class ContactGroupController implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    } 
+    
+    public void removeRepeateds() {
+        List<Contact> contacts = selected.getContacts();
+        HashSet hs = new HashSet();
+        hs.addAll(contacts);
+        contacts.clear();
+        contacts.addAll(hs);
+        selected.setContacts(contacts);
     }
 
     public ContactGroup getContactGroup(java.lang.Long id) {
