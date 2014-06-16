@@ -13,10 +13,6 @@
             <h:outputText value="Usuarios registrados en el sistema"></h:outputText>
         </ui:define>
 
-        <ui:define name="sidebar-right">
-            <ui:include src="#{sessionUtil.currentUser.accountType.name}/sidebar-right.xhtml"/>
-        </ui:define>
-
         <ui:define name="header-links">
             <li>
                 <a href="/revalora-web/faces/roles/experto/index.xhtml">Inicio</a>
@@ -57,7 +53,8 @@
                                 </p:password>
                             </p:panelGrid>
                             <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}"  update="display, :growl" action="/faces/roles/Profile.xhtml" />
-                            <a href="/revalora-web/faces/roles/Profile.xhtml" class="btn btn-link">Volver</a>
+                            <p:button value="Volver" outcome="/faces/roles/Profile.xhtml" />
+                          
                             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
  
                             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">

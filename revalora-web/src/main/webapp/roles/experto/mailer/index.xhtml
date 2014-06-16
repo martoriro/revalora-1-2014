@@ -16,7 +16,16 @@
             <ui:include src="../sidebar-right.xhtml"/>            
         </ui:define>
 
-        <ui:define name="body">            
+        <ui:define name="body">
+            <h:form>
+                <p:breadCrumb style="text-transform: none">
+                    <p:menuitem value="home" url="../index.xhtml" />
+                    <p:menuitem value="Gestión de Proyectos" url="../project/List.xhtml" />
+                    <p:menuitem value="Mi Proyecto" url="../project/index.xhtml" />
+                    <p:menuitem value="Comunicaciones" url ="Index.xhtml"/>
+                </p:breadCrumb>
+            </h:form>
+            
             <h4 class="white">Bandeja de Entrada</h4>
 
             <ui:include src="inboxReceived.xhtml"/>            
