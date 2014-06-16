@@ -41,7 +41,7 @@ import sessionbeans.util.EmailSessionBeanLocal;
 @Named("climateStudyController")
 @SessionScoped
 public class ClimateStudyController implements Serializable {
-
+    
     @EJB
     private ClimateStudyFacadeLocal ejbFacade;
     private List<ClimateStudy> items = null;

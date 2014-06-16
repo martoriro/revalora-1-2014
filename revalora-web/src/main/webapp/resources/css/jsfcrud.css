@@ -5311,6 +5311,19 @@ button.close {
 .ui-breadcrumb {
   margin-bottom: 15px !important; }
 
+.ui-breadcrumb.ui-module.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+  background: none !important;
+  border: 0px !important; }
+  .ui-breadcrumb.ui-module.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all .ui-breadcrumb-chevron.ui-icon.ui-icon-triangle-1-e {
+    margin-top: 2px !important; }
+  .ui-breadcrumb.ui-module.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all .ui-menuitem-link * {
+    font-size: 11px !important;
+    color: #9C9C9C; }
+  .ui-breadcrumb.ui-module.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all li:last-child .ui-menuitem-link span {
+    color: black; }
+  .ui-breadcrumb.ui-module.ui-widget.ui-widget-header.ui-helper-clearfix.ui-corner-all .ui-icon-home {
+    margin-top: 1px; }
+
 .float-right {
   float: right; }
 
