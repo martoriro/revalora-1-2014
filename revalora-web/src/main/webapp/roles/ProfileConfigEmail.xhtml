@@ -58,6 +58,11 @@
                             </p:panelGrid>
                             <p:commandButton actionListener="#{accountController.updateAndGo('/faces/roles/Profile.xhtml')}" value="#{bundle.Save}"  update="display, :growl" action="/faces/roles/Profile.xhtml" />
                             <a href="/revalora-web/faces/roles/Profile.xhtml" class="btn btn-link">Volver</a>
+                            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <img src="../resources/images/ajax-loader.gif" alt=""/>
+                            </p:dialog>
                         </h:panelGroup>
                     </h:form>
 

@@ -4,30 +4,36 @@ import entities.ClimateStudy;
 import entities.ClimateStudyInvitation;
 import entities.Contact;
 import entities.ContactGroup;
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.mail.MessagingException;
 import managedbeans.mailer.EmailController;
+import managedbeans.util.Crypto;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
 import managedbeans.util.LittleMailer;
 import managedbeans.util.SessionUtil;
-import otherclasses.Email;
 import sessionbeans.ClimateStudyFacadeLocal;
 import sessionbeans.util.EmailSessionBeanLocal;
 
@@ -40,23 +46,18 @@ public class ClimateStudyController implements Serializable {
     private List<ClimateStudy> items = null;
     private ClimateStudy selected;
 
-    @Inject
-    private SessionUtil sessionUtil;
+    private String surveyParam;
+    private String[] survey = new String[70];
+    
+    @Inject private SessionUtil sessionUtil;
+    @Inject private ProjectController projectController;
+    @Inject private ClimateStudyInvitationController climateStudyInvitationController;
+    @Inject private EmailController emailController;
+    @Inject private LittleMailer littleMailer; // El mejor de los mailers
+    @Inject private ContactController contactController;
+    
+    @EJB private EmailSessionBeanLocal emailFacade;
 
-    @Inject
-    private ProjectController projectController;
-
-    @Inject
-    private ClimateStudyInvitationController climateStudyInvitationController;
-
-    @Inject
-    private EmailController emailController;
-
-    @EJB
-    private EmailSessionBeanLocal emailFacade;
-
-    @Inject
-    private LittleMailer littleMailer; // El mejor de los mailers
 
     public ClimateStudyController() {
     }
@@ -77,6 +78,31 @@ public class ClimateStudyController implements Serializable {
 
     private ClimateStudyFacadeLocal getFacade() {
         return ejbFacade;
+    }
+
+    public String getSurveyParam() {
+        return surveyParam;
+    }
+
+    public void setSurveyParam(String surveyParam) throws NoSuchAlgorithmException, 
+            InvalidKeySpecException, InvalidKeyException, 
+            UnsupportedEncodingException, IOException, 
+            NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+        
+        this.surveyParam = surveyParam;
+        Crypto cypher = new Crypto();
+        String raw = cypher.decrypt(surveyParam);
+        String [] rawData = raw.split("\\|\\|");
+        selected = getClimateStudy(Long.parseLong(rawData[1]));
+        contactController.setSelected(contactController.getContact(rawData[0]));
+    }
+
+    public String[] getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(String[] survey) {
+        this.survey = survey;
     }
 
     public ClimateStudy prepareCreate() {
@@ -153,6 +179,10 @@ public class ClimateStudyController implements Serializable {
     public ClimateStudy getClimateStudy(java.lang.Long id) {
         return getFacade().find(id);
     }
+    
+    public void refreshSelected() {
+        selected = getClimateStudy(selected.getId());
+    }
 
     public List<ClimateStudy> getItemsAvailableSelectMany() {
         return getFacade().findAll();
@@ -218,6 +248,7 @@ public class ClimateStudyController implements Serializable {
                     _sendInvitations(contact);
                 }
             }
+            refreshSelected();
         } catch (Exception ex) {
             JsfUtil.addErrorMessage("Ha ocurrido un error y algunas de las invitaciones no se han enviado. Inténtelo mas tarde");
         }
@@ -240,6 +271,7 @@ public class ClimateStudyController implements Serializable {
     public void _sendInvitations(Contact contact) throws MessagingException {
         System.out.println("- Enviadno mensaje a " + contact.getName() + " (" + contact.getEmail() + ")");
         littleMailer.sendClimateStudyInvitation(contact, selected);
+        
         ClimateStudyInvitation invitation = new ClimateStudyInvitation();
         invitation.setContact(contact);
         invitation.setDate(new Date());
@@ -248,5 +280,14 @@ public class ClimateStudyController implements Serializable {
         selected.getInvitations().add(invitation);
         getFacade().edit(selected);
     }
+
+
+
+    
+    public void submit() {
+        System.out.println("Procesando encuesta");
+        
+    }
+    
 
 }

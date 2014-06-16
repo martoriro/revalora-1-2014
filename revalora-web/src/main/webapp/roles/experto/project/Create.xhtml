@@ -29,7 +29,13 @@
                                            itemValue="#{organizationItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{projectController.create}" value="#{bundle.Save}" update="display,:ProjectListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProjectCreateDialog');"/>
+                    <p:commandButton actionListener="#{projectController.create}" value="#{bundle.Save}" update="display,:ProjectListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProjectCreateDialog');">
+                        <p:confirm header="Confirmación" message="¿Está seguro que desea crear este Proyecto?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProjectCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

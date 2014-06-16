@@ -28,7 +28,13 @@
                             </p:column>
                         </p:autoComplete>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{teamController.update}" value="#{bundle.Save}" update="display,:TeamListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TeamEditDialog');"/>
+                    <p:commandButton actionListener="#{teamController.update}" value="#{bundle.Save}" update="display,:TeamListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TeamEditDialog');">
+                        <p:confirm header="Advertencia" message="¿Está seguro que quiere editar este equipo?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TeamEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -29,6 +29,11 @@
                         <p:commandButton actionListener="#{projectController.projectIndex}" icon="ui-icon-search" title="Ver">
                             <f:setPropertyActionListener value="#{project}" target="#{projectController.selected}" />
                         </p:commandButton>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="../../resources/images/ajax-loader.gif" alt=""/>
+                        </p:dialog>
                     </p:column>
                 </p:dataTable>
                 <p:button value="Gestionar mis proyectos" outcome="project/List.xhtml" style="width: 100%" icon="ui-icon-plus"/><script>breadcrumbs.navigate("Proyectos","project/List.xhtml")</script>

@@ -82,6 +82,11 @@
                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{climateStudySurveyController.destroy}" update=":growl,datalist" disabled="#{empty climateStudySurveyController.selected}">
                             <p:confirm header="Atención" message="¿Está seguro que desea eliminar esta encuesta?" icon="ui-icon-alert" />
                         </p:commandButton>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="../../../resources/images/ajax-loader.gif" alt=""/>
+                        </p:dialog>
                     </f:facet>
                 </p:dataTable>
                 

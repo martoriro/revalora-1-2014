@@ -29,7 +29,7 @@
             
             <h:form>
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
                 </p:confirmDialog>
             </h:form>
@@ -82,7 +82,13 @@
                         <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{projectController.destroy}" update=":growl,datalist" disabled="#{empty projectController.selected}">
                             <p:confirm header="Atención" message="¿Está seguro que desea eliminar este proyecto?" icon="ui-icon-alert" />
                         </p:commandButton>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="../../../resources/images/ajax-loader.gif" alt=""/>
+                        </p:dialog>
                     </f:facet>
+                    
                 </p:dataTable>
                 
             </h:form>

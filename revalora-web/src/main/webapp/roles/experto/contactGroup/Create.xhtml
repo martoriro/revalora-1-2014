@@ -27,7 +27,13 @@
                             </p:column>
                         </p:autoComplete>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{contactGroupController.create}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContactGroupCreateDialog');"/>
+                    <p:commandButton actionListener="#{contactGroupController.create}" value="#{bundle.Save}" update="display,:ContactGroupListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContactGroupCreateDialog');">
+                        <p:confirm header="Confrimación" message="¿Está seguro que desea crear este grupo de contactos?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
+                    </p:confirmDialog>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ContactGroupCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
