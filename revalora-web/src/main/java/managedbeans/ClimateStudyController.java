@@ -1,7 +1,9 @@
 package managedbeans;
 
 import entities.ClimateStudy;
+import entities.ClimateStudyAnsware;
 import entities.ClimateStudyInvitation;
+import entities.ClimateStudyParticipation;
 import entities.Contact;
 import entities.ContactGroup;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,6 +37,9 @@ import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
 import managedbeans.util.LittleMailer;
 import managedbeans.util.SessionUtil;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.HorizontalBarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import otherclasses.Email;
 import sessionbeans.ClimateStudyFacadeLocal;
 import sessionbeans.util.EmailSessionBeanLocal;
@@ -48,7 +54,9 @@ public class ClimateStudyController implements Serializable {
     private ClimateStudy selected;
 
     private String surveyParam;
-    private String[] survey = new String[70];
+    private String[] survey = new String[69];
+    private List<ClimateStudyAnsware> averages;
+    private HorizontalBarChartModel barChart;
     
     @Inject private SessionUtil sessionUtil;
     @Inject private ProjectController projectController;
@@ -96,6 +104,8 @@ public class ClimateStudyController implements Serializable {
         String [] rawData = raw.split("\\|\\|");
         selected = getClimateStudy(Long.parseLong(rawData[1]));
         contactController.setSelected(contactController.getContact(rawData[0]));
+        if(getFacade().response(contactController.getSelected(), selected))
+            JsfUtil.redirect("/faces/survey/climateSuccess.xhtml");
     }
 
     public String[] getSurvey() {
@@ -104,6 +114,25 @@ public class ClimateStudyController implements Serializable {
 
     public void setSurvey(String[] survey) {
         this.survey = survey;
+    }
+    
+    public List<ClimateStudyAnsware> getAverages() {
+        averages = getFacade().getAverages(selected);
+        return averages;
+    }
+
+    public HorizontalBarChartModel getBarChart() {
+        barChart = new HorizontalBarChartModel();
+        ChartSeries serie = new ChartSeries();
+        for (ClimateStudyAnsware average : averages) {
+            serie.set(average.getQuestion(), average.getAnsware());
+        }
+        barChart.addSeries(serie);
+        return barChart;
+    }
+
+    public void setBarChart(HorizontalBarChartModel barChart) {
+        this.barChart = barChart;
     }
 
     public ClimateStudy prepareCreate() {
@@ -182,7 +211,11 @@ public class ClimateStudyController implements Serializable {
     }
     
     public void refreshSelected() {
-        selected = getClimateStudy(selected.getId());
+        if(selected != null) {
+            if(selected.getId() != null) {
+               selected = getClimateStudy(selected.getId()); 
+            }
+        }
     }
 
     public List<ClimateStudy> getItemsAvailableSelectMany() {
@@ -282,14 +315,45 @@ public class ClimateStudyController implements Serializable {
     public void submit() {
         System.out.println("Procesando encuesta");
         
+        // Registro de la invitación (Invitación = Evento sobre un estudio)
         ClimateStudyInvitation invitation = new ClimateStudyInvitation();
         invitation.setContact(contactController.getSelected());
         invitation.setStudy(selected);
         invitation.setDate(new Date());
         invitation.setState("Listo");
         selected.getInvitations().add(invitation);
+        System.out.println("- Incorporando invitación");
+        
+        System.out.println("- Cantidad de respuestas antes: " + selected.getAnswares().size());
+        // Registro de las respuestas
+        int i;
+        for(i = 0; i < survey.length; i++) {
+            ClimateStudyAnsware aux = new ClimateStudyAnsware();
+            aux.setClimateStudy(selected);
+            aux.setContact(contactController.getSelected());
+            aux.setQuestion(i);
+            aux.setAnsware(Integer.parseInt(survey[i]));
+            
+            selected.getAnswares().add(aux);
+            System.out.println("    - Agregando respuesta nro " + aux.getQuestion() + " => " + aux.getAnsware());
+        }
+        System.out.println("- Se han agregado " + i + " respuestas");
+        System.out.println("- Cantidad de respuestas despues: " + selected.getAnswares().size());
+        
+        // Registro de la participación sobre el estudio
+        ClimateStudyParticipation part = new ClimateStudyParticipation();
+        part.setClimateStudy(selected);
+        part.setContact(contactController.getSelected());
+        part.setDate(new Date());
+        
+        selected.getParticipations().add(part);
+        
+        // Esto debería ser una transacción. Debería
+        // Debería estar en los sessionbeans. Debería
         getFacade().edit(selected);
         refreshSelected();
+        
+        System.out.println("- Transacción finalizada");
         
         JsfUtil.redirect("/faces/survey/climateSuccess.xhtml");
     }

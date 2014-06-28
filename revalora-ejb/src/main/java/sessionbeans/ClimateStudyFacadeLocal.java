@@ -7,6 +7,8 @@
 package sessionbeans;
 
 import entities.ClimateStudy;
+import entities.ClimateStudyAnsware;
+import entities.Contact;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,4 +33,8 @@ public interface ClimateStudyFacadeLocal {
 
     int count();
     
+    boolean response(Contact contact, ClimateStudy study);
+    
+    List<ClimateStudyAnsware> getAverages(ClimateStudy study);
+            
 }

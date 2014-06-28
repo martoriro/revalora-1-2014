@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/layout/2columns-right.xhtml">
 
@@ -193,6 +194,41 @@
                         <h:outputText value="#{inv.state}"/>
                     </p:column>
                 </p:dataTable>
+                
+            </h:form>
+            
+            <hr/>
+            <h4>Resultados</h4>
+            <p>A continuación se muestran los resultados computados hasta la fecha de la encuesta de <span class="label label-default">69 preguntas</span>.</p>
+            
+            <h:form>
+                
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <p:dataTable id="datalist4" value="#{climateStudyController.averages}" var="average">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Pregunta"/>
+                                </f:facet>
+                                <h:outputText value="#{average.question}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Promedio"/>
+                                </f:facet>
+                                <h:outputText value="#{average.answare}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <c:if test="#{climateStudyController.averages.size() != 0}">
+                        <p:chart type="bar" model="#{climateStudyController.barChart}" style="height: 1000px" />
+                        </c:if>
+                    </div>
+                    
+                </div>
                 
             </h:form>
             

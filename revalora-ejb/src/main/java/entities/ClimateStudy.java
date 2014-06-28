@@ -61,6 +61,12 @@ public class ClimateStudy implements Serializable {
     
     @OneToMany
     private List<ClimateStudyInvitation> invitations;
+    
+    @OneToMany(mappedBy = "climateStudy")
+    private List<ClimateStudyAnsware> answares;
+    
+    @OneToMany(mappedBy = "climateStudy")
+    private List<ClimateStudyParticipation> participations;
 
     public Long getId() {
         return id;
@@ -143,6 +149,26 @@ public class ClimateStudy implements Serializable {
 
     public void setInvitations(List<ClimateStudyInvitation> invitations) {
         this.invitations = invitations;
+    }
+
+    public List<ClimateStudyAnsware> getAnswares() {
+        if(answares == null)
+            answares = new ArrayList<ClimateStudyAnsware>();
+        return answares;
+    }
+
+    public void setAnswares(List<ClimateStudyAnsware> answares) {
+        this.answares = answares;
+    }
+
+    public List<ClimateStudyParticipation> getParticipations() {
+        if(participations == null)
+            participations = new ArrayList<ClimateStudyParticipation>();
+        return participations;
+    }
+
+    public void setParticipations(List<ClimateStudyParticipation> participations) {
+        this.participations = participations;
     }
 
     @Override
