@@ -31,6 +31,8 @@ public class ClimateStudyFacade extends AbstractFacade<ClimateStudy> implements 
     
     @Override
     public boolean response(Contact contact, ClimateStudy study) {
+        if((contact == null) || (study == null))
+            return false;
         Query q = em.createQuery("SELECT cp FROM ClimateStudyParticipation cp JOIN cp.contact c JOIN cp.climateStudy s WHERE c.email = :email AND s.id = :studyId");
         q.setParameter("email", contact.getEmail());
         q.setParameter("studyId", study.getId());
