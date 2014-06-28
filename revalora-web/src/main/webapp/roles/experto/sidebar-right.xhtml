@@ -7,13 +7,13 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <h4 class="white">Herramientas</h4>
+        <h4 class="white">Herramientas del Proyecto</h4>
         <h:form>   
             <p:menu style="width: 100%">
-                <p:menuitem value="Portada proyecto" outcome="/roles/experto/project/index.xhtml" update="messages" />
-                <p:menuitem value="Mis Contactos" outcome="/roles/experto/contact/List.xhtml" update="messages" />
-                <p:menuitem value="Mis Grupos de Contactos" outcome="/roles/experto/contactGroup/List.xhtml" update="messages" />
-                <p:menuitem value="Comunicaciones" actionListener="#{emailController.confirmSetingsAndGo('/faces/roles/experto/mailer/index.xhtml')}" />
+                <p:menuitem value="Inicio" outcome="/roles/experto/project/index.xhtml" update="messages" />
+                <p:menuitem value="Contactos" outcome="/roles/experto/contact/List.xhtml" update="messages" />
+                <p:menuitem value="Grupos de Contactos" outcome="/roles/experto/contactGroup/List.xhtml" update="messages" />
+                <p:menuitem value="Correo" actionListener="#{emailController.confirmSetingsAndGo('/faces/roles/experto/mailer/index.xhtml')}" />
             </p:menu>
         </h:form>
         
