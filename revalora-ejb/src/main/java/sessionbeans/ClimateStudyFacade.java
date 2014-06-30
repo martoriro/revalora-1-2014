@@ -8,7 +8,9 @@ package sessionbeans;
 
 import entities.ClimateStudy;
 import entities.ClimateStudyAnsware;
+import entities.ClimateStudyInvitation;
 import entities.Contact;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -45,6 +47,19 @@ public class ClimateStudyFacade extends AbstractFacade<ClimateStudy> implements 
     public List<ClimateStudyAnsware> getAverages(ClimateStudy study) {
         Query q = em.createNativeQuery("select QUESTION as ID, QUESTION, AVG(ANSWARE) as ANSWARE, CONTACT_EMAIL from CLIMATESTUDYANSWARE where CLIMATESTUDY_ID = " + study.getId() + " group by QUESTION", ClimateStudyAnsware.class);
         return q.getResultList();
+    }
+    
+    public void setValueProposal(ClimateStudy cs) {
+        int[] valueProposal = new int[5];        
+        
+    }
+    
+    public int[] setNormalizedEvalValue(int[] values) {
+        int[] normValues = new int[5];
+        for (int i = 0; i < 4; i++) {
+            normValues[i] = ((values[i]*10) + 20);
+        }
+        return normValues;
     }
 
     public ClimateStudyFacade() {
