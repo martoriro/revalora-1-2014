@@ -21,7 +21,10 @@
                              value="#{sessionUtil.currentUser.projects}" 
                              selectionMode="single" 
                              selection="#{projectController.selected}" 
-                             rowKey="#{project.id}">
+                             rowKey="#{project.id}"
+                             emptyMessage="Aún no hay proyectos."
+                             scrollable="true"
+                             scrollHeight="150">
                     <p:column>
                         <h:outputText value="#{project.name}" />
                     </p:column>

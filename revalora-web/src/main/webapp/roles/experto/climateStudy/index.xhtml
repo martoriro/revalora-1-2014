@@ -206,12 +206,12 @@
                 <div class="row">
                     
                     <div class="col-md-4">
-                        <p:dataTable id="datalist4" value="#{climateStudyController.averages}" var="average">
+                        <p:dataTable id="datalist4" value="#{climateStudyController.averages}" var="average" emptyMessage="Aún no existen respuestas">
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Pregunta"/>
                                 </f:facet>
-                                <h:outputText value="#{average.question}"/>
+                                <h:outputText value="#{average.question + 1}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
