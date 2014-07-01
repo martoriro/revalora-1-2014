@@ -37,6 +37,7 @@ import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
 import managedbeans.util.LittleMailer;
 import managedbeans.util.SessionUtil;
+import org.primefaces.model.chart.*;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.ChartSeries;

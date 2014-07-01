@@ -36,14 +36,12 @@
                       <li>
                         <c:if test="#{loginController.hasIdentity()}">
                             <ui:insert name="header-links"/>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perfil <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/revalora-web/faces/roles/Profile.xhtml">Ver perfil</a></li>
-                                    <!--<li><a href="/revalora-web/faces/roles/ProfileChangePassword.xhtml">Cambiar contraseña</a></li>-->
-                                </ul>
-                            </li>
-                            
+                            <li>
+                                <p:link value="FAQ" href="/faces/userFaQ.xhtml" ></p:link>
+                            </li>  
+                            <li>
+                                <p:link value="Mi Perfil" href="/faces/roles/Profile.xhtml" ></p:link>
+                            </li>    
                             <li>
                                 <p:commandLink type="submit" value="Cerrar sesión" immediate="true" action="#{loginController.logout}"></p:commandLink>
                             </li>

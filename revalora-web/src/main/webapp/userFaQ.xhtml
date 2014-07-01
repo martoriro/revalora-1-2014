@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/layout/1column.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="FaQ"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h1>FAQ </h1>
+            <hr></hr>
+
+            <div class="row">
+                <div class="col-md-9" role="main">
+                    <div class="bs-docs-section">
+                        <h1 id="proyectMaintainer" class="page-header">Mantenedor de proyectos</h1>
+
+                        <p class="lead">El usuario experto puede agregar, modificar, eliminar y ver el detalle de los
+                            proyectos que el ha creado dentro del sistema.
+                        </p>
+                        <h3>¿Para qué sirve un proyecto?</h3>
+                        <p>
+                            La creación de un proyecto le permitirá posteriormente realizar las encuestas que incluye nuestro sistema Revalora
+                        </p>
+
+                        <h3>¿Cómo crear un proyecto?</h3>
+                        <p>
+                            <li>
+                                Presione el botón llamado <b>crear</b> que se encuentra en la parte inferior izquierda de la pantalla.
+                            </li>
+                            <li>
+                                A continuación se desplegará una pantalla solicitando los datos del proyecto como nombre, comienzo, término y organización.
+                            </li>
+                            <li>
+                                Luego que haya completado todos los datos solicitados presione el botón <b>Guardar</b> y confirme la operación.
+                            </li>
+                        </p>
+
+                        <h3>¿Cómo ver la información de un proyecto?</h3>
+                        <p>
+                            <li>
+                                Seleccione un proyecto dentro de la lista de proyectos existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>Ver</b> que se encuentra en la parte inferior de la pantalla.
+                            </li>
+                        </p>
+                        <h3>¿Cómo editar la información de un proyecto?</h3>
+                        <p>
+                            <li>
+                                Seleccione un proyecto dentro de la lista de proyectos existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>Editar</b> que se encuentra en la parte inferior de la pantalla, bajo la tabla de proyectos.
+                            </li>
+                        </p>
+                        <h3>¿Cómo eliminar un proyecto?</h3>
+                        <p>
+                            <li>
+                                Seleccione un proyecto dentro de la lista de proyectos existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>Eliminar</b> que se encuentra en la parte inferior de la pantalla, bajo la tabla de proyectos.
+                            </li>
+                            <li>
+                                Confirme la acción en la ventana que aparecerá.
+                            </li>
+                        </p>
+                    </div>
+                    
+                    <div class="bs-docs-section">
+                        <h1 id="userMaintainer" class="page-header">Mantenedor de usuarios</h1>
+
+                        <h3>¿Cómo crear un usuario?</h3>
+                        <p>
+                            <li>
+                                Presione el botón llamado <b>Nuevo</b> que se encuentra en la parte inferior izquierda de la pantalla.
+                            </li>
+                            <li>
+                                A continuación se desplegará una pantalla solicitando la información personal del usuario nuevo, en ella debe completar los datos , rut, contraseña, nombre, apellido, género, fecha de nacimiento, dirección, teléfono, mail, cargo y tipo de cuenta.
+                            </li>
+                            <li>
+                                Luego que haya completado todos los datos solicitados presione el botón <b>guardar</b> y confirme la operación.
+                            </li>
+                        </p>
+
+                        <h3>¿Cómo buscar un usuario?</h3>
+                        <p>
+                            <li>
+                                Dentro de la pantalla se encuentran unos campos en blanco, en ellos puede ingresar información relativa al usuario deseado.
+                            </li>
+                            <li>
+                                Puede buscar un usuario, ya sea por rut, nombre, apellido, email, o también puede filtrar usuarios por tipo de cuenta o acceso.
+                            </li>
+                        </p>
+                        <h3>¿Cómo ver un usuario?</h3>
+                        <p>
+                            <li>
+                                Seleccione un usuario dentro de la lista de usuarios existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>Ver</b> que se encuentra en la parte inferior de la pantalla.
+                            </li>
+                        </p>
+                        <h3>¿Cómo editar un usuario?</h3>
+                        <p>
+                            <li>
+                                Seleccione un usuario dentro de la lista de usuarios existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>editar</b> que se encuentra en la parte inferior izquierda de la pantalla.
+                            </li>
+                            <li>
+                                Puede editar toda la información relativa al usuario seleccionado, con excepción del rut, contraseña y tipo de cuenta.
+                            </li>
+                        </p>
+                        <h3>¿Cómo deshabilitar un usuario?</h3>
+                        <p>
+                            <li>
+                                Seleccione un usuario dentro de la lista de usuarios existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>Dar/Quitar acceso</b> que se encuentra en la parte inferior de la pantalla.
+                            </li>
+                            <li>
+                                Confirme la acción en la ventana que aparecerá
+                            </li>
+                        </p>
+                        <h3>¿Para qué deshabilitar un usuario?</h3>
+                        <p>
+                            <li>
+                                Es posible deshabilitar a un usuarios para privar del acceso de este al sistema.
+                            </li>
+                            <li>
+                                Una vez deshabilitado el usuario, este no podrá ingresar a su cuenta.
+                            </li>
+                        </p>
+                        <h3>¿Cómo volver a habilitar un usuario?</h3>
+                        <p>
+                            <li>
+                                Seleccione un usuario dentro de la lista de usuarios existentes.
+                            </li>
+                            <li>
+                                El usuario sin acceso tendrá el campo Acceso como <b>deshabilitado”</b>
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>Dar/Quitar acces</b> que se encuentra en la parte inferior de la pantalla.
+                            </li>
+                            <li>
+                                Confirme la acción en la ventana que aparecerá.
+                            </li>
+                        </p>
+                    </div>
+                
+                    <div class="bs-docs-section">
+                        <h1 id="estudioOrg" class="page-header">Estudio organizacional</h1>
+
+                        <h3>¿Para qué sirve un estudio organizacional?</h3>
+                        <p>
+                            <li>
+                                La creación de un grupo le permitirá posteriormente realizar las encuestas que incluye nuestro sistema Revalora.
+                            </li>
+                        </p>
+
+                        <h3>¿Cómo crear un estudio organizacional?</h3>
+                        <p>
+                            <li>
+                                Presione el botón llamado <b>Nuevo</b> que se encuentra en la parte inferior izquierda de la pantalla.
+                            </li>
+                            <li>
+                                A continuación se desplegará una pantalla solicitando los datos del estudio como título, descripción, comienzo, término, participantes y grupos.
+                            </li>
+                            <li>
+                                Luego que haya completado todos los datos solicitados presione el botón <b>guardar</b> y confirme la operación
+                            </li>
+                        </p>
+                        <h3>¿Cómo ver la información de un estudio?</h3>
+                        <p>
+                            <li>                    
+                                Seleccione un estudio dentro de la lista de estudios existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>ver</b> que se encuentra en la parte inferior de la pantalla.
+                            </li>
+                        </p>
+                        <h3>¿Cómo editar la información de un estudio?</h3>
+                        <p>
+                            <li>
+                                Seleccione un estudio dentro de la lista de estudios existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>editar</b> que se encuentra en la parte inferior de la pantalla, bajo la tabla de estudios.
+                            </li>
+                        </p>
+                        <h3>¿Cómo eliminar un estudio?</h3>
+                        <p>
+                            <li>
+                                Seleccione un estudio dentro de la lista de estudios.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>eliminar</b> que se encuentra en la parte inferior de la pantalla, bajo la tabla de estudios.
+                            </li>
+                            <li>
+                                Confirme la acción en la ventana que aparecerá.
+                            </li>
+                        </p>
+                    </div>
+                    
+                    
+                    
+                    <div class="bs-docs-section">
+                        <h1 id="Correo" class="page-header">Correo</h1>
+                        <h3>¿Cómo crear un mensaje nuevo?</h3>
+                        <p>
+                            <li>
+                                Presione el botón <b>Nuevo correo electrónico</b>, ubicado en la esquina superior izquierda.
+                            </li>
+                            <li>
+                                A continuación se desplegará una pantalla, en ella debe ingresar la información relativa a contactos, grupo de contactos, asunto  contenido del mensaje.
+                            </li>
+                            <li>
+                                Luego de completar todos los campos presione el botón enviar.
+                            </li>
+                        </p>
+
+                        <h3>¿Cómo eliminar un mensaje?</h3>
+                        <p>
+                            <li>
+                                Seleccione un mensaje dentro de la lista de mensajes existentes.
+                            </li>
+                            <li>
+                                Presione el botón llamado <b>eliminar</b> que se encuentra en la parte superior de la pantalla.
+                            </li>
+                            <li>
+                                Confirme la acción en la ventana que aparecerá.
+                            </li>
+                        </p>
+                        <h3>¿Cómo modificar el estado de un mensaje?</h3>
+                        <p>
+                            <li>
+                                Seleccione un mensaje dentro de la lista de mensajes existentes.
+                            </li>
+                            <li>
+                                Seleccione <b>Marcar como leído</b> si desea que el mensaje seleccionado aparezca como ya leído o presione <b>Marcar como no leído</b>, si desea que un mensaje ya leído tome ese estado en el sistema.
+                            </li>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
