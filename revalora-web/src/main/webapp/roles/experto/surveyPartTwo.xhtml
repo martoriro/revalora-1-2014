@@ -18,6 +18,7 @@
             <h4 class="white">Hola <b>#{sessionUtil.currentUser.firstName} #{sessionUtil.currentUser.lastName}! </b> Por favor responde</h4>
             <h5 class="white"><b>Encuesta de Clima Organizacional</b></h5>
             <h:form id="surveyForm">
+                <p:growl id="growl" showDetail="true"/>
                 <p:panelGrid id="survey" columns="3">
                     <p:outputLabel for="factor1" value="1"/>
                     <h:outputText id="factor1" value="Conocer lo que se espera de las tareas diarias y que se explique las reglas, criterios y planes de trabajo"/>
