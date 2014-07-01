@@ -6,6 +6,7 @@
 package managedbeans.mailer;
 
 import entities.ClimateStudyInvitation;
+import entities.ClimateStudyParticipation;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -23,6 +24,7 @@ import managedbeans.ClimateStudyController;
 import managedbeans.ClimateStudyInvitationController;
 import managedbeans.util.Crypto;
 import sessionbeans.ClimateStudyInvitationFacadeLocal;
+import sessionbeans.ClimateStudyParticipationFacadeLocal;
 import sessionbeans.util.EmailSessionBeanLocal;
 
 /**
@@ -35,10 +37,12 @@ public class resendInvitation implements Serializable {
 
     @EJB
     private EmailSessionBeanLocal emailSessionBean;
-    private List<ClimateStudyInvitation> listInvitation = new ArrayList<ClimateStudyInvitation>();
     @EJB
     private ClimateStudyInvitationFacadeLocal ejbFacade;
-    private ClimateStudyController csc;
+
+    private List<ClimateStudyInvitation> listInvitation = new ArrayList<ClimateStudyInvitation>();
+    private List<ClimateStudyInvitation> listReal = new ArrayList<ClimateStudyInvitation>();
+
     private final String basePath = "http://localhost:8080/revalora-web/faces/survey/climate.xhtml";
 
     public void resend() throws MessagingException {
@@ -46,16 +50,39 @@ public class resendInvitation implements Serializable {
             Crypto cypher = new Crypto();
             listInvitation = ejbFacade.findAll();
             System.out.println(listInvitation.size());
-            for (ClimateStudyInvitation cs : listInvitation) {
-                if (cs.getState() != null && cs.getContact() != null) {
-                    if (!cs.getState().equals("Listo")) {
-                        String uri = cypher.crypt(cs.getContact().getEmail() + "||" + cs.getStudy().getId().toString());
-                        String mensaje = "Estimado " + cs.getContact().getName() + " aun no ha contestado la encuesta del estudio " + cs.getStudy().getName() + ".\n"+
-                                "El Sistema Revalora te solicita que respondas las preguntas en el siguiente enlace:\n\n" + basePath + "?survey=" + uri;
-                        //emailSessionBean.sendMail(cs.getContact().getEmail(), "", "", "", "Recordatorio de Revalora", mensaje);
-                        System.out.println(mensaje);
+
+            for (int j = 0; j<listInvitation.size(); j++) {
+                if (listInvitation.get(j).getState() != null && listInvitation.get(j).getContact() != null) {
+                    long idClimateAux = listInvitation.get(j).getStudy().getId();
+                    String mailAux = listInvitation.get(j).getContact().getEmail();
+                    boolean isReady = false;
+                    System.out.println("inicio primer bucle: "+idClimateAux + " " + mailAux + " " + listInvitation.get(j).getState());
+                    for (int i = 0; i<listInvitation.size(); i++) {
+                        System.out.println(listInvitation.get(i).getStudy().getId()+ " " + listInvitation.get(i).getContact().getEmail() + " " + listInvitation.get(i).getState());
+                        if(listInvitation.get(i).getStudy().getId()== idClimateAux && listInvitation.get(i).getContact().getEmail().equals(mailAux) && listInvitation.get(i).getState().equals("Listo")){
+                            
+                            System.out.println("Esta LISTO");
+                            isReady = true;
+                            break;
+                        }                        
                     }
-                }
+//                    if(!isReady){
+//                        listReal.add(cs);
+//                    }
+                    
+//                    if (!cs.getState().equals("Listo")) {
+//                        String uri = cypher.crypt(cs.getContact().getEmail() + "||" + cs.getStudy().getId().toString());
+//                        
+//                        String mensaje = "Estimado " + cs.getContact().getName() + " aun no ha contestado la encuesta del estudio " + cs.getStudy().getName() + ".\n"
+//                                + "El Sistema Revalora te solicita que respondas las preguntas en el siguiente enlace:\n\n" + basePath + "?survey=" + uri;
+//                        //emailSessionBean.sendMail(cs.getContact().getEmail(), "", "", "", "Recordatorio de Revalora", mensaje);
+//                        System.out.println(mensaje);
+//                    }
+                }                
+            }
+            System.out.println("hola");
+            for(ClimateStudyInvitation lr: listReal){
+                System.out.println(lr.getStudy().getId() + " " + lr.getContact().getEmail() + lr.getState());
             }
         } catch (Exception ex) {
             System.out.println("* Error: LittleMailer::sendInvitationToSurvey: No ha sido posible enviar el correo.");
