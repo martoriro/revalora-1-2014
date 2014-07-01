@@ -52,8 +52,8 @@ public class Project implements Serializable {
     
     @ManyToMany
     @JoinTable(name="ACCOUNT_PROJECT",
-            joinColumns={@JoinColumn(name="accounts_RUT")}, 
-            inverseJoinColumns={@JoinColumn(name="projects_ID")})
+            joinColumns={@JoinColumn(name="projects_ID")}, 
+            inverseJoinColumns={@JoinColumn(name="accounts_RUT")})
     private List<Account> accounts;
     
     @OneToMany(mappedBy = "project")
