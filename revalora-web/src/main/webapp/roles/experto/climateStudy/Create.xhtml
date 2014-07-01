@@ -19,11 +19,13 @@
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_startAt}" for="startAt" />
                         <p:calendar id="startAt" binding="#{startAt}" pattern="dd/MM/yyyy" value="#{climateStudyController.selected.startAt}" title="#{bundle.EditClimateStudyTitle_startAt}"  showOn="button" required="true">
                             <f:validator validatorId="Validator.DateValidator" />
+                            <p:ajax event="dateSelect" update="endAt" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_endAt}" for="endAt" />
                         <p:calendar id="endAt" pattern="dd/MM/yyyy" value="#{climateStudyController.selected.endAt}" title="#{bundle.EditClimateStudyTitle_endAt}"  showOn="button">
                             <f:validator validatorId="Validator.DateValidator" />
-                            <f:attribute name="startAt" value="#{startAt}" />
+                            <f:attribute name="startAt" value="#{climateStudyController.selected.startAt}" />
+                            <f:validator validatorId="Validator.PrimeDateRangeValidator" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_accounts}" for="contacts" />
                         <p:autoComplete id="contacts" multiple="true" 

@@ -17,9 +17,12 @@
                         <p:outputLabel value="#{bundle.CreateProjectLabel_startAt}" for="startAt" />
                         <p:calendar id="startAt" pattern="dd/MM/yyyy" value="#{projectController.selected.startAt}" title="#{bundle.EditProjectTitle_startAt}"  showOn="button" yearRange="2013:2100">
                             <f:validator validatorId="Validator.DateValidator" />
+                            <p:ajax event="dateSelect" update="endAt" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_endAt}" for="endAt" />
                         <p:calendar id="endAt" pattern="dd/MM/yyyy" value="#{projectController.selected.endAt}" title="#{bundle.EditProjectTitle_endAt}" showOn="button" yearRange="2013:2100">
+                            <f:attribute name="startAt" value="#{projectController.selected.startAt}" />
+                            <f:validator validatorId="Validator.PrimeDateRangeValidator" />
                             <f:validator validatorId="Validator.DateValidator" />
                         </p:calendar>
                         <p:outputLabel value="#{bundle.CreateProjectLabel_organization}" for="organization" />
@@ -36,7 +39,7 @@
                         <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>     
                     </p:confirmDialog>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProjectCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" immediate="true" onclick="ProjectCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
