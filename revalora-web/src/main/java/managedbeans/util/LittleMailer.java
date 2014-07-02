@@ -36,7 +36,10 @@ public class LittleMailer {
     public void sendClimateStudyInvitation(Contact contact, ClimateStudy study) {
         try {
             Crypto cypher = new Crypto();
+            System.out.println("Encriptando: " + contact.getEmail() + "||" + study.getId().toString());
             String uri = cypher.crypt(contact.getEmail() + "||" + study.getId().toString());
+            System.out.println("raw: " + uri);
+            System.out.println("Prueba de desencriptación: " + cypher.decrypt(uri));
             
             sendMessage(
                 contact.getEmail(), 

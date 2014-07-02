@@ -141,9 +141,8 @@ public class ClimateStudy implements Serializable {
     }
 
     public List<ClimateStudyInvitation> getInvitations() {
-        if(invitations == null) {
+        if(invitations == null)
             invitations = new ArrayList<ClimateStudyInvitation>();
-        }
         return invitations;
     }
 

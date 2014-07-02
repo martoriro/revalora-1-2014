@@ -71,7 +71,7 @@ public class ClimateStudyAnsware implements Serializable {
         return answare;
     }
 
-    public void setAnsware(int answare) {
+    public void setAnsware(double answare) {
         this.answare = answare;
     }
 

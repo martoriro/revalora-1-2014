@@ -99,10 +99,15 @@ public class ClimateStudyController implements Serializable {
             UnsupportedEncodingException, IOException, 
             NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
         
+        surveyParam = surveyParam.replace(' ', '+');
         this.surveyParam = surveyParam;
         Crypto cypher = new Crypto();
+        System.out.println("Param: " + surveyParam);
         String raw = cypher.decrypt(surveyParam);
+        System.out.println("raw: " + raw);
         String [] rawData = raw.split("\\|\\|");
+        System.out.println("rawDate 1: " + rawData[0]);
+        System.out.println("rawDate 2: " + rawData[1]);
         selected = getClimateStudy(Long.parseLong(rawData[1]));
         contactController.setSelected(contactController.getContact(rawData[0]));
         if(getFacade().response(contactController.getSelected(), selected))
@@ -333,7 +338,7 @@ public class ClimateStudyController implements Serializable {
             aux.setClimateStudy(selected);
             aux.setContact(contactController.getSelected());
             aux.setQuestion(i);
-            aux.setAnsware(Integer.parseInt(survey[i]));
+            aux.setAnsware(Double.parseDouble(survey[i]));
             
             selected.getAnswares().add(aux);
             System.out.println("    - Agregando respuesta nro " + aux.getQuestion() + " => " + aux.getAnsware());
