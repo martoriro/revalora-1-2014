@@ -36,11 +36,6 @@
 	margin-top: -14px;
 }
 
-.ui-button {
-	@extend .btn;
-	@extend .btn-default;
-}
-
 .white {
 	// color: white!important;
 	color: $theme-color;
