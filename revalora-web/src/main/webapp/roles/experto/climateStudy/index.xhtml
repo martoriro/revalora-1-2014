@@ -144,6 +144,17 @@
                         <img src="resources/images/ajax-loader.gif" alt=""/>
                     </p:dialog>
                 </div>
+                <div>
+                    <!--<p:button id="buttonReiterar" value="Reiterar invitaciones" styleClass="float-right"/>-->
+                    <p:commandButton id="buttonRecordatorio" value="Reenviar encuestas" styleClass="float-right" 
+                        actionListener="#{resendInvitation.resend}"
+                        update=":growl,datalist3"/>
+                    <p:tooltip id="ttButtonRecordatorio" for="buttonRecordatorio" style="width: 250px;" value="Envía un correo recordatorio a quienes no hayan respondido sus encuestas, junto al link de su encuesta" />
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="resources/images/ajax-loader.gif" alt=""/>
+                    </p:dialog>
+                </div>
 
                 <br/>
                 <br/>
