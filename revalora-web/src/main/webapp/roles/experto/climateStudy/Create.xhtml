@@ -35,6 +35,7 @@
                                         converter="contactConverter" forceSelection="true">
                             <p:column>
                                 <h:outputText value="#{contact.name}" />
+                                (<h:outputText value="#{contact.email}"/>)
                             </p:column>
                         </p:autoComplete>
                         <p:outputLabel value="#{bundle.CreateClimateStudyLabel_teams}" for="groups" />

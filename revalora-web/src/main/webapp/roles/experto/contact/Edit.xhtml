@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditContactLabel_name}" for="name" />
                         <p:inputText id="name" value="#{contactController.selected.name}" title="#{bundle.EditContactTitle_name}" />
                         <p:outputLabel value="#{bundle.EditContactLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{contactController.selected.email}" title="#{bundle.EditContactTitle_email}" />
+                        <h:outputText id="email" value="#{contactController.selected.email}" title="#{bundle.EditContactTitle_email}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{contactController.update}" value="#{bundle.Save}" update="display,:ContactListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContactEditDialog');">
                         <p:confirm header="Advertencia" message="¿Está seguro que quiere editar el contacto?" icon="ui-icon-alert" />

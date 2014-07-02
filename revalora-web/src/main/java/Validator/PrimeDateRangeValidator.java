@@ -20,14 +20,14 @@ public class PrimeDateRangeValidator implements Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value == null) {
-            System.out.println("No hay fecha de término");
+            // System.out.println("No hay fecha de término");
             return;
         }
-        System.out.println("Ejecutando validator");
+        // System.out.println("Ejecutando validator");
         //Leave the null handling of startDate to required="true"
         Object startDateValue = component.getAttributes().get("startAt");
         if (startDateValue==null) {
-            System.out.println("No hay fecha de inicio");
+            // System.out.println("No hay fecha de inicio");
             return;
         }
          
@@ -35,7 +35,7 @@ public class PrimeDateRangeValidator implements Validator {
         Date endDate = (Date)value;
         
         if (endDate.before(startDate)) {
-            System.out.println("No pasa la validación");
+            // System.out.println("No pasa la validación");
             FacesMessage msg = new FacesMessage("No es posible que la fecha de término sea anterior a la fecha de inicio", "No es posible que la fecha de término sea anterior a la fecha de inicio");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);

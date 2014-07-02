@@ -178,7 +178,8 @@ public class ContactController implements Serializable {
         
         for(int i = 0; i < allContacts.size(); i++) {
             Contact skin = allContacts.get(i);
-            if(skin.getEmail().toLowerCase().startsWith(query)) {
+            if(skin.getEmail().toLowerCase().startsWith(query) ||
+                    skin.getName().toLowerCase().startsWith(query)) {
                 fltrdContacts.add(skin);
             }
         }
