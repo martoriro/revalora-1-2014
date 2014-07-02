@@ -6,6 +6,9 @@
 
 package sessionbeans.util;
 
+import entities.Contact;
+import entities.ContactGroup;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -32,5 +35,7 @@ public interface EmailSessionBeanLocal {
     
     public void setPassword(String password);
     
-    public boolean isAuthenticated(); 
+    public boolean isAuthenticated();
+    
+    public void saveMailToDraft(String subject, String body, List<Contact> contacts, List<ContactGroup> groups);
 }
