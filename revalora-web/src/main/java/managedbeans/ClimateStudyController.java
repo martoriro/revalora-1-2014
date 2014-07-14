@@ -364,5 +364,4 @@ public class ClimateStudyController implements Serializable {
         JsfUtil.redirect("/faces/survey/climateSuccess.xhtml");
     }
     
-
 }
